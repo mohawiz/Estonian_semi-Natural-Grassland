@@ -1,0 +1,777 @@
+{
+  "retrievedAt": "2026-10-30",
+  "documents": [
+    {
+      "id": "rt-niit-maarus-79",
+      "title": {
+        "et": "Perioodi 2023–2027 pärandniidu hooldamise toetus (maaeluministri 23.12.2022 määrus nr 79), terviktekst",
+        "en": "Heritage meadow maintenance support for 2023–2027 (Minister of Rural Affairs Regulation No 79 of 23 Dec 2022), consolidated text"
+      },
+      "publisher": "Riigi Teataja",
+      "url": "https://www.riigiteataja.ee/akt/127032025018?leiaKehtiv",
+      "version": "RT I, 02.05.2026, 8 (terviktekst; sõnastuse jõustumise kp 05.05.2026, hetkel kehtiv)",
+      "versionDate": "2026-05-05",
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Kehtiv terviktekst, avatud 30.10.2026 lingiga ?leiaKehtiv (algakti püsilink: https://www.riigiteataja.ee/akt/129122022021?leiaKehtiv). See on strateegiakava 2023–2027 alusel antava toetuse (NIIT) määrus, mis on asendanud uute kohustuste puhul vana poolloodusliku koosluse hooldamise toetuse (PLK) määruse.",
+        "en": "Current consolidated text, opened on 30 Oct 2026 via the ?leiaKehtiv link (permanent link to the base act: https://www.riigiteataja.ee/akt/129122022021?leiaKehtiv). This is the regulation for the CAP Strategic Plan 2023–2027 support (NIIT), which replaced the old semi-natural community maintenance support (PLK) regulation for new commitments."
+      },
+      "passages": [
+        {
+          "id": "rt-niit-maarus-79-p1",
+          "section": "§ 2 lg 2–3",
+          "lang": "et",
+          "text": "(2) Pärandniidu hooldamise põhitegevust peab ellu viima viie järjestikuse kalendriaasta (edaspidi kohustuseperiood) jooksul. (3) Pärandniidu hooldamise põhitegevused, mille elluviimise eest toetust antakse, on niitmine, karjatamine ja taastamisjärgne hooldamine.",
+          "summary": {
+            "et": "Põhitegevust (niitmine, karjatamine või taastamisjärgne hooldamine) tuleb teha viie järjestikuse kalendriaasta jooksul. Alates 2026. aastast võetud uute kohustuste kohta vt § 28².",
+            "en": "The main activity (mowing, grazing or post-restoration maintenance) must be carried out for five consecutive calendar years. For new commitments taken from 2026, see § 28²."
+          },
+          "keywords": ["kohustus", "kohustuseperiood", "viis aastat", "viie järjestikuse kalendriaasta", "põhitegevus", "niitmine", "karjatamine", "taastamisjärgne hooldamine", "commitment", "commitment period", "five years", "5-year", "main activity", "mowing", "grazing", "maintenance"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p2",
+          "section": "§ 28² lg 1–2 (Alates 2026. aastast võetud kohustuse erisused)",
+          "lang": "et",
+          "text": "(1) Alates 2026. aastast võetud pärandniidu hooldamise põhitegevuse elluviimise kohustuse puhul on kohustuseperiood, mille jooksul tuleb toetatavat tegevust ellu viia, kolm järjestikust kalendriaastat. (2) Lõike 1 kohase kohustuse puhul, sealhulgas § 21 lõikes 2 sätestatud juhul, § 8 lõiget 3 ei kohaldata.",
+          "summary": {
+            "et": "Kui kohustus on võetud alates 2026. aastast, kestab see kolm järjestikust kalendriaastat. Nende kohustuste puhul ei kohaldata § 8 lõiget 3 (puhkeaasta võimalust).",
+            "en": "Commitments taken from 2026 onwards last three consecutive calendar years. For these commitments § 8(3), the rest-year option, does not apply."
+          },
+          "keywords": ["kolm aastat", "kolmeaastane", "3-aastane", "uus kohustus", "2026", "puhkeaasta", "kohustuseperiood", "three years", "3-year commitment", "new commitment", "rest year", "commitment period"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p3",
+          "section": "§ 5 lg 1",
+          "lang": "et",
+          "text": "Toetust antakse taotleja kasutatava vähemalt 0,10 hektari suuruse pärandniidu või selle osa (edaspidi koos pärandniit) kohta, mille kohta on andmed kantud Eesti looduse infosüsteemi (edaspidi EELIS) ning mis asub looduskaitseseaduse § 4 lõike 1 punktides 1, 2, 4, 5 või 6 nimetatud kaitstaval loodusobjektil või muinsuskaitsealal, mis on võetud kaitse alla inimese ja looduse koosmõjul väljakujunenud kultuurmaastiku kaitsmiseks.",
+          "summary": {
+            "et": "Toetust saab vähemalt 0,10 ha suuruse pärandniidu kohta, mida taotleja kasutab, mis on kantud EELIS-esse ja asub kaitstaval loodusobjektil või vastaval muinsuskaitsealal.",
+            "en": "Support is paid for a heritage meadow of at least 0.10 ha used by the applicant, recorded in the Estonian Nature Information System (EELIS) and located on a protected natural object or a qualifying heritage conservation area."
+          },
+          "keywords": ["toetusõiguslikkus", "toetusõiguslik", "eelis", "eesti looduse infosüsteem", "kaitstav loodusobjekt", "kaitseala", "0,10 hektarit", "registreeritud", "eligibility", "eligible", "registered", "nature information system", "protected area", "minimum area"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p4",
+          "section": "§ 3 lg 1",
+          "lang": "et",
+          "text": "Toetuse ühikumäär põhitegevuse elluviimise eest on ühe hektari maa kohta kalendriaastas: 1) 100 eurot enne 15. juulit pärandniidu niitmise, välja arvatud puisniidu niitmise korral; 2) 150 eurot alates 15. juulist pärandniidu niitmise, välja arvatud puisniidu niitmise korral; 3) 600 eurot puisniidu niitmise korral; 4) 300 eurot puisniidu taastamisjärgse hooldamise korral; 5) 185 eurot pärandniidu karjatamise korral.",
+          "summary": {
+            "et": "Põhitegevuse määrad hektari kohta aastas: niitmine enne 15. juulit 100 €, alates 15. juulist 150 €, puisniidu niitmine 600 €, puisniidu taastamisjärgne hooldamine 300 €, karjatamine 185 €.",
+            "en": "Main activity rates per hectare per year: mowing before 15 July €100, from 15 July €150, wooded meadow mowing €600, post-restoration wooded meadow maintenance €300, grazing €185."
+          },
+          "keywords": ["ühikumäär", "toetuse määr", "eurot hektari kohta", "puisniit", "niitmine", "karjatamine", "15. juuli", "rate", "payment rate", "euro per hectare", "wooded meadow", "mowing", "grazing"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p5",
+          "section": "§ 4 lg 7",
+          "lang": "et",
+          "text": "Kui taotleja ei ole vääramatu jõu või erandlike asjaolude esinemise tõttu võimeline jätkama kohustuse täitmisega, siis kohustus lõpeb.",
+          "summary": {
+            "et": "Kui taotleja ei saa vääramatu jõu või erandlike asjaolude tõttu kohustust jätkata, kohustus lõpeb.",
+            "en": "If the applicant cannot continue the commitment because of force majeure or exceptional circumstances, the commitment ends."
+          },
+          "keywords": ["vääramatu jõud", "vääramatu jõu", "erandlikud asjaolud", "erandlike asjaolude", "kohustus lõpeb", "force majeure", "exceptional circumstances", "commitment ends", "termination"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p6",
+          "section": "§ 7 (Baasnõuded)",
+          "lang": "et",
+          "text": "Taotleja täidab kohustuseperioodi jooksul järgmisi nõudeid: 1) ei kahjusta pärandniitu; 2) kontrollib loomakaitseseaduse alusel põllumajanduslooma tervist ja heaolu nii sageli, kui seda on vaja välditavate kannatuste ärahoidmiseks; 3) kannab andmed põllumajandusliku tegevuse kohta veeseaduse alusel peetavasse põlluraamatusse;",
+          "summary": {
+            "et": "Baasnõuded: pärandniitu ei tohi kahjustada, loomade tervist ja heaolu tuleb kontrollida ning põllumajandusliku tegevuse andmed tuleb kanda põlluraamatusse.",
+            "en": "Baseline requirements: do not damage the heritage meadow, check animal health and welfare, and record agricultural activities in the field book (põlluraamat)."
+          },
+          "keywords": ["baasnõuded", "põlluraamat", "põlluraamatusse", "arvestus", "andmed", "kahjustamine", "loomade heaolu", "record keeping", "records", "field book", "farm diary", "baseline requirements", "damage", "animal welfare"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p7",
+          "section": "§ 8 lg 2",
+          "lang": "et",
+          "text": "Taotleja hooldab pärandniitu kaitse-eeskirjas, kaitsekorralduskavas, liigi kaitse ja ohjamise tegevuskavas, pärandniitude tegevuskavas või muus Keskkonnaameti haldusaktis (edaspidi koos kaitsekord) ning selles peatükis ettenähtud tingimuste kohaselt. Kui kaitsekord ja selles peatükis sätestatud nõuded ei ole kooskõlas, siis rakendatakse kaitsekorda.",
+          "summary": {
+            "et": "Pärandniitu tuleb hooldada kaitsekorra (kaitse-eeskiri, kaitsekorralduskava, tegevuskavad, Keskkonnaameti haldusakt) ja määruse tingimuste järgi. Vastuolu korral kehtib kaitsekord.",
+            "en": "The meadow must be maintained according to the protection regime (protection rules, management plan, action plans or an Environmental Board administrative act) and the regulation. If they conflict, the protection regime applies."
+          },
+          "keywords": ["kaitsekord", "kaitsekorralduskava", "kaitse-eeskiri", "keskkonnaamet", "haldusakt", "hooldustingimused", "hooldamistingimused", "protection regime", "management plan", "environmental board", "maintenance conditions"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p8",
+          "section": "§ 8 lg 3–4",
+          "lang": "et",
+          "text": "(3) Üks kord kohustuseperioodi jooksul võib jätta pärandniidu hooldamata, kui pärandniit on heas seisus. Pärandniidu võib jätta hooldamata alates teisest kohustuseaastast. Paragrahvi 21 lõikes 2 sätestatud juhul võib pärandniidu jätta hooldamata alates esimesest kohustuseaastast. (4) Rannaniidul ja loopealsel on lubatud ainult karjatamine.",
+          "summary": {
+            "et": "Heas seisus pärandniidu võib kohustuseperioodi jooksul ühe korra hooldamata jätta (puhkeaasta), üldjuhul alates teisest kohustuseaastast. Rannaniidul ja loopealsel on lubatud ainult karjatamine.",
+            "en": "A heritage meadow in good condition may be left unmaintained once per commitment period (rest year), normally from the second commitment year. On coastal meadows and alvars only grazing is allowed."
+          },
+          "keywords": ["puhkeaasta", "hooldamata", "heas seisus", "rannaniit", "rannaniidul", "loopealne", "loopealsel", "karjatamine", "rest year", "unmaintained", "coastal meadow", "alvar", "grazing only"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p9",
+          "section": "§ 9 lg 1–3",
+          "lang": "et",
+          "text": "(1) Kui pärandniidul on kaitsealuse maas pesitseva linnuliigi elupaik, mille kohta on andmed kantud EELIS-esse, võib pärandniitu niita alates 15. juulist. (2) Kui taotleja kõikidel pärandniitudel on kaitsealuse maas pesitseva linnuliigi elupaik, mille kohta on andmed kantud EELIS-esse, võib kuni 20 protsenti pärandniidust niita enne 15. juulit. (3) 5–30 protsenti pärandniidust peab jätma niitmata. Kui pärandniitu ohustab seisundi halvenemine, peab terve pärandniidu ala ära niitma.",
+          "summary": {
+            "et": "Kaitsealuse maaspesitseva linnu elupaigaga niitu võib niita alates 15. juulist (erandina kuni 20% varem). 5–30% niidust tuleb jätta niitmata, kuid seisundi halvenemise ohu korral tuleb niita kogu ala.",
+            "en": "Meadows with a protected ground-nesting bird habitat may be mown from 15 July (with up to 20% earlier in one case). 5–30% must be left unmown, but if the meadow's condition is at risk the whole area must be mown."
+          },
+          "keywords": ["niitmine", "niita", "niidetud", "niitmata", "15. juuli", "linnud", "maas pesitsev", "5–30 protsenti", "niitmata laik", "kogu ala", "mowing", "mow", "mowing date", "cutting date", "unmown strip", "ground-nesting birds", "whole area"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p10",
+          "section": "§ 9 lg 4–6",
+          "lang": "et",
+          "text": "(4) Pärandniitu, välja arvatud puisniitu, mis on suurem kui 30 hektarit, peab niitma keskelt-lahku või servast-serva. Vähemalt kolm päeva enne tööde alustamist peab teavitama Keskkonnaametit. (5) Pärandniit peab olema niidetud ja niide kokku kogutud 1. septembriks ning kokku kogutud niide peab olema ära viidud niitmisele järgneva aasta 1. aprilliks. (6) Pärandniidul on hekseldamine keelatud, välja arvatud puisniidu taastamisjärgse hooldamise korral.",
+          "summary": {
+            "et": "Üle 30 ha niitu (v.a puisniit) tuleb niita keskelt-lahku või servast-serva ja Keskkonnaametit teavitada vähemalt 3 päeva ette. Niitmine ja niite kokkukogumine 1. septembriks, äravedu järgmise aasta 1. aprilliks; hekseldamine on üldjuhul keelatud.",
+            "en": "Meadows over 30 ha (except wooded meadows) must be mown from the centre outwards or edge to edge, notifying the Environmental Board at least 3 days before. Mow and gather hay by 1 September, remove it by 1 April of the next year; mulching is generally prohibited."
+          },
+          "keywords": ["niitmine", "niide", "hein", "heina", "kokku kogumine", "äravedu", "ära viidud", "1. september", "1. aprill", "keskelt-lahku", "servast-serva", "teavitamine", "teavitama keskkonnaametit", "hekseldamine", "mowing deadline", "hay", "remove hay", "hay removal", "notify environmental board", "mulching", "centre outwards"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p11",
+          "section": "§ 10 lg 1–3",
+          "lang": "et",
+          "text": "(1) Rannaalal peab alustama karjatamisega hiljemalt 31. mail. (2) Karjatamise tulemusena peab pärandniidu rohustu olema 1. oktoobriks 50 protsendi ulatuses madalaks söödud ning ülejäänud pärandniidul on rohustu valdavalt söödud. (3) Pärandniidul on keelatud anda loomadele lisasööta.",
+          "summary": {
+            "et": "Rannaalal peab karjatamist alustama hiljemalt 31. mail. 1. oktoobriks peab rohustu olema 50% ulatuses madalaks söödud ja ülejäänud osa valdavalt söödud; lisasööt pärandniidul on keelatud.",
+            "en": "On coastal areas grazing must start by 31 May. By 1 October the sward must be grazed short on 50% of the meadow and mostly grazed elsewhere; supplementary feeding on the meadow is prohibited."
+          },
+          "keywords": ["karjatamine", "karjatada", "karjatatud", "rannaala", "rannaniit", "31. mai", "1. oktoober", "madalaks söödud", "lisasööt", "grazing", "graze", "grazed", "coastal meadow", "supplementary feeding", "grazing result"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p12",
+          "section": "§ 10 lg 4–5",
+          "lang": "et",
+          "text": "(4) Pärandniitu võib § 9 lõigetes 1, 2, 4 ja 6 sätestatu kohaselt niita, kui niitmine ning niite kokkukogumine ja äraviimine toimub enne 5. augustit. Pärandniidust peab jääma vähemalt viis protsenti niitmata. (5) Pärandniitu võib pärast karjatamist üle niita või hekseldada alates 1. augustist, kui selle rohustu on 50 protsendi ulatuses madalaks söödud ning ülejäänud pärandniidul on rohustu valdavalt söödud. Niite ja heksli võib maha jätta. Vähemalt kolm päeva enne niitmise või hekseldamisega alustamist peab teavitama Keskkonnaametit.",
+          "summary": {
+            "et": "Karjatatavat niitu võib niita, kui niitmine, kokkukogumine ja äravedu toimub enne 5. augustit ja vähemalt 5% jääb niitmata. Pärast piisavat karjatamist võib alates 1. augustist üle niita või hekseldada, teavitades Keskkonnaametit vähemalt 3 päeva ette.",
+            "en": "A grazed meadow may be mown if mowing, gathering and removal happen before 5 August and at least 5% stays unmown. After adequate grazing it may be topped or mulched from 1 August, notifying the Environmental Board at least 3 days in advance."
+          },
+          "keywords": ["karjatatav", "üle niitmine", "üleniitmine", "hekseldamine", "5. august", "1. august", "teavitamine", "keskkonnaamet", "topping", "mulching", "grazed meadow", "notify", "notification"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p13",
+          "section": "§ 12¹ lg 1 (Koolitus)",
+          "lang": "et",
+          "text": "Taotleja või taotleja heaks tegutsev füüsiline isik, kes tegeleb pärandniidu hooldamisega, peab olema osalenud esimese kohustuseaasta 15. augustiks Keskkonnaameti korraldatud pärandniidu hooldamise koolitusel.",
+          "summary": {
+            "et": "Taotleja või tema heaks niitu hooldav inimene peab esimese kohustuseaasta 15. augustiks osalema Keskkonnaameti pärandniidu hooldamise koolitusel.",
+            "en": "The applicant, or the person maintaining the meadow on their behalf, must attend the Environmental Board's heritage meadow maintenance training by 15 August of the first commitment year."
+          },
+          "keywords": ["koolitus", "koolitusel", "keskkonnaamet", "15. august", "training", "course", "environmental board"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p14",
+          "section": "§ 23 lg 1 (sissejuhatav lause) ja lg 3",
+          "lang": "et",
+          "text": "(1) Toetuse taotlemiseks esitab taotleja PRIA-le igal kohustuseaastal ajavahemikul 15. maist kuni 15. juunini elektrooniliselt PRIA e-teenuse keskkonna kaudu taotluse, mis sisaldab järgmisi andmeid: […] (3) Taotleja esitab muudatused nende pärandniitude piiride kohta, mille kohta ta toetust taotleb, hiljemalt kohustuseaasta 15. augustiks.",
+          "summary": {
+            "et": "Taotlus esitatakse igal kohustuseaastal 15. maist 15. juunini e-PRIA kaudu. Pärandniidu piiride muudatused tuleb esitada kohustuseaasta 15. augustiks.",
+            "en": "The application is submitted every commitment year from 15 May to 15 June via e-PRIA. Changes to meadow boundaries must be submitted by 15 August of the commitment year."
+          },
+          "keywords": ["taotlemine", "taotlus", "taotlusperiood", "e-pria", "15. mai", "15. juuni", "15. august", "piiride muudatused", "application", "apply", "application deadline", "boundary changes"]
+        },
+        {
+          "id": "rt-niit-maarus-79-p15",
+          "section": "§ 24 lg 1–2",
+          "lang": "et",
+          "text": "(1) Taotluses esitatud andmete õigsust ning taotleja ja toetatava tegevuse vastavust toetuse saamise nõuetele kontrollib PRIA ning selles paragrahvis sätestatud juhul muu asutus. (2) Paragrahvi 5 lõigetes 1–6, 8 ja 9, § 7 punktides 1 ja 3 ning §-des 8–12 ja 13–18 sätestatud nõuetele vastavust kontrollib Keskkonnaamet.",
+          "summary": {
+            "et": "Taotlust kontrollib PRIA, kuid toetusõiguslikkuse, pärandniidu kahjustamise keelu, põlluraamatu ning hooldus- ja lisategevuse nõuete täitmist kontrollib Keskkonnaamet.",
+            "en": "PRIA checks the application, but the Environmental Board checks eligibility of the land, the no-damage and field-book requirements, and the maintenance and additional activity requirements."
+          },
+          "keywords": ["kontroll", "kontrollib", "keskkonnaamet", "pria", "kohapealne kontroll", "järelevalve", "inspection", "control", "check", "environmental board role", "who checks"]
+        }
+      ]
+    },
+    {
+      "id": "pria-niit-2026",
+      "title": {
+        "et": "Pärandniidu hooldamise toetus 2026 (PRIA toetuse leht)",
+        "en": "Heritage meadow maintenance support 2026 (PRIA support page)"
+      },
+      "publisher": "PRIA",
+      "url": "https://www.pria.ee/toetused/parandniidu-hooldamise-toetus-2026",
+      "version": "2026. aasta toetuse leht (taotluste vastuvõtt 15.05.2026–15.06.2026); lehel uuendamise kuupäev puudub",
+      "versionDate": null,
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Kõige uuem PRIA NIIT-toetuse leht (2026. aasta taotlusvoor). Lehel ei ole kuvatud viimase muutmise kuupäeva. 2027. aasta lehte veel ei leitud.",
+        "en": "Latest PRIA NIIT support page (2026 application round). No last-updated date is shown on the page. No 2027 page was found yet."
+      },
+      "passages": [
+        {
+          "id": "pria-niit-2026-p1",
+          "section": "Muudatused 2026. aastal",
+          "lang": "et",
+          "text": "2026. aastast uue kohustuse võtmisel on kohustuseperioodi pikkus kolm järjestikust kalendriaastat. Samuti algab kolmeaastane kohustuseperiood, kui kohustusealuse maa pindala suureneb üle kahe hektari ja moodustab kohustusealuse maa pindalast üle 20 protsendi. 3-aastaste kohustuste korral ei ole lubatud kasutada puhkeaastat. Kohustuse ülevõtmisel jääb kehtima selle kohustuse pikkus, mis lõpeb hiljem.",
+          "summary": {
+            "et": "2026. aastast võetud uus kohustus kestab kolm aastat; kolmeaastane kohustus algab ka siis, kui pindala suureneb üle 2 ha ja üle 20%. Kolmeaastaste kohustuste puhul puhkeaastat võtta ei saa.",
+            "en": "New commitments from 2026 last three years; a three-year commitment also starts if the area grows by more than 2 ha and more than 20%. No rest year is allowed for three-year commitments."
+          },
+          "keywords": ["muudatused 2026", "kolm aastat", "kolmeaastane kohustus", "puhkeaasta", "kohustuse suurendamine", "ülevõtmine", "changes 2026", "three-year commitment", "rest year", "commitment increase", "takeover"]
+        },
+        {
+          "id": "pria-niit-2026-p2",
+          "section": "Toetuse saamise nõuded",
+          "lang": "et",
+          "text": "Taotleja täidab oma põllumajanduslikus tegevuses ja kogu põllumajandusliku majapidamise maal toetuse saamise tingimuslikkuse nõudeid. Kogu põllumajanduslikus tegevuses tuleb täita sotsiaalse tingimuslikkuse nõudeid. Nõudeid tuleb täita kogu kohustuseperioodi jooksul. Taotleja ei kahjusta pärandniitu. Taotleja kontrollib loomakaitseseaduse alusel põllumajanduslooma tervist ja heaolu nii sageli, kui seda on vaja välditavate kannatuste ärahoidmiseks. Taotleja kannab andmed põllumajandusliku tegevuse kohta veeseaduse alusel peetavasse põlluraamatusse.",
+          "summary": {
+            "et": "Taotleja peab kogu kohustuseperioodi jooksul täitma tingimuslikkuse ja sotsiaalse tingimuslikkuse nõudeid, mitte kahjustama pärandniitu, kontrollima loomade heaolu ja kandma tegevuste andmed põlluraamatusse.",
+            "en": "Throughout the commitment period the applicant must meet conditionality and social conditionality rules, not damage the meadow, check animal welfare and record activities in the field book."
+          },
+          "keywords": ["nõuded", "tingimuslikkus", "põlluraamat", "põlluraamatusse", "andmed", "kahjustamine", "requirements", "conditionality", "field book", "records", "record keeping"]
+        },
+        {
+          "id": "pria-niit-2026-p3",
+          "section": "Toetuse määramine",
+          "lang": "et",
+          "text": "PRIA teeb taotluse osalise või täieliku rahuldamise või rahuldamata jätmise otsused 10. veebruariks 2027. Toetus makstakse taotleja arveldusarvele hiljemalt 30. juuniks 2027. Enne toetuse määramist teeb PRIA administratiivseid ja kohapealseid kontrolle (vt pikemalt juhendist „Abiks taotlejale“). Alates 2023. aastast rakendab PRIA kõikide strateegiakava (ÜPP SK 2023–2027) alusel antavate pindalapõhiste toetuste menetlemisel pinnaseiresüsteemi.",
+          "summary": {
+            "et": "2026. aasta taotluste otsused tehakse 10. veebruariks 2027 ja toetus makstakse hiljemalt 30. juuniks 2027. Enne seda teeb PRIA administratiivseid ja kohapealseid kontrolle ning kasutab pinnaseiret.",
+            "en": "Decisions on 2026 applications are made by 10 February 2027 and payment is made by 30 June 2027 at the latest. Before that PRIA carries out administrative and on-the-spot checks and uses area monitoring."
+          },
+          "keywords": ["otsus", "väljamakse", "maksmine", "10. veebruar", "30. juuni", "kontroll", "pinnaseire", "satelliit", "decision", "payment", "payment date", "checks", "area monitoring", "satellite"]
+        }
+      ]
+    },
+    {
+      "id": "pria-abiks-taotlejale-2026",
+      "title": {
+        "et": "Abiks taotlejale 2026: perioodi 2023–2027 maaelu arengu pindalapõhiste toetuste taotlemine (sh pärandniidu hooldamise toetus NIIT)",
+        "en": "Applicant guide 2026: applying for 2023–2027 area-based rural development support (incl. heritage meadow maintenance support NIIT)"
+      },
+      "publisher": "PRIA",
+      "url": "https://www.pria.ee/sites/default/files/2026-05/maaelu-arengu-2023-pindalatoetused_at_2026_0.pdf",
+      "version": "Abiks taotlejale, Tallinn–Tartu 2026 (fail üles laaditud 2026-05)",
+      "versionDate": null,
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "2026. aasta juhend, lingitud PRIA NIIT 2026 lehelt. Juhend märgib ise, et juriidiliseks aluseks on õigusaktid. Täpne avaldamiskuupäev dokumendis puudub.",
+        "en": "2026 guide, linked from the PRIA NIIT 2026 page. The guide itself states that the legal basis is the legislation. No exact publication date is given in the document."
+      },
+      "passages": [
+        {
+          "id": "pria-abiks-taotlejale-2026-p1",
+          "section": "2.2.3. Toetusõiguslik põllumajandusmaa NIIT toetuse taotlemisel",
+          "lang": "et",
+          "text": "Toetusõiguslike pärandniitude kihi koostab Keskkonnaamet (edaspidi KeA) igal aastal enne taotlusperioodi algust, lähtudes maaeluministri 23. detsembri 2022. aasta määruse nr 79 „Perioodi 2023–2027 pärandniidu hooldamise toetus“ §-is 5 sätestatud toetusõigusliku maa tingimustest. Taotlusperioodi alguseks on taotlejal e-PRIAs olemas teave pärandniidu tüübi, numbri, pärandniidu pindala ja piiri ning hooldamise viisi kohta. Kui taotleja pärandniitu e-PRIAs ei ole, tuleb pöörduda oma piirkonna KeA pärandniitude osakonna spetsialisti poole.",
+          "summary": {
+            "et": "Keskkonnaamet koostab igal aastal toetusõiguslike pärandniitude kihi; e-PRIAs näeb niidu tüüpi, numbrit, pindala, piiri ja hooldusviisi. Kui niitu e-PRIAs pole, tuleb pöörduda Keskkonnaameti piirkonna spetsialisti poole.",
+            "en": "The Environmental Board compiles the layer of eligible heritage meadows each year; e-PRIA shows the meadow type, number, area, boundary and maintenance method. If a meadow is missing, contact the Board's regional specialist."
+          },
+          "keywords": ["toetusõiguslik", "kaardikiht", "e-pria", "pärandniidu tüüp", "kooslus", "pindala", "piir", "hooldamise viis", "keskkonnaamet", "spetsialist", "eligible layer", "community type", "meadow type", "area", "boundary", "maintenance method", "environmental board"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p2",
+          "section": "3.8 Põhitegevuse nõuded – Pärandniidu niitmine",
+          "lang": "et",
+          "text": "Tuginedes kaitsekorralduslikele dokumentidele või määruse nr 79 tingimustele määrab KeA niitmise algusaja, mida taotleja näeb e-PRIAs. Kui niitmise algusaega ei ole määratud, võib niita endale sobival ajal. Kui niitmise algusaeg on KeA poolt määratud, ei tohi pärandniitu niita enne nimetatud tähtpäeva.",
+          "summary": {
+            "et": "Keskkonnaamet määrab niitmise algusaja, mis on nähtav e-PRIAs. Kui aega pole määratud, võib niita sobival ajal; määratud tähtpäevast varem niita ei tohi.",
+            "en": "The Environmental Board sets the mowing start date, shown in e-PRIA. If none is set, you may mow when convenient; you must not mow before a set date."
+          },
+          "keywords": ["niitmise algusaeg", "niitmine", "niita", "tähtpäev", "e-pria", "keskkonnaamet", "mowing start date", "earliest mowing date", "mow", "cutting date"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p3",
+          "section": "3.8 Põhitegevuse nõuded – Pärandniidu niitmine (niitmata ala)",
+          "lang": "et",
+          "text": "Heas seisus pärandniidul tuleb 5-30 protsenti alast jätta niitmata. Soovitatavalt võiks niitmata jäetud ala asuda igal aastal pärandniidu eri osas. […] Kui aga ala ohustab seisundi halvenemine, tuleb kogu ala ära niita. KeA määrab iga ala kohta, kas ala tuleb 5-30 protsendi ulatuses niitmata jätta või tuleb kogu pärandniidu ala ära niita. Taotleja näeb vastavat infot e-PRIAs.",
+          "summary": {
+            "et": "Heas seisus niidul jäetakse 5–30% niitmata, soovitatavalt igal aastal eri kohas. Keskkonnaamet määrab iga ala kohta, kas jätta niitmata osa või niita kogu ala; info on e-PRIAs.",
+            "en": "On a meadow in good condition 5–30% is left unmown, ideally in a different place each year. The Environmental Board decides per area whether to leave an unmown share or mow the whole area; this is shown in e-PRIA."
+          },
+          "keywords": ["niitmata", "niitmata laik", "5-30 protsenti", "kogu ala", "e-pria", "keskkonnaamet", "unmown", "refuge strip", "whole area", "mowing"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p4",
+          "section": "3.8 Põhitegevuse nõuded – Pärandniidu karjatamine",
+          "lang": "et",
+          "text": "Karjatamise tulemusena peab pärandniidu rohustu olema 1. oktoobriks 50 protsendi ulatuses madalaks söödud ning ülejäänud pärandniidul peab olema rohustu valdavalt söödud. […] Oluline on silmas pidada, et karjatatava ala üle niitmine või hekseldamine ei saa olla puuduliku karjatamise kompenseerimiseks.",
+          "summary": {
+            "et": "1. oktoobriks peab rohustu olema pooles ulatuses madalaks söödud ja mujal valdavalt söödud. Üleniitmine või hekseldamine ei asenda puudulikku karjatamist.",
+            "en": "By 1 October half of the sward must be grazed short and the rest mostly grazed. Topping or mulching cannot make up for inadequate grazing."
+          },
+          "keywords": ["karjatamine", "karjatada", "1. oktoober", "madalaks söödud", "üleniitmine", "hekseldamine", "grazing", "grazing result", "topping", "mulching"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p5",
+          "section": "5.7. Vääramatu jõud ja erandlikud asjaolud (määratlus)",
+          "lang": "et",
+          "text": "Vääramatu jõud on asjaolu, mida taotleja ei saanud mõjutada ja mõistlikkuse põhimõttest lähtuvalt ei saanud temalt oodata, et ta selle asjaoluga arvestaks, seda väldiks või takistava asjaolu või selle tagajärje ületaks. Vääramatu jõu ja erandlike asjaolude hindamisel võetakse arvesse üksikjuhtudel ilmnenud asjaolusid. Vääramatu jõuna käsitletakse näiteks järgmiseid juhtusid: […] raske loodusõnnetus või rasked ilmastikutingimused, mis kahjustavad tõsiselt põllumajanduslikku majapidamist;",
+          "summary": {
+            "et": "Vääramatu jõud on asjaolu, mida taotleja ei saanud mõjutada ega mõistlikult vältida; seda hinnatakse juhtumipõhiselt. Näiteks on raske loodusõnnetus või rasked ilmastikutingimused, mis tõsiselt kahjustavad majapidamist.",
+            "en": "Force majeure is a circumstance the applicant could not influence or reasonably avoid; it is assessed case by case. One example is a severe natural disaster or severe weather seriously affecting the holding."
+          },
+          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastik", "ilmastikutingimused", "ilm", "loodusõnnetus", "üleujutus", "force majeure", "exceptional circumstances", "weather", "severe weather", "natural disaster", "flood"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p6",
+          "section": "5.7. Vääramatu jõud ja erandlikud asjaolud (teavitamine)",
+          "lang": "et",
+          "text": "Tavapärasest hoolsuskohustusest lähtuvalt tuleb taotlejal vääramatust jõust ja erandlikest asjaoludest tingitud toetuse kasutamisega seotud kohustuse täitmisel ilmnenud takistusest PRIAt mõistlikul ajal kirjalikult teavitada e-posti aadressil info@pria.ee. Teavitus tuleb saata soovitatavalt 15 tööpäeva jooksul alates vääramatu jõu või erandliku asjaolu ilmnemisest. […] Taotleja peab arvestama, et erandlikest asjaoludest teavitamine võib leevendada tähtajaks nõude täitmata jätmise sanktsiooni, kuid ei pruugi vabastada teda nõude täitmisest ja nõue tuleb täita esimesel võimalusel.",
+          "summary": {
+            "et": "Takistusest tuleb PRIAt mõistlikul ajal kirjalikult teavitada (info@pria.ee), soovitatavalt 15 tööpäeva jooksul asjaolu ilmnemisest. Teavitus võib sanktsiooni leevendada, kuid nõue tuleb täita esimesel võimalusel.",
+            "en": "Notify PRIA in writing within a reasonable time (info@pria.ee), recommended within 15 working days of the circumstance arising. Notification may soften the sanction, but the requirement must still be met at the first opportunity."
+          },
+          "keywords": ["teavitamine", "teavitada", "teavitus", "15 tööpäeva", "tööpäeva jooksul", "info@pria.ee", "kirjalikult", "vääramatu jõud", "erandlikud asjaolud", "notification", "notify", "15 working days", "deadline", "force majeure", "exceptional circumstances", "in writing"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p7",
+          "section": "6.2. Kohapealne kontroll",
+          "lang": "et",
+          "text": "Toetuse baasnõuete ja toetatava tegevuse nõuete rikkumist hinnatakse vastavalt selle raskusele, ulatusele, püsivusele ja korduvusele. Hindamine toimub hindamismaatriksite alusel, mis avaldatakse PRIA kodulehel. Kohapealset kontrolli läbiviiv teenistuja võib põhjendatud juhtudel rikkumise hindamisel kasutada kaalutlusõigust ja hinnata rikkumist maatriksist erinevalt. […] KeA kontrollib kohapeal NIIT toetusõiguslikkuse ja toetuse nõudeid, lisaks kontrollib PTA NIIT toetuse baasnõuet, mille kohaselt peab taotleja loomakaitseseaduse alusel põllumajanduslooma tervist ja heaolu kontrollima",
+          "summary": {
+            "et": "Rikkumist hinnatakse raskuse, ulatuse, püsivuse ja korduvuse järgi PRIA hindamismaatriksite alusel; kontrollija võib põhjendatult kaalutlusõigust kasutada. NIIT-nõudeid kontrollib kohapeal Keskkonnaamet, loomade heaolu nõuet PTA.",
+            "en": "Breaches are assessed by severity, extent, duration and repetition using PRIA's assessment matrices; the inspector may use discretion where justified. The Environmental Board inspects NIIT requirements on the spot; the Agriculture and Food Board checks the animal welfare requirement."
+          },
+          "keywords": ["rikkumine", "rikkumise hindamine", "raskus", "ulatus", "püsivus", "korduvus", "hindamismaatriks", "kaalutlusõigus", "kohapealne kontroll", "keskkonnaamet", "breach", "assessment", "severity", "extent", "duration", "persistence", "repetition", "matrix", "inspection", "on-the-spot check"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p8",
+          "section": "6.3. Pinnaseire",
+          "lang": "et",
+          "text": "Niitmise marker. Leitakse suuremad biomassi languse hetked. Eriti oluline on esimene hetk, sest see näitab, et põllul on märgata tegevust. Niitmise markeri alla loetakse tinglikult ka biomassi vähenemist, kui selle põhjuseks on karjatamine. […] Kui süsteem on andnud märku, et mingi nõude täitmisel tuvastati erinevus taotletust ja/või seiretava nõude rikkumine, saadab PRIA taotlejale olukorra täpsustamiseks e-kirja, kus palutakse taotlejal teha asukohamärgisega fotod, kasutades fotoäppi Iva, või teha pindala- ja loomapõhiste toetuste taotluse muudatus, et taotlus vastaks tegelikkusele.",
+          "summary": {
+            "et": "Satelliitseire niitmise marker tuvastab biomassi languse (ka karjatamisest). Kui seire leiab erinevuse, palub PRIA e-kirjaga teha Iva äpiga asukohamärgisega fotod või muuta taotlust.",
+            "en": "The satellite monitoring mowing marker detects drops in biomass (including from grazing). If monitoring finds a discrepancy, PRIA emails the applicant asking for geotagged photos via the Iva app or an amendment to the application."
+          },
+          "keywords": ["pinnaseire", "satelliit", "niitmise marker", "biomass", "iva", "fotod", "foto", "taotluse muudatus", "area monitoring", "satellite", "mowing detection", "mowing marker", "photos", "geotagged photo", "iva app"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p9",
+          "section": "7. Toetuse vähendamine",
+          "lang": "et",
+          "text": "Toetuse vähendamise korral kohaldatakse Euroopa Liidu ühise põllumajanduspoliitika rakendamise seaduse § 13 lõikes 3 sätestatut, mille kohaselt võib PRIA vähendada makstavat toetust või keelduda toetuse maksmisest, kui enne toetuse maksmist tehakse kindlaks, et taotleja rikub tegevuse elluviimise nõudeid või ei täida muid toetuse saaja kohustusi. Toetuse vähendamise suurus või mittemaksmine otsustatakse arvestades rikkumise raskust, ulatust, püsivust ja korduvust.",
+          "summary": {
+            "et": "Kui enne maksmist selgub nõuete rikkumine, võib PRIA toetust vähendada või jätta maksmata. Vähendamise suurus sõltub rikkumise raskusest, ulatusest, püsivusest ja korduvusest.",
+            "en": "If a breach is found before payment, PRIA may reduce or refuse the payment. The size of the reduction depends on the severity, extent, duration and repetition of the breach."
+          },
+          "keywords": ["toetuse vähendamine", "vähendamine", "vähendada", "sanktsioon", "karistus", "maksmisest keeldumine", "raskus", "ulatus", "püsivus", "korduvus", "reduction", "penalty", "sanction", "refusal", "severity", "extent", "duration", "repetition"]
+        },
+        {
+          "id": "pria-abiks-taotlejale-2026-p10",
+          "section": "11. Toetuse tagasinõudmine",
+          "lang": "et",
+          "text": "Kui pärast toetuse väljamaksmist selgub, et taotleja on esitanud valeandmeid, eelmiste aastate toetus on välja makstud alusetult või kui taotleja loobub 3- või 5-aastasest kohustusest enne kohustuseperioodi lõppu, peab ta saadud toetuse summa tagasi maksma. Kui toetuse saajalt nõutakse eelnevatel aastatel saadud toetus täielikult tagasi, siis võetud kohustus lõpeb.",
+          "summary": {
+            "et": "Valeandmete, alusetu väljamakse või 3- või 5-aastasest kohustusest enneaegse loobumise korral tuleb saadud toetus tagasi maksta; täieliku tagasinõudmise korral kohustus lõpeb.",
+            "en": "If false data were submitted, payments were unjustified, or the 3- or 5-year commitment is abandoned early, the support received must be repaid; full recovery ends the commitment."
+          },
+          "keywords": ["tagasinõudmine", "tagasi maksma", "tagasimakse", "loobumine", "valeandmed", "kohustus lõpeb", "clawback", "recovery", "repayment", "repay", "withdrawal", "false data"]
+        }
+      ]
+    },
+    {
+      "id": "pria-niit-hindamismaatriksid-2026",
+      "title": {
+        "et": "Perioodi 2023–2027 pärandniidu hooldamise toetuse (NIIT) hindamismaatriksid",
+        "en": "Assessment matrices for the 2023–2027 heritage meadow maintenance support (NIIT)"
+      },
+      "publisher": "PRIA",
+      "url": "https://www.pria.ee/sites/default/files/2026-06/niit_kodulehele.pdf",
+      "version": "NIIT hindamismaatriksid, fail üles laaditud 2026-06 (lingitud NIIT 2026 lehelt)",
+      "versionDate": null,
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Kehtiv maatriks, lingitud PRIA NIIT 2026 lehelt. Varasemad versioonid on olemas (2023-07, 2024-07, 2025-07). Dokumendis puudub kuupäev.",
+        "en": "Current matrix, linked from the PRIA NIIT 2026 page. Earlier versions exist (2023-07, 2024-07, 2025-07). The document carries no date."
+      },
+      "passages": [
+        {
+          "id": "pria-niit-hindamismaatriksid-2026-p1",
+          "section": "Sissejuhatus (raskus, ulatus, püsivus)",
+          "lang": "et",
+          "text": "Toetusõiguslikkuse nõuete rikkumisel toetust ei määrata. Baasnõuete, põhitegevuse nõuete ja lisategevuse nõuete rikkumisel hinnatakse nõude rikkumist kolmest aspektist lähtuvalt: a) Raskus sõltub eelkõige selle tagajärgede olulisusest. […] b) Ulatus sõltub eelkõige selle mõjust kogu tegevusele. Määratakse %, millises ulatuses oli rikkumine. […] c) Püsivus sõltub eelkõige selle mõju ajalisest ulatusest või sellest, kas seda mõju on võimalik mõistlike vahenditega lõpetada.",
+          "summary": {
+            "et": "Toetusõiguslikkuse nõude rikkumisel toetust ei määrata. Muude nõuete rikkumist hinnatakse raskuse (tagajärgede olulisus), ulatuse (protsent tegevusest) ja püsivuse (mõju kestus) järgi.",
+            "en": "If an eligibility requirement is breached, no support is granted. Other breaches are assessed by severity (importance of consequences), extent (percentage of the activity) and duration (how long the effect lasts)."
+          },
+          "keywords": ["hindamismaatriks", "raskus", "raskusaste", "ulatus", "püsivus", "kestus", "rikkumine", "toetusõiguslikkus", "assessment matrix", "severity", "extent", "duration", "persistence", "breach", "eligibility"]
+        },
+        {
+          "id": "pria-niit-hindamismaatriksid-2026-p2",
+          "section": "Sissejuhatus (arvutus ja korduvus)",
+          "lang": "et",
+          "text": "Toetussummat vähendatakse protsendi võrra, mis saadakse raskuse ja püsivuse koefitsientide ning ulatuse protsendi korrutamisel. Igale nõudele on arvestatud vaikimisi maksimaalne vähenduse % toetussummast. Erandjuhtudel võib hinnata nõude rikkumist maatriksist erinevalt. […] Korduvus – korduvuse leidmisel võetakse arvesse sama nõude rikkumised, mis on tuvastatud kogu programmperioodi 2023–2027 jooksul. Käesoleva aasta rikkumise % korrutatakse sama nõude rikkumiste arvuga. Kui rikkumine teist korda, siis x 2 jne.",
+          "summary": {
+            "et": "Vähendus = raskuse koefitsient × ulatuse % × püsivuse koefitsient, igal nõudel on maksimaalne vähendus. Sama nõude korduval rikkumisel perioodi 2023–2027 jooksul korrutatakse protsent rikkumiste arvuga.",
+            "en": "Reduction = severity coefficient × extent % × duration coefficient, with a maximum per requirement. For repeated breaches of the same requirement during 2023–2027 the percentage is multiplied by the number of breaches."
+          },
+          "keywords": ["vähendamine", "vähendus", "koefitsient", "korduvus", "korduv rikkumine", "arvutus", "maksimaalne", "reduction", "calculation", "coefficient", "repeated breach", "repetition", "maximum"]
+        },
+        {
+          "id": "pria-niit-hindamismaatriksid-2026-p3",
+          "section": "Baasnõue 3 (põlluraamat)",
+          "lang": "et",
+          "text": "3. Taotleja kannab andmed põllumajandusliku tegevuse kohta veeseaduse alusel peetavasse põlluraamatusse. RASKUS Koef. 0,2 (mõju nõude eesmärgile on vähene) – andmed ei vasta reaalsele olukorrale. Puudub ülevaade pärandniidul tehtud töödest. […] Kui põlluraamat puudub, on ulatus 100%. PÜSIVUS Koef. 0,2 (raskesti eemaldatav mõju) – puuduvad andmed, mida ei saa usaldusväärselt taastada. Maksimaalne vähendamine esmasel rikkumisel on 4% toetussummast. Ulatuse leidmise näide: […] Ühe ala kohta, mille pind on 2 ha, puudub põlluraamatust niitmistööde teostamise aeg",
+          "summary": {
+            "et": "Puudulike või tegelikkusele mittevastavate põlluraamatu andmete eest on vähendus väike: esmasel rikkumisel kuni 4%. Näites puudub põlluraamatust niitmistööde aeg.",
+            "en": "Missing or inaccurate field book records carry a small reduction: up to 4% for a first breach. The example given is a field book missing the date of mowing work."
+          },
+          "keywords": ["põlluraamat", "põlluraamatusse", "andmed", "arvestus", "niitmise aeg", "kuupäev", "4%", "field book", "records", "record keeping", "mowing date", "documentation"]
+        },
+        {
+          "id": "pria-niit-hindamismaatriksid-2026-p4",
+          "section": "Põhitegevuse nõue 4 (niitmine ja niite kokkukogumine 1. septembriks)",
+          "lang": "et",
+          "text": "4. Niidetav pärandniit peab olema niidetud ja niide kokku kogutud 1. septembriks. RASKUS Koef. 1,05 (mõju nõude eesmärgile on väga suur) – ala on nõuetekohaselt niitmata või on niide maas. Koef. 0,5 (mõju nõude eesmärgile oluline) – ala on niidetud, kuid niide on jäänud ülepinnaliselt osaliselt maha. […] PÜSIVUS Koef. 1,0 (raskesti eemaldatav mõju) – käesoleval aastal ei ole võimalik nõuet täita. Maksimaalne vähendamine esmasel rikkumisel on 100% toetussummast.",
+          "summary": {
+            "et": "Kui ala pole 1. septembriks nõuetekohaselt niidetud või niide on maas, on raskus väga suur; kui niide on osaliselt maha jäänud, on raskus oluline. Esmasel rikkumisel võib vähendus olla kuni 100%.",
+            "en": "If the area is not properly mown by 1 September or the hay is left lying, severity is very high; if hay is partly left behind, severity is significant. A first breach can lead to a reduction of up to 100%."
+          },
+          "keywords": ["niitmine", "niitmata", "niide maas", "hein", "1. september", "rikkumine", "vähendamine", "mowing", "not mown", "hay left", "deadline", "missed deadline", "breach", "reduction"]
+        },
+        {
+          "id": "pria-niit-hindamismaatriksid-2026-p5",
+          "section": "Põhitegevuse nõue 8 (karjatamise tulemus 1. oktoobriks)",
+          "lang": "et",
+          "text": "8. Karjatataval pärandniidul peab karjatamise tulemusena olema pärandniidu rohustu 1. oktoobriks 50 protsendi ulatuses madalaks söödud ning ülejäänud pärandniidul on rohustu valdavalt söödud. RASKUS Koef. 0,25 (mõju nõude eesmärgile oluline) – alal on saavutatud 1. oktoobriks vähemalt 50% ulatuses madalmurusus, kuid ülejäänud osas ei ole saavutatud valdavalt söödud rohustut. […] Koef. 1,05 (mõju nõude eesmärgile väga suur) – ala ei ole 1. oktoobriks karjatatud või madalaks on söödud alla 30% rohustust. […] Maksimaalne vähendamine esmasel rikkumisel on 100% toetussummast.",
+          "summary": {
+            "et": "Karjatamise tulemust hinnatakse 1. oktoobri seisuga astmeliselt: väikseim raskus, kui 50% on madalaks söödud, aga ülejäänu mitte valdavalt; suurim, kui ala pole karjatatud või alla 30% on madalaks söödud. Esmasel rikkumisel kuni 100%.",
+            "en": "The grazing result is assessed on 1 October in steps: lowest severity if 50% is grazed short but the rest is not mostly grazed; highest if the area is not grazed or less than 30% is grazed short. Up to 100% for a first breach."
+          },
+          "keywords": ["karjatamine", "karjatatud", "madalaks söödud", "1. oktoober", "rikkumine", "raskus", "grazing", "insufficient grazing", "grazing result", "breach", "severity"]
+        }
+      ]
+    },
+    {
+      "id": "pria-nouete-rikkumise-hindamise-alused",
+      "title": {
+        "et": "Pindala- ja loomatoetuste nõuete rikkumise hindamise alused seoses pindala ja loomade arvu erinevusega",
+        "en": "Basis for assessing breaches of area and animal support requirements related to area and animal number differences"
+      },
+      "publisher": "PRIA",
+      "url": "https://www.pria.ee/infokeskus/nouete-rikkumise-hindamise-alused",
+      "version": "PRIA infokeskuse leht (strateegiakava 2023–2027); uuendamise kuupäev lehel puudub",
+      "versionDate": null,
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Lehele viidatakse NIIT 2026 lehelt. Leht käsitleb pindala erinevusest tulenevaid kaitsemeetmeid kõigi strateegiakava pindalatoetuste puhul, mitte NIIT-spetsiifilisi hooldusnõudeid (need on NIIT hindamismaatriksis).",
+        "en": "Linked from the NIIT 2026 page. The page covers safeguard measures for area differences across all Strategic Plan area supports, not NIIT-specific maintenance requirements (those are in the NIIT matrix)."
+      },
+      "passages": [
+        {
+          "id": "pria-nouete-rikkumise-hindamise-alused-p1",
+          "section": "Sissejuhatus",
+          "lang": "et",
+          "text": "Kaitsemeetmete kohaldamise summa oleneb tuvastatud rikkumise või nõudele mittevastavuse raskusest, ulatusest, püsivusest, korduvusest ja tahtlikkusest. Raskusaste sõltub eelkõige rikkumise või nõudele mittevastavuse tagajärgede olulisusest. Määratakse koefitsiendiga. Ulatus sõltub eelkõige rikkumise või nõudele mittevastavuse mõju ulatusest. Püsivus sõltub eelkõige rikkumise või nõudele mittevastavuse mõju ajalisest ulatusest või sellest, kas seda mõju on võimalik mõistlike vahenditega lõpetada. Määratakse koefitsiendiga.",
+          "summary": {
+            "et": "Kaitsemeetme summa sõltub rikkumise raskusest, ulatusest, püsivusest, korduvusest ja tahtlikkusest; raskus ja püsivus määratakse koefitsiendiga.",
+            "en": "The safeguard amount depends on the severity, extent, duration, repetition and intent of the breach; severity and duration are set by coefficients."
+          },
+          "keywords": ["kaitsemeetmed", "raskusaste", "raskus", "ulatus", "püsivus", "korduvus", "tahtlikkus", "rikkumine", "safeguard", "severity", "extent", "duration", "repetition", "intent", "breach"]
+        },
+        {
+          "id": "pria-nouete-rikkumise-hindamise-alused-p2",
+          "section": "Pindalatoetuste nõuete rikkumise hindamise alused seoses pindala erinevusega",
+          "lang": "et",
+          "text": "Kui taotleja taotleb strateegiakava pindalapõhist otsetoetust või maaelu arengu toetust (Euroopa Parlamendi ja nõukogu määruse (EL) 2021/2116 artikkel 65 lõige 2) kuni 50% suurema pindala kohta, kui on tema kindlaksmääratud pindala, vähendatakse toetust maksimaalselt kindlaksmääratud pindala ületavale pindalale vastava toetuse suuruse võrra (ELÜPS § 109 lõige 4). […] ULATUS Määratakse pindalaga, mis nõude esmakordsel rikkumisel arvutatakse pindala erinevuse jagamisel kahega.",
+          "summary": {
+            "et": "Kui taotletud pindala ületab kindlaksmääratud pindala kuni 50%, vähendatakse toetust kõige rohkem ülejääva pindala toetuse võrra; esmakordsel rikkumisel arvestatakse ulatuseks pool pindala erinevusest.",
+            "en": "If the claimed area exceeds the determined area by up to 50%, the support is reduced by at most the amount for the excess area; for a first breach the extent is half of the area difference."
+          },
+          "keywords": ["pindala erinevus", "ületaotlemine", "kindlaksmääratud pindala", "50%", "vähendamine", "area difference", "over-declaration", "determined area", "reduction"]
+        }
+      ]
+    },
+    {
+      "id": "keskkonnaamet-parandniitude-hooldamine",
+      "title": {
+        "et": "Pärandniitude hooldamine (Keskkonnaameti veebileht)",
+        "en": "Maintenance of heritage meadows (Environmental Board web page)"
+      },
+      "publisher": "Keskkonnaamet",
+      "url": "https://keskkonnaamet.ee/elusloodus-looduskaitse/looduskaitse/parandniitude-hooldamine",
+      "version": "Viimati uuendatud 08.07.2026",
+      "versionDate": "2026-07-08",
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Leht on uuendatud 08.07.2026, kuid sisaldab ka vana sõnastust („Maaelu arengukava raames“), kuigi kehtiv toetus põhineb strateegiakaval 2023–2027.",
+        "en": "Page updated 08.07.2026, but it still contains older wording (\"under the Rural Development Plan\") although the current support is based on the CAP Strategic Plan 2023–2027."
+      },
+      "passages": [
+        {
+          "id": "keskkonnaamet-parandniitude-hooldamine-p1",
+          "section": "Pärandniitude osakonna ülesanded",
+          "lang": "et",
+          "text": "Keskkonnaametis tegeleb pärandniitudega Pärandniitude osakond. Pärandniitude osakonna ülesandeks on: pärandniitude taastamise korraldamine pärandniitude hooldamise korraldamine niiduhooldajate nõustamine toetusalade kontroll infopäevade ja koolituste korraldamine",
+          "summary": {
+            "et": "Keskkonnaameti pärandniitude osakond korraldab niitude taastamist ja hooldamist, nõustab niiduhooldajaid, kontrollib toetusalasid ning korraldab infopäevi ja koolitusi.",
+            "en": "The Environmental Board's heritage meadows department organises restoration and maintenance, advises meadow managers, checks supported areas and runs info days and training."
+          },
+          "keywords": ["keskkonnaamet", "pärandniitude osakond", "nõustamine", "kontroll", "toetusalade kontroll", "koolitus", "environmental board", "advice", "inspection", "inspections", "training", "board role"]
+        },
+        {
+          "id": "keskkonnaamet-parandniitude-hooldamine-p2",
+          "section": "Pärandniitude hooldamine",
+          "lang": "et",
+          "text": "Toetuse taotlemine toimub vastavalt maaeluministri määrusele elektroonilise kliendiportaali e-PRIA vahendusel. 2026. aastal toimub taotluste vastuvõtmine 15. maist kuni 15. juunini. Toetust menetleb Põllumajanduse Registrite ja Informatsiooni Amet. Keskkonnaamet määrab eelnevalt aladele hooldamistingimused. Kõigil toetuse taotlejatel on kohustus läbida koolitus.",
+          "summary": {
+            "et": "Toetust taotletakse e-PRIAs (2026: 15. maist 15. juunini) ja seda menetleb PRIA. Keskkonnaamet määrab aladele eelnevalt hooldamistingimused; kõik taotlejad peavad läbima koolituse.",
+            "en": "Support is applied for in e-PRIA (2026: 15 May to 15 June) and processed by PRIA. The Environmental Board sets the maintenance conditions for each area in advance; all applicants must complete training."
+          },
+          "keywords": ["pria", "keskkonnaamet", "hooldamistingimused", "hooldustingimused", "menetlemine", "rollid", "koolitus", "e-pria", "roles", "pria vs environmental board", "maintenance conditions", "training", "application"]
+        },
+        {
+          "id": "keskkonnaamet-parandniitude-hooldamine-p3",
+          "section": "Pärandniitude hooldamine (tingimuste alused)",
+          "lang": "et",
+          "text": "Pärandniidu hooldamisel tuleb hooldada hooldustoetuse määruses või kaitsekorras ette nähtud tingimustel. Pärandniidul tingimuste seadmisel lähtub Keskkonnaamet lisaks kaitse-eeskirjast, kaitsekorralduskavast, liigi ja pärandniidu tegevuskavast kui ka muuhulgas järgmistest korraldustest: Korraldus nr 1-3/24/83 Pärandniidu parendamise lisategevuse tingimused […] Korraldus nr 1-3/24/84 Pärandniitudel puhkeaasta ja kogu alal niitmise kohustuse määramine",
+          "summary": {
+            "et": "Hooldada tuleb määruse või kaitsekorra tingimuste järgi. Tingimuste seadmisel lähtub Keskkonnaamet kaitse-eeskirjast, kaitsekorralduskavast, tegevuskavadest ja oma korraldustest (nt puhkeaasta ja kogu alal niitmise kohta).",
+            "en": "Maintenance must follow the regulation or protection regime. When setting conditions the Board relies on protection rules, management plans, action plans and its own orders (e.g. on rest years and whole-area mowing)."
+          },
+          "keywords": ["keskkonnaamet", "tingimused", "kaitsekorralduskava", "kaitse-eeskiri", "korraldus", "puhkeaasta", "kogu alal niitmine", "criteria", "environmental board criteria", "management plan", "rest year", "whole-area mowing"]
+        }
+      ]
+    },
+    {
+      "id": "keskkonnaamet-korraldus-puhkeaasta",
+      "title": {
+        "et": "Keskkonnaameti korraldus 15.03.2024 nr 1-3/24/84 „Pärandniitudel puhkeaasta ja kogu alal niitmise kohustuse määramine“",
+        "en": "Environmental Board order No 1-3/24/84 of 15 Mar 2024 \"Setting the rest year and whole-area mowing obligation on heritage meadows\""
+      },
+      "publisher": "Keskkonnaamet",
+      "url": "https://keskkonnaamet.ee/sites/default/files/documents/2024-03/P%C3%A4randniitudel%20puhkeaasta%20ja%20kogu%20alal%20niitmise%20kohustuse%20m%C3%A4%C3%A4ramine.pdf",
+      "version": "Korraldus 15.03.2024 nr 1-3/24/84",
+      "versionDate": "2024-03-15",
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Keskkonnaameti 2026. aastal uuendatud pärandniitude leht viitab sellele korraldusele kui tingimuste seadmise alusele. Hilisemat muudatust ei leitud.",
+        "en": "The Environmental Board's heritage meadow page (updated 2026) cites this order as a basis for setting conditions. No later amendment was found."
+      },
+      "passages": [
+        {
+          "id": "keskkonnaamet-korraldus-puhkeaasta-p1",
+          "section": "Punkt 1.1",
+          "lang": "et",
+          "text": "1.1 KeA spetsialist määrab EAGIS süsteemis kogu ala ära niitmise järgmistel juhtudel: 1.1.1 niidul on laienevat võsa; 1.1.2 niit on hiljuti taastatud, nõrgalt kamardunud, puittaimed annavad palju juurevõsusid; 1.1.3 niidul vohavad suurekasvulised taimeliigid nagu näiteks jäneskastik, angervaks, pilliroog, päideroog, mets-harakputk, kerahein; 1.1.4 niidul on invasiivseid võõrliike; 1.1.5 niit on elupaigatüübi kohta viljakas, kõrge lopsaka rohuga; 1.1.6 niidul on niitmist takistavad mättad; 1.1.7 varem jäetud laikudel on niitmistingimused või elupaiga seisund halvenenud; 1.1.8 kui üleujutus, heina maha jäämine, reostus või muu tavatu sündmus on põhjustanud niidul toitainete kuhjumise ja tavalisest tugevama rohukasvu.",
+          "summary": {
+            "et": "Keskkonnaameti spetsialist määrab kogu ala niitmise näiteks laieneva võsa, hiljutise taastamise, vohavate liikide, invasiivsete liikide, lopsaka rohu, mätaste või üleujutuse, maha jäänud heina või reostuse tõttu tekkinud toitainete kuhjumise korral.",
+            "en": "The Board's specialist requires whole-area mowing, for example where scrub is spreading, the meadow was recently restored, tall or invasive species spread, grass is lush, tussocks hinder mowing, or a flood, left hay or pollution caused nutrient build-up."
+          },
+          "keywords": ["kogu ala niitmine", "keskkonnaamet", "kriteeriumid", "võsa", "invasiivsed liigid", "üleujutus", "hein maha jäänud", "toitained", "whole-area mowing", "environmental board criteria", "scrub", "invasive species", "flood", "hay left", "nutrients"]
+        },
+        {
+          "id": "keskkonnaamet-korraldus-puhkeaasta-p2",
+          "section": "Punktid 1.2 ja 1.5",
+          "lang": "et",
+          "text": "1.2 KeA spetsialist määrab EAGIS süsteemis ja niitmata laikude jätmise ja puhkeaasta võimaluse järgmistel juhtudel: 1.2.1 ala on kaua hooldatud, tugeva rohukamaraga, puittaimede juurevõsusid pole; 1.2.2 niit on elupaigatüübi kohta väheviljakas, madala rohuga; 1.2.3 rohukasv on tavaline või kiduram, sh põuakahjustustega; […] 1.5 Karjatatavatele aladele võib määrata spetsialist puhkeaasta võimaluse ka siis, kui ohutegurid avalduvad väikesel osal niidust (alla 20%) ja puhkeaasta jätmine ei too kaasa ohuteguri laienemist. Liigikaitseliselt olulistele rannaaladele puhkeaastat ei võimaldata.",
+          "summary": {
+            "et": "Niitmata laikude ja puhkeaasta võimaluse annab spetsialist näiteks kaua hooldatud, tugeva kamaraga või väheviljakale niidule. Karjatatavatel aladel võib puhkeaasta olla lubatud ka väikeste ohutegurite korral, kuid liigikaitseliselt olulistel rannaaladel mitte.",
+            "en": "The specialist allows unmown patches and a rest year, for example on long-maintained, firm-swarded or low-productivity meadows. On grazed areas a rest year may be allowed even with minor threats, but never on coastal areas important for species protection."
+          },
+          "keywords": ["puhkeaasta", "niitmata laigud", "keskkonnaamet", "kriteeriumid", "põud", "karjatatav", "rannaala", "rest year", "unmown patches", "environmental board criteria", "drought", "grazed area", "coastal area"]
+        }
+      ]
+    },
+    {
+      "id": "keskkonnaamet-niit-koolitus-2026",
+      "title": {
+        "et": "Pärandniidu hooldamise toetuse (NIIT) koolitus, juuli 2026 (ettekanne)",
+        "en": "Heritage meadow maintenance support (NIIT) training, July 2026 (slides)"
+      },
+      "publisher": "Keskkonnaamet",
+      "url": "https://keskkonnaamet.ee/sites/default/files/documents/2026-07/Niit_koolitus%202026%20juuli.pdf",
+      "version": "NIIT koolitus 2026 juuli ettekanne (esineja ministeeriumi põllumajanduskeskkonnapoliitika osakonnast, majutatud Keskkonnaameti lehel)",
+      "versionDate": null,
+      "retrievedAt": "2026-10-30",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Koolitusslaidid, lingitud Keskkonnaameti pärandniitude lehelt (fail 2026-07). Slaidid ei ole õigusakt; autor on ministeeriumi (agri.ee) ametnik. Täpne koolituse kuupäev slaididel puudub.",
+        "en": "Training slides linked from the Environmental Board heritage meadow page (file 2026-07). Slides are not legislation; the author is a ministry (agri.ee) official. The exact training date is not on the slides."
+      },
+      "passages": [
+        {
+          "id": "keskkonnaamet-niit-koolitus-2026-p1",
+          "section": "Kohustuse üleandmine ja ülevõtmine / Vääramatu jõud",
+          "lang": "et",
+          "text": "Esimesel kohustuseaastal võib kohustuse üle anda vääramatu jõu või erandlike asjaolude esinemise korral või põllumajandusliku majapidamise üleandmise korral. […] Vääramatust jõust ja erandlikest asjaoludest tuleb PRIAt teavitada kirjalikult 15 tööpäeva jooksul alates kuupäevast, kui seda on võimalik teha.",
+          "summary": {
+            "et": "Esimesel aastal võib kohustuse üle anda vääramatu jõu, erandlike asjaolude või majapidamise üleandmise korral. Koolituse slaidi järgi tuleb PRIAt kirjalikult teavitada 15 tööpäeva jooksul alates päevast, mil see on võimalik.",
+            "en": "In the first year a commitment can be transferred in case of force majeure, exceptional circumstances or transfer of the holding. According to the training slide, PRIA must be notified in writing within 15 working days from when it becomes possible to do so."
+          },
+          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "teavitamine", "15 tööpäeva", "kirjalikult", "kohustuse üleandmine", "force majeure", "exceptional circumstances", "notification", "15 working days", "transfer of commitment"]
+        },
+        {
+          "id": "keskkonnaamet-niit-koolitus-2026-p2",
+          "section": "Kuna tuleb KeA teavitada niitmisest",
+          "lang": "et",
+          "text": "1. Kui pärandniidu pindala üle 30 ha v.a. puisniit (vähemalt kolm päeva ette) 2. Karjatamise järgne niitmine, et karjatamise tulemust paremaks teha (vähemalt kolm päeva ette) 3. Käsitsi niitmise lisategevus (vähemalt kolm päeva ette) Karjatamiseelne niitmine • Kui KeA lubanud, ei pea eraldi teavitama",
+          "summary": {
+            "et": "Keskkonnaametit tuleb niitmisest teavitada vähemalt kolm päeva ette, kui niit on üle 30 ha (v.a puisniit), kui niidetakse pärast karjatamist või kui tehakse käsitsi niitmise lisategevust. Lubatud karjatamiseelse niitmise korral eraldi teavitust ei nõuta.",
+            "en": "Notify the Environmental Board at least three days in advance when mowing a meadow over 30 ha (except wooded meadows), mowing after grazing, or doing the manual mowing add-on. Permitted pre-grazing mowing needs no separate notice."
+          },
+          "keywords": ["teavitamine", "teavitada", "keskkonnaamet", "kolm päeva", "30 ha", "käsitsi niitmine", "karjatamise järgne niitmine", "notify", "notification", "environmental board", "three days", "manual mowing"]
+        },
+        {
+          "id": "keskkonnaamet-niit-koolitus-2026-p3",
+          "section": "Taotluse muutmine",
+          "lang": "et",
+          "text": "Kuni 15. augustini saab taotlusel muuta taotletud alade piire ja pindalasid. […] Taotleja saab taotlust muuta (loobuda ala osas toetuste taotlemisest, vähendada ala pindala, muuta hooldusvõtet) kuni: kohapealsest kontrollist teatamiseni; PRIA või KeA leitud vigadest teadasaamiseni; kuni 1. novembrini.",
+          "summary": {
+            "et": "Piire ja pindalasid saab muuta 15. augustini. Ala osas loobuda, pindala vähendada või hooldusvõtet muuta saab kuni kohapealsest kontrollist teatamiseni, vigadest teadasaamiseni või 1. novembrini.",
+            "en": "Boundaries and areas can be changed until 15 August. Withdrawing an area, reducing it or changing the maintenance method is possible until notice of an on-the-spot check, until learning of errors found, or until 1 November."
+          },
+          "keywords": ["taotluse muutmine", "hooldusvõte", "hooldusvõtte muutmine", "15. august", "1. november", "loobumine", "amend application", "change maintenance method", "withdraw area", "deadline"]
+        }
+      ]
+    },
+    {
+      "id": "eurlex-2021-2116",
+      "title": {
+        "et": "Euroopa Parlamendi ja nõukogu määrus (EL) 2021/2116 ühise põllumajanduspoliitika rahastamise, haldamise ja seire kohta (art 3 ja art 59 lg 5)",
+        "en": "Regulation (EU) 2021/2116 on the financing, management and monitoring of the CAP (Article 3 and Article 59(5))"
+      },
+      "publisher": "EUR-Lex",
+      "url": "https://eur-lex.europa.eu/legal-content/ET/TXT/HTML/?uri=CELEX:32021R2116",
+      "version": "ELT L 435, 06.12.2021, lk 187 (algne avaldatud tekst)",
+      "versionDate": "2021-12-06",
+      "retrievedAt": "2026-10-30",
+      "status": "older-version",
+      "statusNote": {
+        "et": "Tsiteeritud on algset Euroopa Liidu Teatajas avaldatud teksti. Konsolideeritud versiooniga ei ole võrreldud, seega pole kontrollitud, kas artikleid 3 või 59 on hiljem muudetud.",
+        "en": "Quoted from the original Official Journal text. Not compared with the consolidated version, so it is not confirmed whether Articles 3 or 59 were amended later."
+      },
+      "passages": [
+        {
+          "id": "eurlex-2021-2116-p1",
+          "section": "Artikkel 3 lg 1–2 (Erandid vääramatu jõu ja erandlike asjaolude korral)",
+          "lang": "et",
+          "text": "1. ÜPP rahastamise, haldamise ja seire puhul võidakse vääramatu jõu ja erandlike asjaoludena tunnistada eelkõige järgmist: a) raske loodusõnnetus või rasked ilmastikutingimused, mis kahjustavad tõsiselt põllumajanduslikku majapidamist; b) põllumajandusliku majapidamise loomakasvatushoonete hävimine õnnetusjuhtumi tagajärjel; […] e) toetusesaaja surm; f) toetusesaaja pikaajaline töövõimetus. 2. Kui lõike 1 punktis a osutatud raske loodusõnnetus või rasked ilmastikutingimused kahjustavad oluliselt täpselt kindlaksmääratavat ala, võib asjaomane liikmesriik pidada kogu seda ala oluliselt kahjustatuks kõnealuse õnnetuse või kõnealuste ilmastikutingimuste poolt.",
+          "summary": {
+            "et": "Vääramatu jõu või erandlike asjaoludena võib tunnistada näiteks raske loodusõnnetuse või rasked ilmastikutingimused, õnnetuse, toetusesaaja surma või pikaajalise töövõimetuse. Liikmesriik võib pidada kogu kindlaksmääratavat ala kahjustatuks.",
+            "en": "Force majeure or exceptional circumstances may include, for example, a severe natural disaster or severe weather, an accident, or the beneficiary's death or long-term incapacity. A Member State may treat a whole defined area as seriously affected."
+          },
+          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastikutingimused", "loodusõnnetus", "artikkel 3", "eu määrus", "force majeure", "exceptional circumstances", "severe weather", "natural disaster", "article 3", "eu regulation 2021/2116"]
+        },
+        {
+          "id": "eurlex-2021-2116-p2",
+          "section": "Artikkel 59 lg 5",
+          "lang": "et",
+          "text": "Liikmesriigid võtavad sobivad ettevaatusabinõud, et tagada lõike 1 punktis d osutatud karistuste proportsionaalsus ja astmelisus olenevalt tuvastatud mittevastavuse raskusest, ulatusest, püsivusest ja korduvusest. Liikmesriikide kehtestatud korraga tuleb eelkõige tagada, et karistusi ei tohi määrata kui: a) mittevastavuse põhjuseks on vastavalt artiklile 3 vääramatu jõud või erandlikud asjaolud;",
+          "summary": {
+            "et": "Karistused peavad olema proportsionaalsed ja astmelised vastavalt rikkumise raskusele, ulatusele, püsivusele ja korduvusele. Karistust ei tohi määrata, kui mittevastavuse põhjus on vääramatu jõud või erandlikud asjaolud.",
+            "en": "Penalties must be proportionate and graduated according to the severity, extent, duration and repetition of the non-compliance. No penalty may be imposed where the non-compliance is due to force majeure or exceptional circumstances."
+          },
+          "keywords": ["karistus", "proportsionaalsus", "raskus", "ulatus", "püsivus", "korduvus", "vääramatu jõud", "artikkel 59", "penalty", "proportionality", "severity", "extent", "duration", "repetition", "force majeure", "no penalty"]
+        }
+      ]
+    },
+    {
+      "id": "rt-plk-maarus-38",
+      "title": {
+        "et": "Poolloodusliku koosluse hooldamise toetus (maaeluministri 22.04.2015 määrus nr 38), terviktekst",
+        "en": "Semi-natural community maintenance support (Minister of Rural Affairs Regulation No 38 of 22 Apr 2015), consolidated text"
+      },
+      "publisher": "Riigi Teataja",
+      "url": "https://www.riigiteataja.ee/akt/124042015007?leiaKehtiv",
+      "version": "RT I, 24.04.2024, 20 (terviktekst; sõnastuse jõustumise kp 27.04.2024; kehtivuse lõpp 31.12.2035)",
+      "versionDate": "2024-04-27",
+      "retrievedAt": "2026-10-30",
+      "status": "older-version",
+      "statusNote": {
+        "et": "Formaalselt kehtiv tekst, kuid see on maaelu arengukava 2014–2020 aegne (pärand)toetus. Alates 2023. aastast antakse uusi kohustusi strateegiakava alusel antava pärandniidu hooldamise toetuse (NIIT, määrus nr 79) kaudu. Ära kasuta kehtivate NIIT-nõuete allikana.",
+        "en": "Formally in force, but this is the legacy 2014–2020 Rural Development Plan scheme. From 2023 new commitments are made under the Strategic Plan heritage meadow maintenance support (NIIT, Regulation No 79). Do not use it as a source for current NIIT requirements."
+      },
+      "passages": [
+        {
+          "id": "rt-plk-maarus-38-p1",
+          "section": "§ 1 (Reguleerimisala)",
+          "lang": "et",
+          "text": "Määrusega kehtestatakse „Eesti maaelu arengukava 2014–2020” (edaspidi arengukava) meetme 10 „Põllumajanduse keskkonna- ja kliimameede” tegevuse liigi „Poolloodusliku koosluse hooldamise toetus” raames antava poolloodusliku koosluse hooldamise toetuse (edaspidi toetus) andmise tingimused ning kord.",
+          "summary": {
+            "et": "See määrus reguleerib maaelu arengukava 2014–2020 poolloodusliku koosluse hooldamise toetust, mitte praegust strateegiakava toetust.",
+            "en": "This regulation governs the semi-natural community maintenance support of the 2014–2020 Rural Development Plan, not the current Strategic Plan support."
+          },
+          "keywords": ["poollooduslik kooslus", "poolloodusliku koosluse hooldamise toetus", "plk", "maaelu arengukava", "vana toetus", "semi-natural community", "legacy scheme", "rural development plan", "old regulation"]
+        },
+        {
+          "id": "rt-plk-maarus-38-p2",
+          "section": "§ 22 lg 22 (Rakendussätted)",
+          "lang": "et",
+          "text": "Taotleja võib arengukava alusel antava poolloodusliku koosluse hooldamise toetuse kohase kohustuse lõpetada, kui ta võtab kogu sama maa kohta strateegiakava alusel antava pärandniidu hooldamise toetuse kohase kohustuse. Sellisel juhul arengukava alusel antava toetuse kohane kohustus lõpeb ja algab uus strateegiakava alusel antava toetuse kohane kohustus, mille kestus on viis järjestikust kalendriaastat.",
+          "summary": {
+            "et": "Vana PLK-kohustuse võis lõpetada, kui sama maa kohta võeti strateegiakava pärandniidu hooldamise toetuse kohustus; siis algas uus viieaastane kohustus.",
+            "en": "An old PLK commitment could be ended by taking a Strategic Plan heritage meadow maintenance commitment on all the same land; a new five-year commitment then started."
+          },
+          "keywords": ["üleminek", "plk", "niit", "pärandniidu hooldamise toetus", "kohustuse lõpetamine", "transition", "switch", "legacy commitment", "new commitment"]
+        }
+      ]
+    }
+  ],
+  "unverified": [
+    {
+      "topic": "Kas „15 tööpäeva“ teavitustähtaeg kehtib NIIT-toetusele ja kas see on kohustuslik",
+      "finding": "Kehtivas määruses nr 79 ega EL määruse 2021/2116 artiklis 3 15 tööpäeva tähtaega ei ole. PRIA „Abiks taotlejale 2026“ (mis hõlmab ka NIIT-i) ütleb, et teavitus tuleb saata „soovitatavalt 15 tööpäeva jooksul alates vääramatu jõu või erandliku asjaolu ilmnemisest“. Keskkonnaameti lehel olev 2026. a koolitusslaid ütleb „15 tööpäeva jooksul alates kuupäevast, kui seda on võimalik teha“. Järeldus: 15 tööpäeva kehtib ka sellele toetusele, kuid PRIA kirjeldab seda soovitusliku tähtajana, mitte õigusaktis sätestatud tähtajana, ja kaks allikat sõnastavad tähtaja alguse erinevalt. 2023. a PRIA uudiskirja ei avatud.",
+      "sources": [
+        "https://www.pria.ee/sites/default/files/2026-05/maaelu-arengu-2023-pindalatoetused_at_2026_0.pdf",
+        "https://keskkonnaamet.ee/sites/default/files/documents/2026-07/Niit_koolitus%202026%20juuli.pdf",
+        "https://www.riigiteataja.ee/akt/127032025018?leiaKehtiv"
+      ]
+    },
+    {
+      "topic": "Keskkonnaameti enda kriteeriumid ja tähtajad juhuks, kui tööd ilma tõttu teha ei saanud",
+      "finding": "Keskkonnaameti avaldatud ilmaga seotud kriteeriumi või tähtaega ei leitud. Leitud on ainult: (a) korraldus 1-3/24/84, mille järgi üleujutus või maha jäänud hein on põhjus nõuda järgmisel aastal kogu ala niitmist; (b) Keskkonnaameti roll on määrata hooldamistingimused, tähtpäevad ja niitmise algusaeg ning kontrollida NIIT-nõudeid. Vääramatu jõu teade läheb PRIA-le, mitte Keskkonnaametile. Teisese allika (töövõtja e-kiri, adr-docs.karlerss.com) väitel kuulutas valitsus 14.08.2025 põllumajanduses välja vääramatu jõu olukorra; ametlikus allikas seda ei kinnitatud.",
+      "sources": [
+        "https://keskkonnaamet.ee/sites/default/files/documents/2024-03/P%C3%A4randniitudel%20puhkeaasta%20ja%20kogu%20alal%20niitmise%20kohustuse%20m%C3%A4%C3%A4ramine.pdf",
+        "https://keskkonnaamet.ee/elusloodus-looduskaitse/looduskaitse/parandniitude-hooldamine"
+      ]
+    },
+    {
+      "topic": "Keskkonnaameti pärandniitude osakonna põhimäärus (Keskkonnaameti roll)",
+      "finding": "Leitud ja loetud (peadirektori 3.02.2026 käskkiri nr 1-1/26/30, Lisa 3). Selle järgi osakond uuendab PRIA toetuste toetusõiguslike alade kaardikihti, määrab hooldustingimused, viib läbi kontrolle ning koostab nõusolekuid ja kooskõlastusi. Dokument on organisatsiooniline, seetõttu lõike raamatukokku ei lisatud. URL: https://keskkonnaamet.ee/sites/default/files/documents/2026-02/Lisa%203.%20Keskkonnaameti%20p%C3%A4randniitude%20osakonna%20p%C3%B5him%C3%A4%C3%A4rus.pdf",
+      "sources": [
+        "https://keskkonnaamet.ee/sites/default/files/documents/2026-02/Lisa%203.%20Keskkonnaameti%20p%C3%A4randniitude%20osakonna%20p%C3%B5him%C3%A4%C3%A4rus.pdf"
+      ]
+    },
+    {
+      "topic": "MTÜ „Ecco“ täisnimi",
+      "finding": "Ei leitud ühtegi Eesti pärandniitudega seotud organisatsiooni nimega „Ecco“. Kontrollimata oletus (madal usaldusväärsus): võib olla kuulmisviga lühendist „EKO“ (Eesti Keskkonnaühenduste Koda) või ELF (Eestimaa Looduse Fond). Kinnitatud on ainult Pärandkoosluste Kaitse Ühing (PKÜ), kes teeb Keskkonnaameti 2026. a koolitusslaidide järgi väärtuslike püsirohumaade inventuuri. Küsi meeskonnalt allikas või kontrolli äriregistrist.",
+      "sources": []
+    },
+    {
+      "topic": "SATIKAS / satelliidipõhise niitmise tuvastamise andmete kättesaadavus kolmandatele osapooltele",
+      "finding": "SATIKAS on Tartu Observatooriumi, PRIA ja CGI arendatud niitmise tuvastamise süsteem. PRIA pinnaseire kasutab Sentineli andmeid ja niitmise markerit; taotlejat teavitatakse e-kirjaga ning ta saab vastata Iva äpi fotodega. Ei leitud ühtegi allikat, mis kinnitaks, et põllu- või niidutasemel niitmise tuvastuse või seire tulemused oleksid kolmandatele osapooltele avaandmete või API kaudu kättesaadavad. Sentineli toorandmed on vabalt kasutatavad. Avaandmete portaali ega PRIA andmejagamise tingimusi ei kontrollitud. Usaldusväärsus: madal kuni keskmine.",
+      "sources": [
+        "https://kosmos.ut.ee/en/content/information-system-satikas-helps-detect-mowing-using-satellite-data",
+        "https://www.pria.ee/sites/default/files/2026-05/maaelu-arengu-2023-pindalatoetused_at_2026_0.pdf"
+      ]
+    },
+    {
+      "topic": "Ilmaandmed põllu tasemel",
+      "finding": "Ühtegi ametlikku põllu- või niidutaseme ilmaandmete allikat, mida PRIA või Keskkonnaamet vääramatu jõu hindamisel kasutaks, ei otsitud ega leitud. Teisese allika järgi oli 2025. aasta suvi Keskkonnaagentuuri andmetel viimase saja aasta 6 kõige vihmasema seas; ametlikus allikas seda ei kinnitatud.",
+      "sources": []
+    },
+    {
+      "topic": "Määruse 2021/2116 konsolideeritud versioon ja ingliskeelne tekst",
+      "finding": "Lugesin ainult EUR-Lexi algset eestikeelset teksti (ELT L 435, 06.12.2021). Konsolideeritud versiooni ja ingliskeelset sõnastust ei avatud. Üks curl-päring EUR-Lexi suunas blokeeriti; teksti lugesin brauserist.",
+      "sources": [
+        "https://eur-lex.europa.eu/legal-content/ET/TXT/HTML/?uri=CELEX:32021R2116"
+      ]
+    },
+    {
+      "topic": "Looduskaitseseadus",
+      "finding": "Ajapuuduse tõttu jäeti vahele (valikuline). Määrus nr 79 viitab looduskaitseseaduse § 4 lõike 1 punktidele (kaitstavad loodusobjektid) ja § 18-le (loodushoiutoetus). PRIA NIIT 2026 lehel on link https://www.riigiteataja.ee/akt/122122023008?leiaKehtiv",
+      "sources": [
+        "https://www.riigiteataja.ee/akt/122122023008?leiaKehtiv"
+      ]
+    },
+    {
+      "topic": "Juhendi näite aastaarv",
+      "finding": "PRIA „Abiks taotlejale 2026“ jaotise 7 näide ütleb „taotleja toetust vähendatakse 2025. aastal 40%“, kuigi näite kontekst on 2026. aasta taotlus. Tõenäoliselt on tegu trükiveaga. Seda lauset raamatukokku ei lisatud.",
+      "sources": [
+        "https://www.pria.ee/sites/default/files/2026-05/maaelu-arengu-2023-pindalatoetused_at_2026_0.pdf"
+      ]
+    }
+  ]
+}
