@@ -1,6 +1,7 @@
 // A small, dependency-free guided tour. Steps point at real elements via
 // data-tour attributes; a step may navigate first, so the demo walkthrough can
 // "drive the clicks" by moving the report wizard through its URL state.
+import { motion } from 'motion/react';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../app/store';
@@ -29,7 +30,7 @@ export const TOURS: Record<TourId, TourStep[]> = {
     { target: 'nav-weather', title: 'tour.weatherTitle', body: 'tour.weatherBody' },
     { target: 'nav-report', title: 'tour.reportTitle', body: 'tour.reportBody' },
     { target: 'assistant-btn', title: 'tour.assistantTitle', body: 'tour.assistantBody' },
-    { target: 'nav-help', title: 'tour.helpTitle', body: 'tour.helpBody' },
+    { target: 'nav-help|nav-more', title: 'tour.helpTitle', body: 'tour.helpBody' },
   ],
   demo: [
     { route: demoReport('setup'), title: 'demoTour.introTitle', body: 'demoTour.introBody' },
@@ -44,8 +45,13 @@ export const TOURS: Record<TourId, TourStep[]> = {
 
 function findTarget(name?: string): HTMLElement | null {
   if (!name) return null;
-  const all = [...document.querySelectorAll<HTMLElement>(`[data-tour="${name}"]`)];
-  return all.find((el) => el.getClientRects().length > 0) ?? null;
+  // "a|b": try a, then b (e.g. a rail link on desktop, the More button on phones)
+  for (const n of name.split('|')) {
+    const all = [...document.querySelectorAll<HTMLElement>(`[data-tour="${n}"]`)];
+    const hit = all.find((el) => el.getClientRects().length > 0);
+    if (hit) return hit;
+  }
+  return null;
 }
 
 export function Tour({ id }: { id: TourId }) {
@@ -149,7 +155,7 @@ export function Tour({ id }: { id: TourId }) {
     <>
       <div className="tour-shade" aria-hidden="true" style={{ background: rect ? 'transparent' : 'rgba(15,22,17,.55)' }} />
       {rect && <div className="tour-hole" style={{ left: rect.left - pad, top: rect.top - pad, width: rect.width + pad * 2, height: rect.height + pad * 2 }} />}
-      <div className="tour-pop" role="dialog" aria-modal="true" aria-labelledby="tour-title" aria-describedby="tour-body" ref={popRef} style={{ ...pos, width: popW }}>
+      <div className="tour-pop glass" role="dialog" aria-modal="true" aria-labelledby="tour-title" aria-describedby="tour-body" ref={popRef} style={{ ...pos, width: popW }}>
         <div className="eyebrow">
           {t(id === 'main' ? 'tour.label' : 'demoTour.label')} · {t('tour.progress', { n: i + 1, total: steps.length })}
         </div>
@@ -158,8 +164,10 @@ export function Tour({ id }: { id: TourId }) {
             <span key={k} className={k <= i ? 'on' : ''} />
           ))}
         </div>
-        <h2 id="tour-title">{t(step.title)}</h2>
-        <p id="tour-body">{t(step.body)}</p>
+        <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+          <h2 id="tour-title">{t(step.title)}</h2>
+          <p id="tour-body">{t(step.body)}</p>
+        </motion.div>
         <div className="row" style={{ justifyContent: 'space-between' }}>
           <button className="btn btn-ghost btn-sm" onClick={() => finish(false)}>
             {t('actions.skip')}

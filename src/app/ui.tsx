@@ -14,6 +14,9 @@ interface UIState {
   shortcutsOpen: boolean;
   setShortcutsOpen: (open: boolean) => void;
   tour: TourId | null;
+  /** The meadow window above the sheet; pages may portal a hero into it. */
+  heroSlot: HTMLDivElement | null;
+  setHeroSlot: (el: HTMLDivElement | null) => void;
   startTour: (id: TourId) => void;
   endTour: () => void;
 }
@@ -26,6 +29,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [tour, setTour] = useState<TourId | null>(null);
+  const [heroSlot, setHeroSlot] = useState<HTMLDivElement | null>(null);
 
   const askAssistant = useCallback((q: string) => {
     setPending(q);
@@ -49,13 +53,15 @@ export function UIProvider({ children }: { children: ReactNode }) {
       shortcutsOpen,
       setShortcutsOpen,
       tour,
+      heroSlot,
+      setHeroSlot,
       startTour: (id: TourId) => {
         setSidebarOpen(false);
         setTour(id);
       },
       endTour: () => setTour(null),
     }),
-    [assistantOpen, askAssistant, pendingQuestion, takePendingQuestion, sidebarOpen, shortcutsOpen, tour],
+    [assistantOpen, askAssistant, pendingQuestion, takePendingQuestion, sidebarOpen, shortcutsOpen, tour, heroSlot],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

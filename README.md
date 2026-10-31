@@ -29,16 +29,40 @@ On first start you get a welcome screen (choose Estonian or English), then a 2-m
 
 Keyboard: `?` shortcuts, `/` assistant, `n` new entry, `g` then `d`/`l`/`r`/`w`/`b` to move between pages.
 
+## Design: "The Living Meadow"
+
+The interface sits over a generative coastal meadow (`src/features/meadow/`) that is drawn from the weather you are looking at: grass sways with the real daily maximum wind, mist follows humidity, rain falls when the selected period was wet, and the sky follows the time of day. The dashboard timeline's brush, the report period and the weather page all publish their window to it. With no data it stays calm; it never shows invented weather.
+
+- **Palette:** bog green `#1E3A2C`, sea-glass teal `#5E9C94`, birch white `#EEF1EC`, hay amber `#D4A03A`, peat brown `#3A2A1F`, and one accent, lingonberry `#B3313D` (missed periods, risk).
+- **Type:** Newsreader (display serif, optical sizes) and Atkinson Hyperlegible Next (text), self-hosted and embedded in the PDF.
+- **Surfaces:** content sits on opaque birch sheets for contrast. Glass is used only on floating instruments: the nav rail, top bar, assistant, tour card, toasts and the dashboard readout.
+- **Motion:** Framer Motion (`motion`) for the load sequence, route transitions and shared nav pill. Path morphs (logo seed → leaves, drop ↔ sun, parcel dot → field outline) use a small built-in sampler. Rolling numbers, confirmation morphs on controls, a grass-growing loader, and a celebration for the first report.
+- **Reduce effects:** the sparkle button in the top bar, Settings → Appearance, or `?effects=reduced` in the URL. The OS "reduce motion" setting is always respected. In reduced mode the meadow is one still frame and animations are off.
+
+### Dashboard charts
+
+All charts follow the parcel selected on the map:
+
+1. **Weather timeline** (hero). Brush a window to drive the stats, the report link and the meadow. Hover for values, click a day for details, toggle series. Keyboard: arrows move the window, Shift + arrows resize it.
+2. **Parcel map.** The coastline is schematic and parcel shapes are illustrative (the app stores one point per parcel). Both are labelled.
+3. **Management calendar.** Click a cell to open its entry. It highlights the brushed window and the hovered week.
+4. **"Where questions could come up" gauge.** The tool's own rule of thumb (`src/services/risk.ts`), labelled as decision support.
+5. **Records vs satellite.** Satellite detections are **simulated** for the demo farm only (`src/services/satelliteDemo.ts`) and labelled. Other parcels show an honest "not available" note.
+6. **Seasonal trends** by week. Metric filters, zoom presets, cross-highlighting with the calendar, and a "weather fetched" time.
+
 ## What is real and what is demo
 
 | Part | Status |
 | --- | --- |
-| Weather (rain, max temperature, soil moisture 0–7 cm, 1991–2020 comparison) | **Real**: fetched live from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) for the parcel's coordinates. It is modelled reanalysis data on a 9–25 km grid, not weather-station measurements. If a fetch fails the app says so and shows nothing; it never fills gaps with invented numbers. |
+| Weather (rain, max temperature, soil moisture 0–7 cm, wind, humidity, 1991–2020 comparison) | **Real**: fetched live from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) for the parcel's coordinates. It is modelled reanalysis data on a 9–25 km grid, not weather-station measurements. If a fetch fails the app says so and shows nothing; it never fills gaps with invented numbers. |
 | Rule library (10 documents, 47 passages) | **Real** official texts from Riigi Teataja, PRIA, Keskkonnaamet and EUR-Lex, quoted verbatim, each with URL, version and retrieval date (30 Oct 2026). Older or legacy documents are labelled. The plain-language summaries were written for this tool; the originals are authoritative. |
 | Assistant | **Real retrieval, no LLM.** BM25 search over the passages with a small Estonian–English synonym bridge. It restates retrieved passages and says "I don't know" below a confidence threshold. |
 | Demo farm "Kadakaniidu talu (näidis)", its parcels, entries and people | **Invented**, and labelled "Demo data" everywhere. The parcels sit near Matsalu and on Muhu so the weather is real for those places. |
 | Demo photos | **Drawn illustrations**, stamped "DEMO ILLUSTRATION" in the image and labelled in the report. Not photographs. |
 | Weather "consistent with the reason" verdict | The tool's **own rule of thumb**, not an official criterion, and labelled as such. |
+| Risk gauge ("Where questions could come up") | The tool's **own rule of thumb** from your records, labelled "Decision support". Not PRIA's or the Board's assessment. |
+| Satellite detections | **Simulated**, demo farm only, labelled "Demo". PRIA's area-monitoring results are not open to third parties. |
+| Parcel map | Coastline **schematic**, field shapes **illustrative**; both labelled. |
 | 15-working-day notification window | PRIA's 2026 applicant guide **recommends** notifying PRIA within 15 working days. It is not a legal deadline and is **not verified for the Environmental Board**. It is configurable on the Deadlines page. |
 | Severity, extent, duration | PRIA's assessment criteria. Whether the Environmental Board uses the same criteria is **not verified**. |
 
@@ -83,10 +107,12 @@ docs/           architecture.md (future FastAPI backend), deployment.md
 - Weather is modelled reanalysis on a coarse grid. Coastal grid cells can show zero soil moisture (sea), which the app hides. Official station data from the Estonian Environment Agency (Keskkonnaagentuur) would be stronger evidence.
 - No satellite mowing comparison. PRIA's area-monitoring (SATIKAS) results are not, as far as we found, open to third parties.
 - Data lives in one browser. Clearing site data deletes it; export a file to back it up.
+- **Performance:** Lighthouse mobile (production build, measured on the development machine, CPU benchmark index about 320–520): Accessibility 100, Best Practices 100, CLS 0. Performance scored 67 with Lighthouse's default 4× CPU slowdown, and 72–89 with the slowdown calibrated to this machine (1.5×). It does not reliably reach 90. What remains is mostly React's startup work on a slow simulated CPU. Things already done: route code splitting, a static first-paint shell, font preloads, the animation library kept out of the first bundle, a meadow that draws only its visible region at reduced resolution on phones and starts after idle. Next options: prerender the first screen, or move to Preact.
+- In a hidden or background tab browsers pause animation frames, so the meadow and enter animations resume when the tab is visible again.
 - GitHub Pages serves deep links through a `404.html` copy of the app. The page works, but the HTTP status is 404.
 - The report is addressed to the Environmental Board, as the team decided, but PRIA's 2026 guide says force majeure notices go to PRIA. The report says so.
 - The Estonian texts were written carefully but have not been reviewed by a native-speaking domain expert.
 
 ## Licence
 
-Code: MIT (see [LICENSE](LICENSE)). Official document excerpts are public legal and administrative texts quoted with their sources. Weather data © Open-Meteo.com, CC BY 4.0. Fonts: IBM Plex Sans and Source Serif 4, SIL Open Font License.
+Code: MIT (see [LICENSE](LICENSE)). Official document excerpts are public legal and administrative texts quoted with their sources. Weather data © Open-Meteo.com, CC BY 4.0. Fonts: Newsreader and Atkinson Hyperlegible Next, SIL Open Font License.

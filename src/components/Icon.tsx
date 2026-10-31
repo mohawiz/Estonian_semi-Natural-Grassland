@@ -1,48 +1,243 @@
-// A small hand-picked stroke icon set (24px grid), so we ship no icon library.
-const PATHS: Record<string, string> = {
-  home: 'M3 11l9-7 9 7M5 10v10h5v-6h4v6h5V10',
-  parcels: 'M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14',
-  log: 'M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7',
-  weather: 'M7 16a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 1117 16M8 19l-1 2M12 19l-1 2M16 19l-1 2',
-  report: 'M7 3h7l5 5v13H7zM13 3v6h6M10 13h6M10 17h4M4 7v14h11',
-  rules: 'M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 19V5M9 7h6',
-  deadlines: 'M12 7v5l3 2M12 21a9 9 0 110-18 9 9 0 010 18z',
-  help: 'M12 21a9 9 0 110-18 9 9 0 010 18zM9.5 9a2.5 2.5 0 114 2c-1 .6-1.5 1.2-1.5 2.5M12 17h.01',
-  settings: 'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 110-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z',
-  shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
-  sprout: 'M12 21v-9M12 12C12 7 8 5 4 5c0 4 3 7 8 7zM12 10c0-4 3-6 8-6 0 4-3 6-8 6z',
-  assistant: 'M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6zM18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8zM5 15l.6 1.4L7 17l-1.4.6L5 19l-.6-1.4L3 17l1.4-.6z',
-  send: 'M4 12l16-8-6 16-2-7z',
-  close: 'M6 6l12 12M18 6L6 18',
-  menu: 'M4 7h16M4 12h16M4 17h16',
-  plus: 'M12 5v14M5 12h14',
-  check: 'M5 12l5 5 9-10',
-  info: 'M12 21a9 9 0 110-18 9 9 0 010 18zM12 11v6M12 7.5h.01',
-  warn: 'M12 3l10 18H2zM12 10v5M12 18h.01',
-  external: 'M14 4h6v6M20 4l-9 9M18 14v6H4V6h6',
-  download: 'M12 4v11M7 10l5 5 5-5M5 20h14',
-  upload: 'M12 20V9M7 14l5-5 5 5M5 4h14',
-  camera: 'M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 100-8 4 4 0 000 8z',
-  pin: 'M12 21s-7-6.2-7-12a7 7 0 1114 0c0 5.8-7 12-7 12zM12 11a2 2 0 100-4 2 2 0 000 4z',
-  trash: 'M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3',
-  edit: 'M4 20h4L19 9l-4-4L4 16zM13 7l4 4',
-  chevron: 'M9 6l6 6-6 6',
-  back: 'M15 6l-6 6 6 6',
-  search: 'M11 18a7 7 0 110-14 7 7 0 010 14zM20 20l-4-4',
-  rain: 'M7 14a4 4 0 010-8 5 5 0 019.6-1.5A4 4 0 1117 14M8 17v3M12 17v3M16 17v3',
-  print: 'M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z',
-  play: 'M7 4l13 8-13 8z',
-  keyboard: 'M3 6h18v12H3zM7 10h.01M11 10h.01M15 10h.01M7 14h10',
-  book: 'M4 4h6a3 3 0 013 3v13a2 2 0 00-2-2H4zM20 4h-6a3 3 0 00-3 3v13a2 2 0 012-2h7z',
-  sun: 'M12 17a5 5 0 100-10 5 5 0 000 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',
-  moon: 'M21 13A9 9 0 1111 3a7 7 0 0010 10z',
-  globe: 'M12 21a9 9 0 110-18 9 9 0 010 18zM3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18',
-  undo: 'M9 14L4 9l5-5M4 9h10a6 6 0 010 12h-3',
+// A hand-drawn icon set: ink strokes plus one small hay-amber wash per icon, like
+// pencil sketches in a field notebook. 24px grid. No stock icon pack.
+import type { ReactNode } from 'react';
+
+const A = (d: string) => <path d={d} fill="var(--hay)" stroke="none" opacity={0.55} />;
+const S = (d: string) => <path d={d} />;
+
+const ICONS: Record<string, ReactNode> = {
+  home: (
+    <>
+      {A('M6 20v-7.5l6-4.6 6 4.6V20z')}
+      {S('M3.5 11.2 12 4.4l8.5 6.8M6 10v9.6h4.2v-5h3.6v5H18V10')}
+    </>
+  ),
+  parcels: (
+    <>
+      {A('M4.5 7.5 9 5.7l1.2 6.6-5 2z')}
+      {S('M3.5 6.8 9 4.6l6 2.2 5.5-2.1v12.6L15 19.5l-6-2.2-5.5 2.1zM9 4.6v12.7M15 6.8v12.7')}
+    </>
+  ),
+  log: (
+    <>
+      {A('M7 6h7v4H7z')}
+      {S('M6.2 3.5h8.6l3.9 3.9v13.1H6.2zM14.6 3.6v4h4M9 12.5h6.5M9 16h4.4')}
+      {S('M4 6.5c.6-.5 1.3-.5 2 0M4 10c.6-.5 1.3-.5 2 0M4 13.5c.6-.5 1.3-.5 2 0')}
+    </>
+  ),
+  rain: (
+    <>
+      {A('M7 13.5a3.5 3.5 0 0 1 .4-7 4.6 4.6 0 0 1 8.8.6 3.2 3.2 0 0 1 .3 6.4z')}
+      {S('M7.2 13.6a3.6 3.6 0 0 1 .3-7.2A4.8 4.8 0 0 1 16.6 7a3.3 3.3 0 0 1 .4 6.6z')}
+      {S('M8 16.5l-.9 2.4M12 16.5l-.9 2.4M16 16.5l-.9 2.4')}
+    </>
+  ),
+  weather: (
+    <>
+      {A('M9 8.5a3 3 0 1 0 0 .1z')}
+      {S('M9 5.2a3.3 3.3 0 1 1-.1 0zM9 2.4v1.2M3.8 8.4H2.6M5.2 4.6l-.8-.8M12.8 4.6l.8-.8')}
+      {S('M10 19.2a3 3 0 0 1 .3-6 4 4 0 0 1 7.6.4 2.8 2.8 0 0 1 .2 5.6z')}
+    </>
+  ),
+  report: (
+    <>
+      {A('M14 3.7v4.5h4.5z')}
+      {S('M6 3.5h8.2l4.5 4.6v12.4H6zM14 3.6v4.6h4.6')}
+      {S('M8.5 17l2.4-3 2 1.8 3-4.2')}
+    </>
+  ),
+  rules: (
+    <>
+      {A('M12.2 6.5c2-1.4 4.5-1.8 7.3-1.5v12.7c-2.8-.3-5.3.1-7.3 1.6z')}
+      {S('M12 6.6C9.6 5 7 4.6 4.3 5v12.8c2.7-.4 5.3 0 7.7 1.6 2.4-1.6 5-2 7.7-1.6V5c-2.7-.4-5.3 0-7.7 1.6zM12 6.6v12.6')}
+    </>
+  ),
+  book: (
+    <>
+      {A('M12.2 6.5c2-1.4 4.5-1.8 7.3-1.5v12.7c-2.8-.3-5.3.1-7.3 1.6z')}
+      {S('M12 6.6C9.6 5 7 4.6 4.3 5v12.8c2.7-.4 5.3 0 7.7 1.6 2.4-1.6 5-2 7.7-1.6V5c-2.7-.4-5.3 0-7.7 1.6zM12 6.6v12.6')}
+    </>
+  ),
+  deadlines: (
+    <>
+      {A('M12 12V5.6a6.4 6.4 0 0 1 6.3 5.4z')}
+      {S('M12 20.6a8.2 8.2 0 1 1 .1 0zM12 7.2V12l3.2 2.1')}
+    </>
+  ),
+  help: (
+    <>
+      {A('M12 19.5a7.5 7.5 0 0 1-6.5-3.8c3 .8 8.7.4 12.8-3a7.5 7.5 0 0 1-6.3 6.8z')}
+      {S('M12 20.6a8.6 8.6 0 1 1 .1 0zM9.6 9.4a2.5 2.5 0 1 1 3.5 2.2c-.7.4-1.1.9-1.1 1.8M12 16.6h.01')}
+    </>
+  ),
+  settings: (
+    <>
+      {A('M12 9.3a2.7 2.7 0 1 1-.1 0z')}
+      {S('M12 8.8a3.2 3.2 0 1 1-.1 0zM12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7')}
+    </>
+  ),
+  shield: (
+    <>
+      {A('M12 4.2v15.6c3.8-1.2 6.4-4 6.4-8.2V6.6z')}
+      {S('M12 3.2 19.2 6v5.5c0 4.7-3 7.9-7.2 9.3-4.2-1.4-7.2-4.6-7.2-9.3V6zM9 12l2.2 2.2L15.4 10')}
+    </>
+  ),
+  sprout: (
+    <>
+      {A('M12 12.5C11.6 8 8.6 5.6 4.2 5.6c0 4.3 3.1 6.9 7.8 6.9z')}
+      {S('M12 21v-8.6M12 12.4C12 7.8 8.8 5.5 4.2 5.5c0 4.3 3.1 6.9 7.8 6.9zM12 10.3c0-3.8 2.8-6 7.8-6 0 3.9-2.9 6-7.8 6zM8 21h8')}
+    </>
+  ),
+  assistant: (
+    <>
+      {A('M12 4.2l1.5 4.2 4.3 1.5-4.3 1.5L12 15.6l-1.5-4.2L6.2 9.9l4.3-1.5z')}
+      {S('M12 3l1.8 5.1 5.1 1.8-5.1 1.8L12 16.8l-1.8-5.1-5.1-1.8 5.1-1.8zM18.6 15.2l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7z')}
+    </>
+  ),
+  send: (
+    <>
+      {A('M5 11.6 19 5l-5.5 14z')}
+      {S('M4 11.8 20 4l-6.2 16.2-2.3-6.7zM11.5 13.5 20 4')}
+    </>
+  ),
+  close: S('M6.5 6.5l11 11M17.5 6.5l-11 11'),
+  menu: S('M4 7.5h16M4 12h11M4 16.5h16'),
+  more: (
+    <>
+      {A('M5 10.5h3v3H5z')}
+      {S('M6.5 10.4a1.6 1.6 0 1 1-.1 0zM12 10.4a1.6 1.6 0 1 1-.1 0zM17.5 10.4a1.6 1.6 0 1 1-.1 0z')}
+    </>
+  ),
+  plus: S('M12 5v14M5 12h14'),
+  check: S('M5 12.5l4.6 4.5L19 7.5'),
+  info: (
+    <>
+      {A('M12 10.5h.5v6H12z')}
+      {S('M12 20.6a8.6 8.6 0 1 1 .1 0zM12 11v5.6M12 7.6h.01')}
+    </>
+  ),
+  warn: (
+    <>
+      {A('M12 5 20 19.4H4z')}
+      {S('M12 3.6 21.2 20H2.8zM12 10v4.6M12 17.2h.01')}
+    </>
+  ),
+  external: S('M14 4h6v6M20 4l-8.6 8.6M18.2 14v6H4V5.8h6'),
+  download: (
+    <>
+      {A('M5 18h14v2.4H5z')}
+      {S('M12 4v11M7.2 10.4 12 15.2l4.8-4.8M4.6 19.8h14.8')}
+    </>
+  ),
+  upload: S('M12 20V9M7.2 13.6 12 8.8l4.8 4.8M4.6 4.2h14.8'),
+  camera: (
+    <>
+      {A('M12 10a3 3 0 1 1-.1 0z')}
+      {S('M4 8h3.2l1.8-2.8h6l1.8 2.8H20v11H4zM12 9.4a3.6 3.6 0 1 1-.1 0z')}
+    </>
+  ),
+  pin: (
+    <>
+      {A('M12 7.6a2.2 2.2 0 1 1-.1 0z')}
+      {S('M12 21s-6.6-6-6.6-11.6a6.6 6.6 0 0 1 13.2 0C18.6 15 12 21 12 21zM12 7a2.4 2.4 0 1 1-.1 0z')}
+    </>
+  ),
+  trash: S('M4.5 7h15M10 11v6M14 11v6M6.4 7l1 13h9.2l1-13M9.2 7V4.2h5.6V7'),
+  edit: (
+    <>
+      {A('M15 5.6l3.4 3.4-1.6 1.6-3.4-3.4z')}
+      {S('M4 20h4.2L19.4 8.8 15.2 4.6 4 15.8zM13.4 6.4l4.2 4.2')}
+    </>
+  ),
+  chevron: S('M9.5 6l6 6-6 6'),
+  back: S('M14.5 6l-6 6 6 6'),
+  search: (
+    <>
+      {A('M10.6 5.6a5 5 0 1 1-.1 0z')}
+      {S('M10.6 4.2a6.4 6.4 0 1 1-.1 0zM15.4 15.4 20 20')}
+    </>
+  ),
+  print: S('M7 9V3.6h10V9M7 17H4v-7.4h16V17h-3M7 13.6h10v7H7z'),
+  play: (
+    <>
+      {A('M8 6.2 18 12 8 17.8z')}
+      {S('M7.2 4.6 19.2 12 7.2 19.4z')}
+    </>
+  ),
+  keyboard: S('M3 6.4h18v11.2H3zM7 10h.01M11 10h.01M15 10h.01M17.6 10h.01M7.4 14h9.2'),
+  sun: (
+    <>
+      {A('M12 8a4 4 0 1 1-.1 0z')}
+      {S('M12 7.2a4.8 4.8 0 1 1-.1 0zM12 1.8v2.4M12 19.8v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7')}
+    </>
+  ),
+  moon: (
+    <>
+      {A('M19.5 13.5A8 8 0 0 1 10.5 4.5a7.6 7.6 0 1 0 9 9z')}
+      {S('M20.6 13.2A8.6 8.6 0 1 1 10.8 3.4a6.8 6.8 0 0 0 9.8 9.8z')}
+    </>
+  ),
+  globe: (
+    <>
+      {A('M12 3.6c2.6 2.6 2.6 14.2 0 16.8-2.6-2.6-2.6-14.2 0-16.8z')}
+      {S('M12 20.6a8.6 8.6 0 1 1 .1 0zM3.4 12h17.2M12 3.4c3.2 3.4 3.2 13.8 0 17.2M12 3.4c-3.2 3.4-3.2 13.8 0 17.2')}
+    </>
+  ),
+  undo: S('M9 14.2 4 9.2l5-5M4.2 9.2H14a6 6 0 0 1 0 12h-3'),
+  wind: (
+    <>
+      {A('M3 9h11a2.5 2.5 0 1 0-2.4-3.2')}
+      {S('M3 9h11a2.6 2.6 0 1 0-2.5-3.3M3 13h15a2.8 2.8 0 1 1-2.7 3.6M3 17h7')}
+    </>
+  ),
+  drop: (
+    <>
+      {A('M12 5.4c2.2 3 4.6 6 4.6 8.6a4.6 4.6 0 0 1-9.2 0c0-2.6 2.4-5.6 4.6-8.6z')}
+      {S('M12 3.4c2.8 3.6 5.8 7.2 5.8 10.6a5.8 5.8 0 0 1-11.6 0C6.2 10.6 9.2 7 12 3.4z')}
+    </>
+  ),
+  sparkle: S('M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.4 2.4M15.6 15.6 18 18M6 18l2.4-2.4M15.6 8.4 18 6'),
+  map: (
+    <>
+      {A('M8.5 9.5c1.5-2 4-2 5.5-.5 1.2 1.2.4 3.6-1.6 4.4-2 .8-4.5-1.6-3.9-3.9z')}
+      {S('M3.5 6.8 9 4.6l6 2.2 5.5-2.1v12.6L15 19.5l-6-2.2-5.5 2.1z')}
+    </>
+  ),
+  gauge: (
+    <>
+      {A('M5 16a7 7 0 0 1 14 0z')}
+      {S('M3.6 17a8.4 8.4 0 1 1 16.8 0M12 17l4-5.4M12 17.6a.6.6 0 1 1 0-1.2')}
+    </>
+  ),
+  satellite: (
+    <>
+      {A('M9.5 9.5l5 5-2 2-5-5z')}
+      {S('M8 8l5.2 5.2-2.8 2.8L5.2 10.8zM13.2 8.4l2.4-2.4 2.4 2.4-2.4 2.4M5.6 15.6l2.8 2.8M3.6 19.8a5 5 0 0 0 4.8-4.8M16.4 3.6a4 4 0 0 1 4 4')}
+    </>
+  ),
+  trend: (
+    <>
+      {A('M4 20V14l4.5-3.5 4 2.6L20 6v14z')}
+      {S('M4 14.2l4.6-3.6 4 2.6L20 6.4M15.6 6.4H20v4.4M4 20h16')}
+    </>
+  ),
+  calendar: (
+    <>
+      {A('M7.5 12.5h3v3h-3z')}
+      {S('M4 5.6h16V20H4zM4 9.6h16M8 3.6v3.6M16 3.6v3.6M13.5 13.5h3M7.5 16.5h3')}
+    </>
+  ),
+  about: (
+    <>
+      {A('M12 4.5c3.8 0 7 2.4 7 6.5 0 3.4-2.7 6-6.4 6.4L8.2 20v-3.1C6 15.8 5 13.6 5 11c0-4.1 3.2-6.5 7-6.5z')}
+      {S('M12 3.6c4.4 0 8 2.9 8 7.4s-3.6 7.3-8 7.3h-.6L7.6 21v-3.4C5.4 16.3 4 14 4 11c0-4.5 3.6-7.4 8-7.4zM9 9.6h6M9 12.6h4')}
+    </>
+  ),
 };
 
-export type IconName = keyof typeof PATHS;
+export type IconName = keyof typeof ICONS;
 
-export function Icon({ name, size = 20, title, className }: { name: IconName | string; size?: number; title?: string; className?: string }) {
+export function Icon({ name, size = 22, title, className }: { name: IconName | string; size?: number; title?: string; className?: string }) {
   return (
     <svg
       width={size}
@@ -50,27 +245,53 @@ export function Icon({ name, size = 20, title, className }: { name: IconName | s
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.8}
+      strokeWidth={1.6}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden={title ? undefined : true}
       role={title ? 'img' : undefined}
       className={className}
+      style={{ flex: 'none' }}
     >
       {title && <title>{title}</title>}
-      <path d={PATHS[name] ?? PATHS.info} />
+      {ICONS[name] ?? ICONS.info}
     </svg>
   );
 }
 
-/** The brand mark: a meadow under a rain line, drawn like a field-notebook stamp. */
-export function BrandMark() {
+/** Small hand-drawn meadow plants for empty states and margins. */
+export function MeadowPlants({ width = 180 }: { width?: number }) {
   return (
-    <svg className="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
-      <circle cx="20" cy="20" r="19" fill="var(--meadow)" />
-      <path d="M6 27c5-3 9-3 14 0s9 3 14 0" stroke="var(--paper)" strokeWidth="2" fill="none" strokeLinecap="round" />
-      <path d="M12 26v-7M16 25v-9M20 26v-11M24 25v-8M28 26v-6" stroke="var(--hay)" strokeWidth="2" strokeLinecap="round" />
-      <path d="M11 11l-1 2M17 9l-1 2M23 9l-1 2M29 11l-1 2" stroke="var(--paper)" strokeWidth="1.6" strokeLinecap="round" />
+    <svg className="art" width={width} height={width * 0.5} viewBox="0 0 180 90" fill="none" strokeLinecap="round" aria-hidden="true">
+      <path d="M8 86h164" stroke="var(--rule-strong)" strokeWidth="1.4" />
+      {/* yarrow (raudrohi) */}
+      <g stroke="var(--primary)" strokeWidth="1.5">
+        <path d="M40 86c0-18 1-34 3-48M43 50l-9-7M42 64l9-5" />
+      </g>
+      <g fill="var(--birch)" stroke="var(--ink-3)" strokeWidth="0.8">
+        {[[36, 36], [41, 32], [46, 35], [43, 39], [38, 40], [48, 40]].map(([x, y], i) => (
+          <circle key={i} cx={x} cy={y} r="3" />
+        ))}
+      </g>
+      {/* quaking grass (värihein) */}
+      <g stroke="var(--primary)" strokeWidth="1.4">
+        <path d="M92 86c1-22-2-40 4-62M96 42c6-4 10-4 14-2M95 32c-5-3-9-3-12 0M97 54c5-2 8 0 10 3" />
+      </g>
+      <g fill="var(--hay)">
+        <ellipse cx="111" cy="41" rx="3" ry="4.4" />
+        <ellipse cx="82" cy="33" rx="2.8" ry="4" />
+        <ellipse cx="108" cy="58" rx="2.6" ry="3.8" />
+        <ellipse cx="96" cy="22" rx="2.6" ry="4" />
+      </g>
+      {/* harebell (kellukas) */}
+      <g stroke="var(--primary)" strokeWidth="1.4">
+        <path d="M140 86c0-20 2-34 8-46M147 42c3 1 5 4 5 7" />
+      </g>
+      <path d="M147 48c-4 0-7 3-7 8l3-1 2 2 2-2 2 2 2-2 3 1c0-5-3-8-7-8z" fill="var(--seaglass)" />
+      {/* grass tufts */}
+      <g stroke="var(--hay)" strokeWidth="1.3">
+        <path d="M18 86l3-14 2 14M22 86l6-12M64 86l-2-16 4 16M68 86l5-10M124 86l2-13 2 13M160 86l3-15 1 15M165 86l4-9" />
+      </g>
     </svg>
   );
 }

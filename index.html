@@ -4,15 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Pärandniidu abiline / Grassland Assistant — rules, work log, weather evidence and proof reports for Estonian semi-natural grasslands. Decision support only." />
-    <meta name="theme-color" content="#2f5d34" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141a16" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#1e3a2c" />
     <meta name="referrer" content="no-referrer" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <title>Pärandniidu abiline · Grassland Assistant</title>
+    <style>
+      /* Static first paint: shown while the app's JavaScript loads, replaced on mount. */
+      html,
+      body {
+        margin: 0;
+        background: #1e3a2c;
+      }
+      .boot-shell {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(#24423a 0 22%, #5e9c94 22% 23.5%, #3b6343 23.5%, #1e3a2c 100%);
+        color: #eef1ec;
+        font: 400 1.05rem/1.4 Georgia, 'Iowan Old Style', serif;
+        text-align: center;
+      }
+      .boot-shell strong {
+        display: block;
+        font-weight: 400;
+        font-size: 1.9rem;
+        letter-spacing: -0.02em;
+      }
+    </style>
   </head>
   <body>
     <noscript>This app needs JavaScript. / See rakendus vajab JavaScripti.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-shell" aria-busy="true">
+        <div>
+          <svg width="52" height="52" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M20 37C11 33 6 25 7 15 15 13 23 16 27 24 27 15 30 8 36 4 38 15 35 27 26 34 24 36 22 37 20 37Z" fill="#eef1ec" />
+            <path d="M20 37c0-7 1-13 5-19" stroke="#d4a03a" stroke-width="1.6" fill="none" stroke-linecap="round" />
+          </svg>
+          <strong>Pärandniidu abiline</strong>
+          Grassland Assistant
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

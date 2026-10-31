@@ -63,7 +63,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     if (settings.theme === 'system') root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', settings.theme);
-  }, [settings.lang, settings.theme]);
+    root.setAttribute('data-effects', settings.effects);
+  }, [settings.lang, settings.theme, settings.effects]);
 
   const lang = settings.lang;
   const t = useCallback((key: MessageKey | string, vars?: Vars) => translate(lang, key, vars), [lang]);

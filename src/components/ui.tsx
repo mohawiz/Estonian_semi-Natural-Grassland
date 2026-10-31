@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../app/store';
 import { formatArea } from '../lib/units';
-import { Icon } from './Icon';
+import { Icon, MeadowPlants } from './Icon';
 
 export function PageHeader({ title, subtitle, crumbs = [], actions, badge, home }: { title: string; subtitle?: string; crumbs?: { label: string; to?: string }[]; actions?: ReactNode; badge?: ReactNode; home?: boolean }) {
   const { t } = useApp();
@@ -68,10 +68,14 @@ export function HelpTip({ text, label }: { text: string; label?: string }) {
   );
 }
 
-export function EmptyState({ icon = 'sprout', title, body, action }: { icon?: string; title: string; body: string; action?: ReactNode }) {
+export function EmptyState({ icon, title, body, action, art }: { icon?: string; title: string; body: string; action?: ReactNode; art?: ReactNode }) {
   return (
     <div className="empty">
-      <Icon name={icon} size={36} />
+      {art ?? (
+        <span style={{ color: 'var(--primary)', display: 'inline-block', marginBottom: 4 }}>
+          {icon ? <Icon name={icon} size={40} /> : <MeadowPlants width={150} />}
+        </span>
+      )}
       <h2>{title}</h2>
       <p>{body}</p>
       {action}

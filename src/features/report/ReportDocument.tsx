@@ -49,7 +49,7 @@ export function ReportDocument({ report }: { report: ProofReport }) {
             {r.farm.registryCode ? ` (${r.farm.registryCode})` : ''}
           </dd>
           <dt>{t('report.date')}</dt>
-          <dd>{f(r.generatedAt.slice(0, 10))}</dd>
+          <dd>{formatDate(r.generatedAt, lang, { day: 'numeric', month: 'short', year: 'numeric' })}</dd>
         </dl>
       </header>
 

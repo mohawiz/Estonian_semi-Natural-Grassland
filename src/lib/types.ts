@@ -84,6 +84,8 @@ export interface ChecklistState {
 export interface Settings {
   lang: Lang;
   theme: 'system' | 'light' | 'dark';
+  /** Living-meadow animation and motion; 'reduced' also applies when the OS asks for reduced motion. */
+  effects: 'full' | 'reduced';
   welcomeDone: boolean;
   tourDone: boolean;
   /** Working-day window for notifying exceptional circumstances. PRIA's figure; unverified for the Environmental Board. */

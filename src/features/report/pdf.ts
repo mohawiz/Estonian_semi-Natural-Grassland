@@ -1,9 +1,9 @@
-// PDF export with jsPDF. Fonts are embedded TTFs (IBM Plex Sans, Source Serif 4)
+// PDF export with jsPDF. Fonts are embedded TTFs (Atkinson Hyperlegible Next, Newsreader)
 // so Estonian letters (õ ä ö ü š ž) render correctly. The weather chart is drawn
 // natively from the data, so it stays sharp and needs no screenshotting.
-import plexRegular from '@expo-google-fonts/ibm-plex-sans/400Regular/IBMPlexSans_400Regular.ttf?url';
-import plexBold from '@expo-google-fonts/ibm-plex-sans/600SemiBold/IBMPlexSans_600SemiBold.ttf?url';
-import serifBold from '@expo-google-fonts/source-serif-4/600SemiBold/SourceSerif4_600SemiBold.ttf?url';
+import plexRegular from '@expo-google-fonts/atkinson-hyperlegible-next/400Regular/AtkinsonHyperlegibleNext_400Regular.ttf?url';
+import plexBold from '@expo-google-fonts/atkinson-hyperlegible-next/700Bold/AtkinsonHyperlegibleNext_700Bold.ttf?url';
+import serifBold from '@expo-google-fonts/newsreader/500Medium/Newsreader_500Medium.ttf?url';
 import type { jsPDF as JsPDF } from 'jspdf';
 import { translate } from '../../i18n';
 import { formatDate } from '../../lib/dates';
@@ -13,17 +13,19 @@ import { getDocument } from '../../services/library';
 import type { ProofReport } from '../../services/report';
 import { HEAVY_DAY_MM, summarizeWeather } from '../../services/weather';
 
+// The Living Meadow palette, print-tuned.
 const C = {
-  ink: [29, 38, 32] as const,
-  ink2: [72, 83, 75] as const,
-  ink3: [106, 115, 107] as const,
-  rule: [216, 209, 191] as const,
-  meadow: [47, 93, 52] as const,
-  hay: [183, 134, 27] as const,
-  hayBand: [248, 236, 205] as const,
-  rain: [45, 95, 139] as const,
-  heat: [180, 83, 42] as const,
-  soil: [107, 79, 42] as const,
+  ink: [23, 37, 29] as const,
+  ink2: [63, 75, 68] as const,
+  ink3: [92, 103, 96] as const,
+  rule: [211, 219, 210] as const,
+  meadow: [30, 58, 44] as const, // bog green
+  hay: [212, 160, 58] as const, // hay amber
+  hayBand: [247, 236, 210] as const,
+  rain: [61, 127, 120] as const, // sea-glass, deepened for print
+  heat: [184, 100, 42] as const,
+  soil: [107, 74, 46] as const, // peat
+  lingon: [179, 49, 61] as const,
 };
 
 async function toBase64(url: string): Promise<string> {
@@ -123,7 +125,7 @@ export async function buildPdf(report: ProofReport, lang: Lang): Promise<Blob> {
     y += 10;
   }
   text(tr('app.name').toUpperCase(), { size: 8, bold: true, c: C.ink3, gap: 0.5 });
-  text(tr('report.docTitle'), { size: 17, serif: true, gap: 2 });
+  text(tr('report.docTitle'), { size: 22, serif: true, gap: 3 });
   doc.setDrawColor(...C.meadow);
   doc.setLineWidth(0.6);
   doc.line(M, y, W - M, y);
@@ -131,7 +133,7 @@ export async function buildPdf(report: ProofReport, lang: Lang): Promise<Blob> {
   y += 4;
   kv(tr('report.to'), tr('report.toBoard'));
   kv(tr('report.from'), `${report.input.farmerName || report.farm.owner || '—'}, ${report.farm.name}${report.farm.registryCode ? ` (${report.farm.registryCode})` : ''}`);
-  kv(tr('report.date'), f(report.generatedAt.slice(0, 10)));
+  kv(tr('report.date'), formatDate(report.generatedAt, lang, { day: 'numeric', month: 'short', year: 'numeric' }));
 
   heading(tr('report.sectionParcel'));
   text(`${report.parcel.name}${report.parcel.code ? ` (${report.parcel.code})` : ''} — ${tr(`community.${report.parcel.communityType}`)}, ${formatArea(report.parcel.areaHa, lang)}. ${tr('parcels.coords')}: ${formatNumber(report.parcel.lat, lang, 4)}, ${formatNumber(report.parcel.lon, lang, 4)}.`);
@@ -235,12 +237,17 @@ export async function buildPdf(report: ProofReport, lang: Lang): Promise<Blob> {
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i++) {
     doc.setPage(i);
+    // the bog-and-hay spine used on screen
+    doc.setFillColor(...C.meadow);
+    doc.rect(0, 0, 2.6, 297 * 0.72, 'F');
+    doc.setFillColor(...C.hay);
+    doc.rect(0, 297 * 0.72, 2.6, 297 * 0.28, 'F');
     doc.setDrawColor(...C.rule);
     doc.line(M, 287, W - M, 287);
     doc.setFont('Plex', 'normal');
     doc.setFontSize(7.5);
     color(C.ink3);
-    doc.text(tr('report.generatedBy', { date: f(report.generatedAt.slice(0, 10)) }) + (report.isDemo ? ` · ${tr('report.demoWatermark')}` : ''), M, 291);
+    doc.text(tr('report.generatedBy', { date: formatDate(report.generatedAt, lang, { day: 'numeric', month: 'short', year: 'numeric' }) }) + (report.isDemo ? ` · ${tr('report.demoWatermark')}` : ''), M, 291);
     doc.text(tr('report.pageOf', { n: i, total: pages }), W - M, 291, { align: 'right' });
   }
   return doc.output('blob');
@@ -269,14 +276,14 @@ function drawChart(doc: JsPDF, days: { date: string; precipitationMm: number | n
   if (s >= 0 && e >= s) {
     doc.setFillColor(...C.hayBand);
     doc.rect(left + s * step, top, (e - s + 1) * step, ih, 'F');
-    doc.setDrawColor(...C.hay);
+    doc.setDrawColor(...C.lingon);
     doc.setLineDashPattern([0.8, 0.8], 0);
     doc.line(left + s * step, top, left + s * step, bottom);
     doc.line(left + (e + 1) * step, top, left + (e + 1) * step, bottom);
     doc.setLineDashPattern([], 0);
     doc.setFont('Plex', 'bold');
     doc.setFontSize(6.5);
-    doc.setTextColor(138, 95, 10);
+    doc.setTextColor(154, 38, 50);
     doc.text(tr('weather.missedBand').toUpperCase(), left + s * step + 1.5, top + 3);
   }
   // axes and grid
@@ -297,7 +304,7 @@ function drawChart(doc: JsPDF, days: { date: string; precipitationMm: number | n
   days.forEach((d, i) => {
     if (!d.precipitationMm) return;
     const bh = (d.precipitationMm / rainTop) * ih;
-    if (d.precipitationMm >= HEAVY_DAY_MM) doc.setFillColor(30, 70, 105);
+    if (d.precipitationMm >= HEAVY_DAY_MM) doc.setFillColor(37, 84, 73);
     else doc.setFillColor(...C.rain);
     doc.rect(xi(i) - bw / 2, bottom - bh, bw, bh, 'F');
   });

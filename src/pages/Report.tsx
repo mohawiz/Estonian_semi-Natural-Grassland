@@ -7,6 +7,7 @@ import { useToast } from '../components/Toast';
 import { draftJustification } from '../features/report/draft';
 import { ReportDocument } from '../features/report/ReportDocument';
 import { PhotoThumb } from '../features/photos/PhotoThumb';
+import { useMeadowWindow } from '../features/meadow/conditions';
 import { useWeather } from '../features/weather/useWeather';
 import { WeatherPanel } from '../features/weather/WeatherPanel';
 import { addDays, daysInclusive, formatDate, todayISO } from '../lib/dates';
@@ -56,6 +57,8 @@ export function ReportPage() {
   const periodOk = start <= end && start < today;
   const { state, baseline, retry } = useWeather(parcel?.lat, parcel?.lon, wStart, wEnd, !!parcel && periodOk && step !== 'setup', { start, end });
   const series = state.status === 'ready' ? state.series : null;
+  // the meadow behind the page shows the report period's weather
+  useMeadowWindow(useMemo(() => series?.days.filter((d) => d.date >= start && d.date <= end) ?? null, [series, start, end]));
 
   const affectedHa = affected ? Number(affected.replace(',', '.')) : (missed?.areaHa ?? parcel?.areaHa ?? 0);
   const rules = useMemo(() => retrieval.searchSync(ruleQueryFor(reason, plannedAction), 6).filter((h, i) => i === 0 || isConfident(h)).slice(0, 3).map((h) => h.passage), [reason, plannedAction]);

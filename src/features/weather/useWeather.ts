@@ -9,9 +9,10 @@ export type WeatherState =
   | { status: 'error'; message: string }
   | { status: 'ready'; series: WeatherSeries };
 
-export function useWeather(lat: number | undefined, lon: number | undefined, start: string, end: string, enabled = true, baselineRange?: { start: string; end: string }) {
-  const bStart = baselineRange?.start ?? start;
-  const bEnd = baselineRange?.end ?? end;
+export function useWeather(lat: number | undefined, lon: number | undefined, start: string, end: string, enabled = true, baselineRange?: { start: string; end: string } | false) {
+  const withBaseline = baselineRange !== false;
+  const bStart = (baselineRange || undefined)?.start ?? start;
+  const bEnd = (baselineRange || undefined)?.end ?? end;
   const [state, setState] = useState<WeatherState>({ status: 'idle' });
   const [baseline, setBaseline] = useState<{ status: 'idle' | 'loading' | 'error' | 'ready'; data?: WeatherBaseline }>({ status: 'idle' });
   const [nonce, setNonce] = useState(0);
@@ -22,7 +23,7 @@ export function useWeather(lat: number | undefined, lon: number | undefined, sta
     ctrl.current?.abort();
     const c = new AbortController();
     ctrl.current = c;
-    const key = `${lat.toFixed(4)},${lon.toFixed(4)}:${start}:${end}`;
+    const key = `v2:${lat.toFixed(4)},${lon.toFixed(4)}:${start}:${end}`;
     setState({ status: 'loading' });
     setBaseline({ status: 'loading' });
     (async () => {
@@ -34,6 +35,10 @@ export function useWeather(lat: number | undefined, lon: number | undefined, sta
       } catch (e) {
         if ((e as Error).name === 'AbortError') return;
         setState({ status: 'error', message: e instanceof WeatherError ? e.message : String((e as Error).message ?? e) });
+        setBaseline({ status: 'idle' });
+        return;
+      }
+      if (!withBaseline) {
         setBaseline({ status: 'idle' });
         return;
       }
@@ -49,7 +54,7 @@ export function useWeather(lat: number | undefined, lon: number | undefined, sta
       }
     })();
     return () => c.abort();
-  }, [lat, lon, start, end, enabled, nonce, bStart, bEnd]);
+  }, [lat, lon, start, end, enabled, nonce, bStart, bEnd, withBaseline]);
 
   const retry = useCallback(() => setNonce((n) => n + 1), []);
   return { state, baseline, retry };

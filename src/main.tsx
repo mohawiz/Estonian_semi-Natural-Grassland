@@ -1,12 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource/ibm-plex-sans/latin-ext-400.css';
-import '@fontsource/ibm-plex-sans/latin-ext-500.css';
-import '@fontsource/ibm-plex-sans/latin-ext-600.css';
-import '@fontsource/ibm-plex-sans/latin-400.css';
-import '@fontsource/ibm-plex-sans/latin-500.css';
-import '@fontsource/ibm-plex-sans/latin-600.css';
-import '@fontsource-variable/source-serif-4/index.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/atkinson-hyperlegible-next/index.css';
 import './styles/app.css';
 import { App } from './app/App';
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApp } from '../app/store';
 import { EmptyState, PageHeader } from '../components/ui';
+import { useMeadowWindow } from '../features/meadow/conditions';
 import { useWeather } from '../features/weather/useWeather';
 import { WeatherPanel } from '../features/weather/WeatherPanel';
 import { addDays, todayISO } from '../lib/dates';
@@ -17,6 +18,7 @@ export function WeatherPage() {
   const [query, setQuery] = useState<{ id: string; start: string; end: string } | null>(parcelId ? { id: parcelId, start, end } : null);
   const parcel = data.parcels.find((p) => p.id === query?.id);
   const { state, baseline, retry } = useWeather(parcel?.lat, parcel?.lon, query?.start ?? '', query?.end ?? '', !!parcel);
+  useMeadowWindow(state.status === 'ready' ? state.series.days : null);
   const band = missed && query?.id === missed.parcelId ? { start: missed.date, end: missed.endDate ?? missed.date } : null;
 
   if (!data.parcels.length)

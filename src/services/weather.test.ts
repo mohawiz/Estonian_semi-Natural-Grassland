@@ -26,7 +26,7 @@ describe('summarizeWeather', () => {
 describe('Open-Meteo parsing', () => {
   it('maps the daily arrays', () => {
     const s = parseOpenMeteoDaily({ latitude: 58.73, longitude: 23.85, daily: { time: ['2026-07-01'], precipitation_sum: [1.4], temperature_2m_max: [20], temperature_2m_min: [10], soil_moisture_0_to_7cm_mean: [0.3] } }, 58.7346, 23.853, '2026-07-01', '2026-07-01');
-    expect(s.days[0]).toEqual({ date: '2026-07-01', precipitationMm: 1.4, tMaxC: 20, tMinC: 10, soilMoisture: 0.3 });
+    expect(s.days[0]).toEqual({ date: '2026-07-01', precipitationMm: 1.4, tMaxC: 20, tMinC: 10, soilMoisture: 0.3, windMaxKmh: null, humidityPct: null });
     expect(s.source.licence).toMatch(/CC BY 4.0/);
   });
   it('refuses empty data instead of inventing it', () => {

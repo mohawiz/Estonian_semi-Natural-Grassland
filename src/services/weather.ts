@@ -9,6 +9,10 @@ export interface WeatherDay {
   tMinC: number | null;
   /** Volumetric soil water content, 0–7 cm, m³/m³ (modelled). */
   soilMoisture: number | null;
+  /** Daily maximum wind speed at 10 m, km/h. Drives the meadow's sway. */
+  windMaxKmh?: number | null;
+  /** Daily mean relative humidity at 2 m, %. Drives the meadow's mist. */
+  humidityPct?: number | null;
 }
 
 export interface WeatherSeries {
@@ -92,6 +96,8 @@ export function parseOpenMeteoDaily(json: any, lat: number, lon: number, start: 
     tMaxC: num(d.temperature_2m_max?.[i]),
     tMinC: num(d.temperature_2m_min?.[i]),
     soilMoisture: num(d.soil_moisture_0_to_7cm_mean?.[i]),
+    windMaxKmh: num(d.wind_speed_10m_max?.[i]),
+    humidityPct: num(d.relative_humidity_2m_mean?.[i]),
   }));
   if (days.every((x) => x.precipitationMm === null && x.tMaxC === null)) {
     throw new WeatherError('no-data', 'The weather service has no values for this period yet.');
@@ -117,7 +123,7 @@ export class OpenMeteoWeatherService implements WeatherService {
       longitude: lon.toFixed(4),
       start_date: start,
       end_date: end,
-      daily: 'precipitation_sum,temperature_2m_max,temperature_2m_min,soil_moisture_0_to_7cm_mean',
+      daily: 'precipitation_sum,temperature_2m_max,temperature_2m_min,soil_moisture_0_to_7cm_mean,wind_speed_10m_max,relative_humidity_2m_mean',
       timezone: 'Europe/Tallinn',
     });
     const json = await getJSON(`${ARCHIVE}?${q}`, signal);

@@ -76,6 +76,18 @@ export function SettingsPage() {
                 ))}
               </div>
             </fieldset>
+            <fieldset className="field">
+              <legend>{t('settings.effects')}</legend>
+              <div className="choice-row">
+                {(['full', 'reduced'] as const).map((fx) => (
+                  <label key={fx} className="choice">
+                    <input type="radio" name="effects" checked={settings.effects === fx} onChange={() => updateSettings({ effects: fx })} />
+                    <span>{t(fx === 'full' ? 'settings.effectsFull' : 'settings.effectsReduced')}</span>
+                  </label>
+                ))}
+              </div>
+              <span className="hint">{t('settings.effectsHelp')}</span>
+            </fieldset>
           </section>
           <form
             className="panel form"

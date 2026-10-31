@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../app/store';
 import { useUI } from '../../app/ui';
 import { Icon } from '../../components/Icon';
+import { BrandMark } from '../../components/motion';
 import { formatDate } from '../../lib/dates';
 import { assistant } from '../../services';
 import type { AssistantAnswer, Citation, SuggestionAction } from '../../services/assistant';
@@ -82,11 +83,9 @@ export function AssistantPanel() {
   }
 
   return (
-    <aside id="assistant-panel" className="assistant" hidden={!assistantOpen} aria-label={t('assistant.title')} data-tour="assistant">
+    <aside id="assistant-panel" className="assistant glass" hidden={!assistantOpen} aria-label={t('assistant.title')} data-tour="assistant">
       <div className="assistant-head">
-        <span className="avatar" style={{ width: 30, height: 30, borderRadius: '50%', display: 'grid', placeItems: 'center', background: 'var(--meadow)', color: 'var(--surface)' }}>
-          <Icon name="assistant" size={18} />
-        </span>
+        <BrandMark size={34} />
         <h2>{t('assistant.title')}</h2>
         {msgs.length > 0 && (
           <button className="btn btn-ghost btn-sm" onClick={() => setMsgs([])}>
@@ -146,7 +145,10 @@ export function AssistantPanel() {
                     {t('assistant.thinking')}
                   </span>
                 ) : (
-                  <div className="msg-text">{m.text}</div>
+                  <div className="msg-text">
+                    {m.text}
+                    {m.streaming && <span className="caret" aria-hidden="true" />}
+                  </div>
                 )}
                 {m.answer?.kind === 'unknown' && <p className="muted small" style={{ marginTop: 6 }}>{t('assistant.unknownHint')}</p>}
                 {m.answer && m.answer.citations.length > 0 && <Citations citations={m.answer.citations} />}
@@ -213,7 +215,8 @@ function Citations({ citations }: { citations: Citation[] }) {
       <div className="row" style={{ gap: 6 }}>
         {citations.map((c) => (
           <button key={c.n} className="cite" aria-expanded={open === c.n} aria-label={t('assistant.citationOpen', { n: c.n })} onClick={() => setOpen(open === c.n ? null : c.n)}>
-            [{c.n}] {c.document.publisher} · {c.passage.section}
+            <span className="cite-n">{c.n}</span>
+            {c.document.publisher} · {c.passage.section}
           </button>
         ))}
       </div>

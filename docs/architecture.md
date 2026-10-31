@@ -76,6 +76,12 @@ To plug it in, write `HttpAssistant implements AssistantService` that reads the 
 
 `buildReport(args): ProofReport` is a pure function, unit-tested in `report.test.ts`. A backend can produce the same `ProofReport` JSON (for example to sign it, or to submit it through an agency API if one ever exists). The screen view (`ReportDocument.tsx`) and the PDF (`pdf.ts`) both render from that object.
 
+## Interface layer: the living meadow and dashboard
+
+- `src/features/meadow/conditions.tsx`: pages publish the weather window they show (`useMeadowWindow(days)`). The provider turns it into wind, humidity, rain and wet-day share, and decides whether effects are reduced (setting, OS preference or `?effects=reduced`).
+- `src/features/meadow/MeadowCanvas.tsx`: one 2D canvas. Blades are batched into 12 strokes per frame. It draws only the region not covered by the opaque content sheet, renders at 0.75× on phones, runs at 30 fps on phones, pauses in hidden tabs, and wakes after the page is idle.
+- `src/services/risk.ts` (gauge) and `src/services/satelliteDemo.ts` (simulated detections, demo only) are pure and unit-tested. A backend could replace the satellite source with real area-monitoring data if PRIA ever makes it available.
+
 ## Data model (IndexedDB, `src/services/db.ts`)
 
 `farms`, `parcels` (areas stored in hectares, plus coordinates), `entries` (mowing, grazing, missed; missed entries hold the planned action, reason and window), `photos` (JPEG blob plus EXIF date and GPS, or browser location the user agreed to share), `checklists`, `reports` (saved inputs; the report itself is rebuilt from current data), `settings`, and `weatherCache` (7-day TTL).

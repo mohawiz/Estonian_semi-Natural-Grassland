@@ -37,6 +37,7 @@ export function db(): Promise<IDBPDatabase<GrasslandDB>> {
 export const DEFAULT_SETTINGS: Settings = {
   lang: 'et',
   theme: 'system',
+  effects: 'full',
   welcomeDone: false,
   tourDone: false,
   noticeWorkingDays: 15,
