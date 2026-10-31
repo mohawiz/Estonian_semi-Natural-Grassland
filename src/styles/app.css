@@ -79,8 +79,8 @@
     --hay-ink: #e7bd62;
     --hay-tint: #3a3020;
     --hay-band: rgba(231, 189, 98, 0.16);
-    --lingon-ink: #f0959c;
-    --lingon-tint: #3d2226;
+    --lingon-ink: #ffb8bd;
+    --lingon-tint: #4d252b;
     --ok: #9ccdb0;
     --ok-tint: #1f3a2b;
     --rain: #7cc2b8;
@@ -112,8 +112,8 @@
   --hay-ink: #e7bd62;
   --hay-tint: #3a3020;
   --hay-band: rgba(231, 189, 98, 0.16);
-  --lingon-ink: #f0959c;
-  --lingon-tint: #3d2226;
+  --lingon-ink: #ffb8bd;
+  --lingon-tint: #4d252b;
   --ok: #9ccdb0;
   --ok-tint: #1f3a2b;
   --rain: #7cc2b8;
@@ -340,6 +340,8 @@ img {
   font-weight: 650;
   line-height: 1.15;
   text-align: center;
+  hyphens: manual;
+  overflow-wrap: anywhere;
   transition: color 0.2s var(--ease);
 }
 .nav a svg {
@@ -547,6 +549,10 @@ img {
 .grid-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+/* grid gaps space the columns; the stacked-panel margin would push the second one down */
+.grid > .panel + .panel {
+  margin-top: 0;
+}
 .grid-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -707,9 +713,20 @@ img {
 }
 .field {
   display: grid;
+  align-content: start;
   gap: 6px;
   position: relative;
   min-width: 0;
+}
+/* a read-only value that lines up with the inputs beside it */
+.field-value {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px dashed var(--rule-strong);
+  color: var(--ink);
 }
 .field > label,
 .field > .label,
@@ -736,7 +753,7 @@ input[type='search'],
 select,
 textarea {
   width: 100%;
-  min-height: 46px;
+  min-height: 48px;
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid var(--rule-strong);
@@ -854,6 +871,7 @@ fieldset {
 .badge-warn {
   background: var(--lingon-tint);
   color: var(--lingon-ink);
+  border-color: color-mix(in srgb, var(--lingon) 60%, transparent);
 }
 .badge-ok {
   background: var(--ok-tint);
@@ -1125,12 +1143,12 @@ fieldset {
   z-index: 1;
   min-height: 100dvh;
   display: grid;
-  align-items: end;
+  align-items: center;
   padding: 16px;
 }
 .welcome-card {
   width: min(640px, 100%);
-  margin: 0 auto 4vh;
+  margin: 0 auto;
   border-radius: 34px 10px 34px 34px;
   padding: clamp(22px, 4vw, 40px);
 }
@@ -1481,6 +1499,7 @@ fieldset {
 .legend {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 6px 14px;
   font-size: 0.82rem;
   color: var(--ink-2);
@@ -1494,15 +1513,19 @@ fieldset {
   vertical-align: middle;
   border-radius: 3px;
 }
+.legend > * {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 3px 9px;
+  border: 1px solid transparent;
+}
 .legend button {
   background: none;
-  border: 1px solid transparent;
   border-radius: 999px;
-  padding: 3px 9px;
   color: inherit;
   font: inherit;
   cursor: pointer;
-  min-height: 30px;
 }
 .legend button[aria-pressed='false'] {
   opacity: 0.5;

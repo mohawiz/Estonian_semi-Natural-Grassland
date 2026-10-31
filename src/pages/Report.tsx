@@ -274,7 +274,7 @@ export function ReportPage() {
                 <span className="label">
                   {t('report.durationHelp').split(':')[0]} <HelpTip text={t('report.durationHelp')} />
                 </span>
-                <span style={{ paddingTop: 8 }}>{t('log.days', { n: periodDays })}</span>
+                <span className="field-value">{t('log.days', { n: periodDays })}</span>
               </div>
             </div>
             <div className="field">

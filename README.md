@@ -1,4 +1,4 @@
-# Pärandniidu abiline · Grassland Assistant
+# Pärandniitude abiline · Grassland Assistant
 
 A decision-support prototype for Estonian farmers who maintain semi-natural grasslands (heritage meadows, *pärandniidud*). It helps them:
 
