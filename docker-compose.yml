@@ -1,0 +1,44 @@
+# Everything locally with Docker: Postgres + pgvector, the RAG API and the web app.
+#   1. cp backend/.env.example backend/.env   and set GROQ_API_KEY
+#   2. docker compose up --build
+#   3. open http://localhost:8080   (API: http://localhost:8787/api/health)
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: grassland
+      POSTGRES_PASSWORD: grassland
+      POSTGRES_DB: grassland
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U grassland']
+      interval: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file: backend/.env
+    environment:
+      DATABASE_URL: postgresql://grassland:grassland@db:5432/grassland
+      ALLOWED_ORIGINS: http://localhost:8080,http://localhost:5173
+    ports:
+      - '8787:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      args:
+        VITE_ASSISTANT_API_URL: http://localhost:8787
+    ports:
+      - '8080:80'
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

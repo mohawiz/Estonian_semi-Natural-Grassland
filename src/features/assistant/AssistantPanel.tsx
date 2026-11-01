@@ -6,7 +6,7 @@ import { Icon } from '../../components/Icon';
 import { BrandMark } from '../../components/motion';
 import { formatDate } from '../../lib/dates';
 import { assistant } from '../../services';
-import type { AssistantAnswer, Citation, SuggestionAction } from '../../services/assistant';
+import type { AssistantAnswer, ChatTurn, Citation, SuggestionAction } from '../../services/assistant';
 
 interface Msg {
   id: number;
@@ -70,8 +70,11 @@ export function AssistantPanel() {
     nextId.current += 2;
     const ctrl = new AbortController();
     abortRef.current = ctrl;
+    const history: ChatTurn[] = msgs
+      .filter((m) => m.text && !m.streaming)
+      .map((m) => ({ role: m.role === 'user' ? 'user' : 'assistant', text: m.text }));
     try {
-      for await (const ev of assistant.ask(q, lang, ctrl.signal)) {
+      for await (const ev of assistant.ask(q, lang, ctrl.signal, history)) {
         if (ev.type === 'token') setMsgs((m) => m.map((x) => (x.id === botId ? { ...x, text: x.text + ev.text } : x)));
         else setMsgs((m) => m.map((x) => (x.id === botId ? { ...x, text: ev.answer.text, answer: ev.answer, streaming: false } : x)));
       }
@@ -152,6 +155,8 @@ export function AssistantPanel() {
                 )}
                 {m.answer?.kind === 'unknown' && <p className="muted small" style={{ marginTop: 6 }}>{t('assistant.unknownHint')}</p>}
                 {m.answer && m.answer.citations.length > 0 && <Citations citations={m.answer.citations} />}
+                {m.answer?.mode === 'ai' && m.answer.citations.length > 0 && <p className="muted small" style={{ marginTop: 6 }}>{t('assistant.aiCaveat')}</p>}
+                {m.answer?.note && <p className="muted small" style={{ marginTop: 6 }}>{m.answer.note}</p>}
                 {m.answer && m.answer.suggestions.length > 0 && (
                   <div className="suggest">
                     {m.answer.suggestions.map((s) => (

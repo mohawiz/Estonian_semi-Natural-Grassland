@@ -388,6 +388,9 @@ export const en = {
     summaryNote: 'Summary written for this tool. The original text is authoritative.',
   },
   assistant: {
+    aiCaveat: 'AI-written answer based only on the cited sources. Check the originals before relying on it.',
+    fallbackNote: 'The AI assistant is not reachable right now, so this answer comes from keyword search.',
+    busyNote: 'The AI assistant is busy. Try again in a minute; meanwhile this answer comes from keyword search.',
     title: 'Assistant',
     open: 'Ask the assistant',
     close: 'Close assistant',
@@ -531,6 +534,7 @@ export const en = {
     tutorialsReset: 'Tutorials reset',
   },
   privacy: {
+    pAi: 'When you ask the assistant a question, the question text (never your farm data) is sent to this project’s assistant server and to Groq (groq.com), which runs the language model. Questions are not stored by the server.',
     title: 'Privacy',
     intro: 'This prototype is built so that your farm data stays with you.',
     p1: 'Your plots, log entries, photos, checklists and reports are stored only in this browser’s storage (IndexedDB) on this device. There is no account, no server and no tracking or analytics.',

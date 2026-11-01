@@ -1,0 +1,19 @@
+[
+  { "q": "Mis saab, kui vääramatu jõu tõttu ei saa kohustust jätkata?", "expect": ["rt-niit-maarus-79-p5", "pria-abiks-taotlejale-2026-p5", "eurlex-2021-2116-p1", "keskkonnaamet-niit-koolitus-2026-p1"] },
+  { "q": "Kui mitme tööpäeva jooksul tuleb PRIA-t vääramatust jõust teavitada?", "expect": ["pria-abiks-taotlejale-2026-p6"] },
+  { "q": "How soon must I notify PRIA about force majeure?", "expect": ["pria-abiks-taotlejale-2026-p6"] },
+  { "q": "How long is the commitment period for new commitments from 2026?", "expect": ["rt-niit-maarus-79-p2", "pria-niit-2026-p1"] },
+  { "q": "Mis kuupäevaks peab rannaniidul karjatamine algama?", "expect": ["rt-niit-maarus-79-p11"] },
+  { "q": "How are breaches assessed: severity, extent and duration?", "expect": ["pria-niit-hindamismaatriksid-2026-p1", "pria-abiks-taotlejale-2026-p7", "pria-abiks-taotlejale-2026-p9", "pria-nouete-rikkumise-hindamise-alused-p1", "eurlex-2021-2116-p2"] },
+  { "q": "When do I have to tell the Environmental Board before mowing?", "expect": ["keskkonnaamet-niit-koolitus-2026-p2", "rt-niit-maarus-79-p10"] },
+  { "q": "Mis juhtub, kui hein jääb maha ja ala pole 1. septembriks niidetud?", "expect": ["pria-niit-hindamismaatriksid-2026-p4"] },
+  { "q": "What is a rest year?", "expect": ["rt-niit-maarus-79-p8", "keskkonnaamet-korraldus-puhkeaasta-p2"] },
+  { "q": "when and how can they demand for theyre money back if the conditions are not met", "expect": ["pria-abiks-taotlejale-2026-p10"] },
+  { "q": "millal nõutakse toetus tagasi", "expect": ["pria-abiks-taotlejale-2026-p10"] },
+  { "q": "What if weather stops me mowing?", "expect": ["rt-niit-maarus-79-p5", "pria-abiks-taotlejale-2026-p5", "pria-abiks-taotlejale-2026-p6", "eurlex-2021-2116-p1", "keskkonnaamet-niit-koolitus-2026-p1"] },
+  { "q": "Mis saab, kui ilm ei lase niita?", "expect": ["rt-niit-maarus-79-p5", "pria-abiks-taotlejale-2026-p5", "pria-abiks-taotlejale-2026-p6", "eurlex-2021-2116-p1", "keskkonnaamet-niit-koolitus-2026-p1"] },
+  { "q": "How long must I keep maintaining the grassland?", "expect": ["rt-niit-maarus-79-p1", "rt-niit-maarus-79-p2", "pria-niit-2026-p1"] },
+  { "q": "Kui kaua pean ala hooldama?", "expect": ["rt-niit-maarus-79-p1", "rt-niit-maarus-79-p2", "pria-niit-2026-p1"] },
+  { "q": "Can I mow a coastal meadow before grazing?", "expect": ["rt-niit-maarus-79-p12", "rt-niit-maarus-79-p11"] },
+  { "q": "How much money do I get per hectare for mowing?", "expect": ["rt-niit-maarus-79-p4"] }
+]

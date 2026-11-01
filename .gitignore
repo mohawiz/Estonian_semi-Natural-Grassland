@@ -5,3 +5,9 @@ dist
 .vercel
 .netlify
 coverage
+# backend
+backend/.venv
+backend/.env
+backend/.pytest_cache
+__pycache__/
+*.pyc

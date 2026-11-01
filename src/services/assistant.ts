@@ -1,7 +1,8 @@
-// The assistant. AssistantService is the seam for a future LLM backend: a
-// FastAPI RAG service can implement the same streaming contract. The local
-// implementation is extractive — it only restates passages it retrieved, so it
-// cannot make unsourced claims, and it says "I don't know" below a threshold.
+// The assistant. AssistantService is the seam between the UI and the answer
+// source: HttpAssistant (httpAssistant.ts) streams from the RAG backend, and the
+// local implementation below is the offline fallback. It is extractive — it only
+// restates passages it retrieved, so it cannot make unsourced claims, and it says
+// "I don't know" below a threshold.
 import { translate } from '../i18n';
 import type { Lang } from '../lib/types';
 import { getDocument, type LibraryDocument, type Passage } from './library';
@@ -20,12 +21,22 @@ export interface AssistantAnswer {
   text: string;
   citations: Citation[];
   suggestions: SuggestionAction[];
+  /** 'ai' = written by the RAG backend; 'search' = local keyword search (absent for the local-only build). */
+  mode?: 'ai' | 'search';
+  /** Shown under the answer, e.g. why the AI assistant was not used. */
+  note?: string;
 }
 
 export type AssistantEvent = { type: 'token'; text: string } | { type: 'done'; answer: AssistantAnswer };
 
+/** Earlier messages in the conversation, so follow-up questions make sense. */
+export interface ChatTurn {
+  role: 'user' | 'assistant';
+  text: string;
+}
+
 export interface AssistantService {
-  ask(question: string, lang: Lang, signal?: AbortSignal): AsyncGenerator<AssistantEvent>;
+  ask(question: string, lang: Lang, signal?: AbortSignal, history?: ChatTurn[]): AsyncGenerator<AssistantEvent>;
 }
 
 const INTENTS: [RegExp, SuggestionAction][] = [

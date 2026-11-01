@@ -1,0 +1,23 @@
+# Render blueprint for the RAG backend (free web service). The database is a free
+# Neon Postgres (pgvector is built in); paste its URL as DATABASE_URL in Render.
+# Steps: docs/rag.md → "Deploy online".
+services:
+  - type: web
+    name: grassland-api
+    runtime: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://estonia-grasslands.vercel.app
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: TEMPERATURE
+        value: '0.2'

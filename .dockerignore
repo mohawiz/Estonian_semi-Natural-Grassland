@@ -3,3 +3,7 @@ dist
 .git
 .github
 *.local
+backend/.venv
+backend/.env
+backend/.pytest_cache
+**/__pycache__

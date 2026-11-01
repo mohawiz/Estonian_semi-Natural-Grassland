@@ -1,6 +1,8 @@
-// Service wiring. To plug in a backend later, replace these instances with
-// HTTP-backed implementations of the same interfaces (see docs/architecture.md).
+// Service wiring. Set VITE_ASSISTANT_API_URL at build time to use the RAG backend
+// (see backend/ and docs/rag.md); without it the app stays fully static and the
+// assistant uses in-browser keyword search.
 import { LocalAssistant, type AssistantService } from './assistant';
+import { HttpAssistant } from './httpAssistant';
 import { allPassages, library } from './library';
 import { Bm25Retrieval, type RetrievalService } from './retrieval';
 import { OpenMeteoWeatherService, type WeatherService } from './weather';
@@ -11,4 +13,9 @@ export const retrieval: Bm25Retrieval & RetrievalService = new Bm25Retrieval(all
 export const weatherService: WeatherService = new OpenMeteoWeatherService();
 
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-export const assistant: AssistantService = new LocalAssistant(retrieval, { tokenDelayMs: reducedMotion ? 0 : 14 });
+const local = new LocalAssistant(retrieval, { tokenDelayMs: reducedMotion ? 0 : 14 });
+
+const apiUrl = (import.meta.env.VITE_ASSISTANT_API_URL as string | undefined)?.trim();
+/** True when questions go to the AI backend (the privacy page says so). */
+export const aiAssistantEnabled = Boolean(apiUrl);
+export const assistant: AssistantService = apiUrl ? new HttpAssistant(apiUrl, local) : local;

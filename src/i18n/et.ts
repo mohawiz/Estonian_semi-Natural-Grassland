@@ -390,6 +390,9 @@ export const et: Messages = {
     summaryNote: 'Kokkuvõte on kirjutatud selle tööriista jaoks. Kehtib originaaltekst.',
   },
   assistant: {
+    aiCaveat: 'Tehisaru kirjutatud vastus, mis põhineb ainult viidatud allikatel. Kontrolli enne kasutamist originaale.',
+    fallbackNote: 'Tehisaru abiline pole praegu kättesaadav, seega tuli see vastus märksõnaotsingust.',
+    busyNote: 'Tehisaru abiline on hõivatud. Proovi minuti pärast uuesti; seni tuli see vastus märksõnaotsingust.',
     title: 'Abiline',
     open: 'Küsi abiliselt',
     close: 'Sulge abiline',
@@ -533,6 +536,7 @@ export const et: Messages = {
     tutorialsReset: 'Õpetused lähtestatud',
   },
   privacy: {
+    pAi: 'Kui esitad abilisele küsimuse, saadetakse küsimuse tekst (mitte kunagi sinu talu andmed) selle projekti abiliseserverisse ja Groqile (groq.com), kes käitab keelemudelit. Server küsimusi ei salvesta.',
     title: 'Privaatsus',
     intro: 'See prototüüp on ehitatud nii, et sinu talu andmed jäävad sulle.',
     p1: 'Sinu alad, kanded, fotod, enesehindamised ja aruanded salvestatakse ainult selle seadme brauseri mällu (IndexedDB). Kontot, serverit ega jälgimist või analüütikat ei ole.',

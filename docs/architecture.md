@@ -70,7 +70,7 @@ Rules for the LLM version, carried over from the prototype:
 - Keep the "older version" and "unverified" flags in the citations.
 - Log questions only with consent and without farmer data.
 
-To plug it in, write `HttpAssistant implements AssistantService` that reads the SSE stream, and change one line in `src/services/index.ts`.
+This is now built: `backend/` implements it (FastAPI, Postgres + pgvector, fastembed embeddings, Groq), and `src/services/httpAssistant.ts` reads the SSE stream. `src/services/index.ts` switches to it when `VITE_ASSISTANT_API_URL` is set and keeps the local assistant as the fallback. Details and settings: [rag.md](rag.md).
 
 ### Report — [`src/services/report.ts`](../src/services/report.ts)
 
