@@ -31,6 +31,7 @@ export function Deadlines() {
   const windows = noticeWindows(data.entries, settings.noticeWorkingDays);
   const parcelName = (id: string) => data.parcels.find((p) => p.id === id)?.name ?? '—';
   const valid = /^\d+$/.test(days) && +days >= 1 && +days <= 120;
+  const starts = data.parcels.filter((p) => p.pria).sort((a, b) => (a.pria!.startDate ?? '9').localeCompare(b.pria!.startDate ?? '9'));
 
   return (
     <>
@@ -63,6 +64,29 @@ export function Deadlines() {
             {t('deadlines.calendarNote')}
           </p>
         </section>
+        {starts.length > 0 && (
+          <section className="panel" aria-labelledby="starts-title">
+            <h2 id="starts-title" style={{ marginTop: 0 }}>
+              {t('deadlines.startsTitle')}
+            </h2>
+            <ul className="ledger">
+              {starts.map((p) => (
+                <li key={p.id}>
+                  <Icon name="calendar" />
+                  <span className="grow">
+                    <strong>{p.name}</strong>
+                    <span className="muted small"> · {p.pria!.maintenance === 'N' ? t('method.mowing') : p.pria!.maintenance === 'K' ? t('method.grazing') : t('find.maintCode', { code: p.pria!.maintenance ?? '—' })}</span>
+                    <br />
+                    <span className="small">{p.pria!.startDate ? formatDate(p.pria!.startDate, lang) : t('plotFacts.noStartDate')}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="muted small" style={{ marginTop: 10 }}>
+              {t('deadlines.startsNote')}
+            </p>
+          </section>
+        )}
         <section className="panel">
           <div className="panel-title">
             <h2>{t('deadlines.configTitle')}</h2>

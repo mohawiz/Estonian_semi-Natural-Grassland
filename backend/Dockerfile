@@ -17,7 +17,7 @@ ARG EMBED_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
 ENV EMBED_MODEL=$EMBED_MODEL
 RUN python -c "import os; from fastembed import TextEmbedding; TextEmbedding(os.environ['EMBED_MODEL'], cache_dir=os.environ['EMBED_CACHE_DIR'])"
 
-COPY src/data/documents.json src/data/documents.json
+COPY src/data/documents.json src/data/source-baseline.json src/data/
 COPY backend/app backend/app
 
 WORKDIR /srv/backend

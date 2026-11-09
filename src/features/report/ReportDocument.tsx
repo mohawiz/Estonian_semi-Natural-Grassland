@@ -74,7 +74,7 @@ export function ReportDocument({ report }: { report: ProofReport }) {
             <th scope="row">{t('report.completedLabel')}</th>
             <td>
               {r.completed.length
-                ? r.completed.map((e) => `${t(`method.${e.kind}`)} ${f(e.date)}${e.endDate && e.endDate !== e.date ? ` – ${f(e.endDate)}` : ''}`).join('; ')
+                ? r.completed.map((e) => `${t(`method.${e.kind}`)} ${f(e.date)}${e.endDate && e.endDate !== e.date ? ` – ${f(e.endDate)}` : ''}${e.hayRemovedDate ? ` (${t('log.hayOn', { date: f(e.hayRemovedDate) })})` : ''}`).join('; ')
                 : t('report.nothingCompleted', { action: action.toLowerCase() })}
             </td>
           </tr>

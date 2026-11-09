@@ -1,0 +1,54 @@
+# Daily check of the official sources behind the rule library (Riigi Teataja,
+# PRIA, Keskkonnaamet, EUR-Lex, Loodusrikas Eesti). When a source has changed
+# since the library was last reviewed, this opens (or updates) one GitHub issue
+# for the team. Nothing in the library changes until a person reviews it:
+# update src/data/documents.json, then run
+#   cd backend && python -m app.source_check --update-baseline
+# and commit both files. The deploys pick the change up from main.
+name: Check official sources
+on:
+  schedule:
+    - cron: '17 5 * * *' # every day, 05:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install 'pypdf>=5.0'
+      - name: Check sources
+        id: check
+        working-directory: backend
+        run: |
+          set +e
+          python -m app.source_check --json ../report.json | tee ../report.txt
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: Open or update the review issue
+        if: steps.check.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Official sources changed: rule library needs review'
+          {
+            echo "The daily source check found changes since the rule library was last reviewed."
+            echo
+            echo '```'
+            cat report.txt
+            echo '```'
+            echo
+            echo 'The app keeps showing the last reviewed text and marks these sources "Changed at source: review needed".'
+            echo 'To review: compare the source with src/data/documents.json, update passages, then run'
+            echo '`cd backend && python -m app.source_check --update-baseline` and commit both files.'
+          } > body.md
+          number=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body-file body.md
+          else
+            gh issue create --title "$title" --body-file body.md
+          fi

@@ -8,7 +8,7 @@ import { ConfirmDialog, EmptyState, PageHeader, Skeleton, useConfirm } from '../
 import { useToast } from '../components/Toast';
 import { DashHero } from '../features/dashboard/DashHero';
 import { Heatmap } from '../features/dashboard/Heatmap';
-import { ParcelMap } from '../features/dashboard/ParcelMap';
+import { RealMap } from '../features/map/RealMap';
 import { RiskGauge } from '../features/dashboard/RiskGauge';
 import { SatelliteCompare } from '../features/dashboard/SatelliteCompare';
 import { Trends } from '../features/dashboard/Trends';
@@ -208,11 +208,14 @@ export function Dashboard() {
           art={<MeadowPlants />}
           action={
             <div className="row" style={{ justifyContent: 'center' }}>
-              <button className="btn btn-primary" onClick={() => runTask('openDemo')}>
+              <Link className="btn btn-primary" to="/start">
+                {t('setup.cta')}
+              </Link>
+              <button className="btn" onClick={() => runTask('openDemo')}>
                 {t('dashboard.loadDemo')}
               </button>
-              <Link className="btn" to="/parcels/new">
-                {t('dashboard.addParcel')}
+              <Link className="btn" to="/meadows">
+                {t('nav.meadows')}
               </Link>
             </div>
           }
@@ -296,11 +299,12 @@ export function Dashboard() {
           </motion.section>
 
           {/* 2. Map: selecting a parcel updates every chart */}
-          <motion.section className="panel span-5" aria-labelledby="map-title" {...stagger(2)}>
+          <motion.section className="panel span-12" aria-labelledby="map-title" {...stagger(2)}>
             <div className="panel-title">
               <h2 id="map-title">{t('dash.mapTitle')}</h2>
             </div>
-            <ParcelMap
+            <RealMap
+              label={t('dash.mapTitle')}
               parcels={data.parcels}
               selected={parcel.id}
               onSelect={(id) => {
@@ -309,10 +313,13 @@ export function Dashboard() {
                 setDay(null);
               }}
             />
+            <p className="muted small" style={{ margin: '8px 0 0' }}>
+              {t('dash.mapNote')}
+            </p>
           </motion.section>
 
           {/* 3. Management calendar */}
-          <motion.section className="panel span-7" aria-labelledby="heat-title" {...stagger(3)}>
+          <motion.section className="panel span-12" aria-labelledby="heat-title" {...stagger(3)}>
             <div className="panel-title">
               <h2 id="heat-title">{t('dash.heatTitle')}</h2>
               <span className="small muted">{t('dash.heatHint')}</span>

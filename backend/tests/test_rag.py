@@ -55,6 +55,14 @@ def test_small_talk_skips_retrieval(settings, retriever):
     assert events[-1]['kind'] == 'answer' and events[-1]['citations'] == []
 
 
+def test_answer_language_follows_the_question_not_the_app(settings, retriever):
+    llm = FakeLLM()
+    run(RagService(settings, retriever, llm), 'When can PRIA demand the support back?', lang='et')
+    assert llm.calls[0][-1]['content'].endswith('(Write the whole answer in English.)')
+    run(RagService(settings, retriever, llm), 'Millal võib PRIA toetuse tagasi nõuda?', lang='en')
+    assert llm.calls[1][-1]['content'].endswith('(Write the whole answer in Estonian.)')
+
+
 def test_history_is_passed_to_the_model(settings, retriever):
     llm = FakeLLM()
     run(RagService(settings, retriever, llm), 'and in Estonian?', history=[Turn('user', 'What is a rest year?'), Turn('assistant', 'A rest year is [1].')])

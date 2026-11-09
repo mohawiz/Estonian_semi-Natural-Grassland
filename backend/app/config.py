@@ -33,6 +33,8 @@ class Settings(BaseSettings):
     rate_limit: int = 30
     max_question_chars: int = 1000
     max_history_turns: int = 6
+    # how often to re-check the official sources for changes (0 turns it off)
+    source_check_hours: float = 24
 
     @property
     def origins(self) -> list[str]:

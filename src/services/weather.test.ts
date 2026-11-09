@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { computeBaseline, parseOpenMeteoDaily, summarizeWeather, WeatherError, type WeatherDay } from './weather';
+import { describe, expect, it, vi } from 'vitest';
+import { computeBaseline, getWeatherJSON, parseOpenMeteoDaily, summarizeWeather, todayInTallinn, WeatherError, type WeatherDay } from './weather';
 
 const day = (date: string, p: number | null, soil: number | null = null): WeatherDay => ({ date, precipitationMm: p, tMaxC: 18, tMinC: 10, soilMoisture: soil });
 
@@ -42,5 +42,43 @@ describe('baseline', () => {
     const b = computeBaseline(times, vals, '2026-07-01', '2026-07-02', [2001, 2002]);
     expect(b.perYearTotals).toEqual([{ year: 2001, totalMm: 6 }, { year: 2002, totalMm: 10 }]);
     expect(b.meanTotalMm).toBe(8);
+  });
+});
+
+describe('getWeatherJSON', () => {
+  const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status });
+
+  it('retries server errors and rate limits, then succeeds', async () => {
+    vi.useFakeTimers();
+    const f = vi.fn().mockResolvedValueOnce(json(503, {})).mockRejectedValueOnce(new TypeError('Failed to fetch')).mockResolvedValueOnce(json(200, { ok: 1 }));
+    const p = getWeatherJSON('u', undefined, f as unknown as typeof fetch);
+    await vi.runAllTimersAsync();
+    expect(await p).toEqual({ ok: 1 });
+    expect(f).toHaveBeenCalledTimes(3);
+    vi.useRealTimers();
+  });
+
+  it('does not retry a bad request and shows the service reason', async () => {
+    const f = vi.fn().mockResolvedValue(json(400, { error: true, reason: 'Parameter out of range' }));
+    await expect(getWeatherJSON('u', undefined, f as unknown as typeof fetch)).rejects.toThrow('Parameter out of range (HTTP 400)');
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+
+  it('gives a plain message after repeated outages', async () => {
+    vi.useFakeTimers();
+    const f = vi.fn().mockResolvedValue(json(502, {}));
+    const p = getWeatherJSON('u', undefined, f as unknown as typeof fetch).catch((e) => e);
+    await vi.runAllTimersAsync();
+    const e = await p;
+    expect(e).toBeInstanceOf(WeatherError);
+    expect(e.message).toContain('temporary problem');
+    expect(f).toHaveBeenCalledTimes(3);
+    vi.useRealTimers();
+  });
+});
+
+describe('todayInTallinn', () => {
+  it('uses Estonian time, not UTC', () => {
+    expect(todayInTallinn(new Date('2026-07-31T22:30:00Z'))).toBe('2026-08-01');
   });
 });

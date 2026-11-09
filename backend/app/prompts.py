@@ -57,6 +57,25 @@ def format_sources(passages: list[Passage], lang: str) -> str:
     return 'SOURCES:\n\n' + '\n\n'.join(blocks)
 
 
+ET_CHARS = set('õäöüšž')
+ET_WORDS = {'kas', 'kui', 'mis', 'millal', 'kuidas', 'ja', 'on', 'ei', 'või', 'mida', 'kes', 'miks', 'mul', 'ma', 'see', 'tere'}
+EN_WORDS = {'what', 'when', 'how', 'can', 'is', 'are', 'the', 'do', 'does', 'i', 'my', 'if', 'who', 'why', 'which', 'and', 'hi', 'hello', 'you', 'u'}
+
+
+def question_language(question: str, fallback: str) -> str:
+    """The models follow the sources' language unless told plainly, so detect the question's."""
+    low = question.lower()
+    words = set(''.join(c if c.isalpha() else ' ' for c in low).split())
+    et = len(words & ET_WORDS) + (2 if ET_CHARS & set(low) else 0)
+    en = len(words & EN_WORDS)
+    if et > en:
+        return 'et'
+    if en > et:
+        return 'en'
+    return fallback
+
+
 def user_message(question: str, passages: list[Passage], lang: str, small_talk: bool = False) -> str:
     hint = f'\n{SMALL_TALK_HINT}' if small_talk else ''
-    return f'{format_sources(passages, lang)}\n\nQUESTION: {question}{hint}'
+    reply_in = LANG_NAMES[question_language(question, lang if lang in LANG_NAMES else 'en')]
+    return f'{format_sources(passages, lang)}\n\nQUESTION: {question}{hint}\n(Write the whole answer in {reply_in}.)'

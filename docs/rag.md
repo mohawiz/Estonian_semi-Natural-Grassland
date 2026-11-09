@@ -41,6 +41,7 @@ Copy `backend/.env.example` to `backend/.env`. Never commit `.env` (it is in `.g
 | `TOP_K` / `MIN_SIMILARITY` | 6 / 0.30 | Passages sent to the model, and the similarity floor |
 | `ALLOWED_ORIGINS` | localhost | Web addresses allowed to call the API (comma-separated) |
 | `RATE_LIMIT` | 30 | Questions per IP per 10 minutes |
+| `SOURCE_CHECK_HOURS` | 24 | How often the backend re-checks the official sources (0 = off) |
 
 ## Run it on your computer (no Docker needed)
 
@@ -90,9 +91,36 @@ Only the question text and the last few chat messages are sent: never parcels, e
 
 ## Known limits
 
-- Answers are only as complete as the 47 passages in the library; anything else gets "the library does not cover this".
+- Answers are only as complete as the 60 passages in the library; anything else gets "the library does not cover this".
 - The model writes understandable Estonian but makes occasional grammar slips (for example "niitamist" instead of "niitmist"). The verbatim source text is always one click away.
 - Rarely, the model still writes a sentence without a citation. Every cited passage is shown in full, so claims can be checked.
+
+## Watching the official sources for changes
+
+The library is a reviewed copy of official texts. `backend/app/source_check.py` re-checks every source:
+
+| Check | How | Status when it fails |
+| --- | --- | --- |
+| A new version of a law is in force | Riigi Teataja's public API (`/public-api/api/v1/akt/{id}?leiaKehtiv=true`) gives the version in force | `new-version` |
+| A quoted passage is no longer in the source | Every passage (split at `[…]`) must still appear word for word; spacing, hyphens, bullets and amendment markers like `[RT I, 25.05.2024, 1 - jõust. …]` are ignored | `changed` |
+| Something else on the page changed | Hash of the page text (digits ignored) | `page-updated` |
+
+Riigi Teataja is read through its API (the website is a JavaScript app); EUR-Lex blocks automated requests, so the same act is read from the EU Publications Office in Estonian; PDFs are read with pypdf.
+
+**Nothing changes automatically.** A flagged source keeps its last reviewed text in the app and the AI, and the Rules page shows "Changed at source: review needed". To review: compare the source with `src/data/documents.json`, update the passages, then accept the new state and commit both files:
+
+```powershell
+cd backend
+.venv\Scripts\python -m app.source_check                     # report (exit code 1 = review needed)
+.venv\Scripts\python -m app.source_check --update-baseline   # after reviewing
+```
+
+When it runs:
+
+- **The backend** checks a minute after it starts and then every `SOURCE_CHECK_HOURS` (default 24; 0 turns it off). `GET /api/library/status` returns the result, which the Rules page shows.
+- **GitHub Actions** (`.github/workflows/check-sources.yml`) checks every day at 05:17 UTC and opens or updates one issue, "Official sources changed: rule library needs review", so the team hears about it even while the free backend sleeps. It can also be run by hand from the Actions tab.
+
+Baseline on 9 Nov 2026: 59 of 60 passages are found word for word; the remaining one (`keskkonnaamet-korraldus-puhkeaasta-p2`) has a footnote number inside the sentence in the PDF and is recorded as a known difference.
 
 ## Checking quality
 

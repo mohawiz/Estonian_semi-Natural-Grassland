@@ -59,6 +59,7 @@ export function LogList() {
                   <span className="muted small">
                     {parcelName(e.parcelId)} · {formatDate(e.date, lang)}
                     {e.endDate && e.endDate !== e.date && ` – ${formatDate(e.endDate, lang)} (${t('log.days', { n: daysInclusive(e.date, e.endDate) })})`}
+                    {e.hayRemovedDate && ` · ${t('log.hayOn', { date: formatDate(e.hayRemovedDate, lang) })}`}
                     {e.photoIds.length > 0 && ` · ${t('log.photos')}: ${e.photoIds.length}`}
                   </span>
                 </span>
@@ -94,7 +95,7 @@ export function LogList() {
 export function EntryForm() {
   const { id } = useParams();
   const [params] = useSearchParams();
-  const { t, data, saveEntry, savePhoto, deletePhoto, deleteEntry } = useApp();
+  const { t, lang, data, saveEntry, savePhoto, deletePhoto, deleteEntry } = useApp();
   const navigate = useNavigate();
   const toast = useToast();
   const confirm = useConfirm();
@@ -103,6 +104,7 @@ export function EntryForm() {
   const [kind, setKind] = useState<EntryKind>(existing?.kind ?? 'mowing');
   const [date, setDate] = useState(existing?.date ?? todayISO());
   const [endDate, setEndDate] = useState(existing?.endDate ?? '');
+  const [hayDate, setHayDate] = useState(existing?.hayRemovedDate ?? '');
   const [method, setMethod] = useState(existing?.method ?? '');
   const [animals, setAnimals] = useState(existing?.animals ?? '');
   const [planned, setPlanned] = useState<'mowing' | 'grazing'>(existing?.plannedAction ?? 'mowing');
@@ -124,8 +126,11 @@ export function EntryForm() {
       </>
     );
 
-  const needsEnd = kind !== 'mowing';
-  const endErr = needsEnd && endDate && endDate < date ? t('log.endBeforeStart') : '';
+  // every kind of work can span days; for mowing the end date is optional (one-day mowing)
+  const endErr = endDate && endDate < date ? t('log.endBeforeStart') : '';
+  const hayErr = kind === 'mowing' && hayDate && hayDate < (endDate || date) ? t('log.hayBeforeMowing') : '';
+  const priaStart = parcel?.pria?.startDate;
+  const mowsBeforeStart = kind === 'mowing' && !!priaStart && parcel?.pria?.maintenance !== 'K' && date < priaStart;
   const affectedHa = affected ? Number(affected.replace(',', '.')) : parcel?.areaHa;
 
   const addFiles = async (files: FileList | null) => {
@@ -151,7 +156,7 @@ export function EntryForm() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (endErr || !parcelId) return;
+    if (endErr || hayErr || !parcelId) return;
     setSaving(true);
     const entryId = existing?.id ?? uid('entry-');
     for (const p of photos) await savePhoto({ ...p, entryId, parcelId });
@@ -161,7 +166,8 @@ export function EntryForm() {
       parcelId,
       kind,
       date,
-      endDate: needsEnd ? endDate || date : undefined,
+      endDate: kind === 'mowing' ? (endDate && endDate !== date ? endDate : undefined) : endDate || date,
+      hayRemovedDate: kind === 'mowing' ? hayDate || undefined : undefined,
       method: kind === 'mowing' ? method.trim() || undefined : undefined,
       animals: kind === 'grazing' ? animals.trim() || undefined : undefined,
       plannedAction: kind === 'missed' ? planned : undefined,
@@ -217,21 +223,33 @@ export function EntryForm() {
         </div>
         <div className="grid grid-2">
           <div className="field">
-            <label htmlFor="e-date">{needsEnd ? t('log.startDate') : t('log.date')}</label>
-            <input id="e-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+            <label htmlFor="e-date">{t('log.startDate')}</label>
+            <input id="e-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required aria-describedby={mowsBeforeStart ? 'e-date-warn' : undefined} />
           </div>
-          {needsEnd && (
-            <div className="field">
-              <label htmlFor="e-end">{t('log.endDate')}</label>
-              <input id="e-end" type="date" value={endDate} min={date} onChange={(e) => setEndDate(e.target.value)} aria-invalid={!!endErr} aria-describedby="e-end-err" />
-              {endErr && (
-                <span id="e-end-err" className="error-text">
-                  {endErr}
-                </span>
-              )}
-            </div>
-          )}
+          <div className="field">
+            <label htmlFor="e-end">
+              {t('log.endDate')}
+              {kind === 'mowing' && <span className="muted small"> ({t('log.optional')})</span>}
+            </label>
+            <input id="e-end" type="date" value={endDate} min={date} onChange={(e) => setEndDate(e.target.value)} aria-invalid={!!endErr} aria-describedby="e-end-err e-end-hint" />
+            {kind === 'mowing' && !endErr && (
+              <span id="e-end-hint" className="hint">
+                {t('log.mowEndHint')}
+              </span>
+            )}
+            {endErr && (
+              <span id="e-end-err" className="error-text">
+                {endErr}
+              </span>
+            )}
+          </div>
         </div>
+        {mowsBeforeStart && (
+          <div id="e-date-warn" className="notice notice-warn" role="status" style={{ marginBottom: 14 }}>
+            <Icon name="warn" />
+            <span>{t('log.beforeStartWarn', { date: formatDate(priaStart!, lang) })}</span>
+          </div>
+        )}
         {kind === 'missed' && (
           <div className="grid grid-2">
             <div className="field">
@@ -254,9 +272,22 @@ export function EntryForm() {
           </div>
         )}
         {kind === 'mowing' && (
-          <div className="field">
-            <label htmlFor="e-method">{t('log.method')}</label>
-            <input id="e-method" type="text" value={method} placeholder={t('log.methodPlaceholder')} onChange={(e) => setMethod(e.target.value)} />
+          <div className="grid grid-2">
+            <div className="field">
+              <label htmlFor="e-method">{t('log.method')}</label>
+              <input id="e-method" type="text" value={method} placeholder={t('log.methodPlaceholder')} onChange={(e) => setMethod(e.target.value)} />
+            </div>
+            <div className="field">
+              <label htmlFor="e-hay">
+                {t('log.hayRemoved')} <span className="muted small">({t('log.optional')})</span> <HelpTip text={t('log.hayHelp')} />
+              </label>
+              <input id="e-hay" type="date" value={hayDate} min={endDate || date} onChange={(e) => setHayDate(e.target.value)} aria-invalid={!!hayErr} aria-describedby="e-hay-err" />
+              {hayErr && (
+                <span id="e-hay-err" className="error-text">
+                  {hayErr}
+                </span>
+              )}
+            </div>
           </div>
         )}
         {kind === 'grazing' && (

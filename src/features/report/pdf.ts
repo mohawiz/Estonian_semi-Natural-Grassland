@@ -143,7 +143,7 @@ export async function buildPdf(report: ProofReport, lang: Lang): Promise<Blob> {
   kv(
     tr('report.completedLabel'),
     report.completed.length
-      ? report.completed.map((e) => `${tr(`method.${e.kind}`)} ${f(e.date)}${e.endDate && e.endDate !== e.date ? ` – ${f(e.endDate)}` : ''}`).join('; ')
+      ? report.completed.map((e) => `${tr(`method.${e.kind}`)} ${f(e.date)}${e.endDate && e.endDate !== e.date ? ` – ${f(e.endDate)}` : ''}${e.hayRemovedDate ? ` (${tr('log.hayOn', { date: f(e.hayRemovedDate) })})` : ''}`).join('; ')
       : tr('report.nothingCompleted', { action: tr(`method.${report.input.plannedAction}`).toLowerCase() }),
   );
 

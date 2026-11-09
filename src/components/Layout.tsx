@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom';
 import { useApp } from '../app/store';
 import { useUI } from '../app/ui';
 import { Celebration } from '../features/celebrate/Celebration';
@@ -28,6 +28,7 @@ export const NAV: NavItem[] = [
   { to: '/weather', key: 'nav.weather', icon: 'rain', tour: 'nav-weather', dock: true },
   { to: '/report', key: 'nav.report', icon: 'report', tour: 'nav-report', dock: true },
   { to: '/parcels', key: 'nav.parcels', icon: 'parcels' },
+  { to: '/meadows', key: 'nav.meadows', icon: 'map' },
   { to: '/deadlines', key: 'nav.deadlines', icon: 'deadlines' },
   { to: '/rules', key: 'nav.rules', icon: 'book' },
   { to: '/help', key: 'nav.help', icon: 'help', tour: 'nav-help' },
@@ -213,11 +214,14 @@ export function Layout() {
         <motion.main id="main" className="sheet" {...enter(0.45, { y: 50 })}>
           <div className="content">
             {farm?.isDemo && (
-              <div className="notice notice-demo no-print" style={{ marginBottom: 22 }}>
+              <div className="notice notice-demo no-print" style={{ marginBottom: 22, alignItems: 'center', flexWrap: 'wrap' }}>
                 <Icon name="sprout" size={20} />
-                <div>
+                <div className="grow">
                   <strong>{t('app.demoBadge')}.</strong> {t('app.demoBanner')}
                 </div>
+                <Link className="btn btn-sm btn-primary" to="/start">
+                  {t('setup.cta')}
+                </Link>
               </div>
             )}
             <AnimatedOutlet />

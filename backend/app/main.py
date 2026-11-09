@@ -6,6 +6,7 @@ import logging
 import time
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Request
@@ -13,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
+from . import source_check
 from .config import Settings, get_settings
 from .corpus import load_corpus
 from .llm import LLM, GroqLLM
@@ -66,7 +68,7 @@ def build_retriever(s: Settings) -> Retriever:
 
 def create_app(settings: Settings | None = None, retriever: Retriever | None = None, llm: LLM | None = None) -> FastAPI:
     s = settings or get_settings()
-    state: dict = {'rag': None, 'error': None, 'retriever': None}
+    state: dict = {'rag': None, 'error': None, 'retriever': None, 'sources': None}
 
     async def warm_up():
         try:
@@ -88,13 +90,33 @@ def create_app(settings: Settings | None = None, retriever: Retriever | None = N
             log.exception('Startup failed')
             state['error'] = f'{type(e).__name__}: {e}'
 
+    async def watch_sources():
+        """Re-check the official sources now and then; results feed /api/library/status."""
+        await asyncio.sleep(60)  # let the warm-up and first questions go first
+        while True:
+            try:
+                results = await asyncio.to_thread(source_check.run, s.corpus_path, s.corpus_path.parent / 'source-baseline.json')
+                state['sources'] = {
+                    'checkedAt': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                    'documents': {r.doc_id: {'status': r.status, 'needsReview': r.needs_review, 'missing': r.missing, 'version': r.version, 'error': r.error} for r in results},
+                }
+                flagged = [r.doc_id for r in results if r.needs_review]
+                if flagged:
+                    log.warning('Official sources changed, review needed: %s', ', '.join(flagged))
+            except Exception:  # noqa: BLE001 - try again next round
+                log.exception('Source check failed')
+            await asyncio.sleep(s.source_check_hours * 3600)
+
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         # warm up in the background so the port opens at once (hosts health-check it)
         task = asyncio.create_task(warm_up())
         app.state.warmup = task
+        watcher = asyncio.create_task(watch_sources()) if s.source_check_hours > 0 else None
         yield
         task.cancel()
+        if watcher:
+            watcher.cancel()
         if state['retriever'] is not None:
             state['retriever'].store.close()
 
@@ -112,6 +134,11 @@ def create_app(settings: Settings | None = None, retriever: Retriever | None = N
             'passages': len(rag.retriever.passages) if rag else 0,
             'store': type(rag.retriever.store).__name__ if rag else None,
         }
+
+    @app.get('/api/library/status')
+    async def library_status():
+        """Which official sources changed since the library was last reviewed (null until the first check)."""
+        return state['sources'] or {'checkedAt': None, 'documents': {}}
 
     @app.post('/api/ask')
     async def ask(body: AskRequest, request: Request):

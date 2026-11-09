@@ -19,3 +19,5 @@ const apiUrl = (import.meta.env.VITE_ASSISTANT_API_URL as string | undefined)?.t
 /** True when questions go to the AI backend (the privacy page says so). */
 export const aiAssistantEnabled = Boolean(apiUrl);
 export const assistant: AssistantService = apiUrl ? new HttpAssistant(apiUrl, local) : local;
+/** The backend's base URL, when one is configured. */
+export const apiBaseUrl = apiUrl ? apiUrl.replace(/\/+$/, '') : undefined;

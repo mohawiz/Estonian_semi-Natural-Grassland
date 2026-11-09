@@ -8,6 +8,8 @@ import { aiAssistantEnabled } from '../services';
 const PRIVACY_ITEMS = [
   ['p1', 'shield'],
   ['p2', 'rain'],
+  ['pMap', 'map'],
+  ['pSat', 'satellite'],
   ...(aiAssistantEnabled ? [['pAi', 'assistant']] : []),
   ['p3', 'pin'],
   ['p4', 'download'],

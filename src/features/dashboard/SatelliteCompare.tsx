@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApp } from '../../app/store';
 import { Icon } from '../../components/Icon';
 import { DemoBadge } from '../../components/ui';
@@ -5,15 +6,22 @@ import { daysInclusive, formatDate } from '../../lib/dates';
 import type { LogEntry, Parcel } from '../../lib/types';
 import { compareRecords, demoDetections } from '../../services/satelliteDemo';
 import type { DateWindow } from '../weather/WeatherTimeline';
+import { RealSatellite } from './RealSatellite';
 
 export function SatelliteCompare({ parcel, entries, season }: { parcel: Parcel; entries: LogEntry[]; season: DateWindow }) {
   const { t, lang } = useApp();
   const detections = demoDetections(parcel);
+  if (!detections && parcel.boundary) return <RealSatellite parcel={{ ...parcel, boundary: parcel.boundary }} entries={entries} season={season} />;
   if (!detections)
     return (
       <div className="notice notice-info">
         <Icon name="satellite" size={20} />
-        <div>{t('dash.satUnavailable')}</div>
+        <div className="grow">
+          {t('sat.noOutline')}{' '}
+          <Link className="btn btn-sm" to={`/parcels/${parcel.id}/edit`}>
+            {t('sat.addOutline')}
+          </Link>
+        </div>
       </div>
     );
   const own = entries.filter((e) => e.parcelId === parcel.id);

@@ -6,6 +6,7 @@ import { PageHeader } from '../components/ui';
 import { formatDate } from '../lib/dates';
 import { retrieval } from '../services';
 import { library, type DocStatus, type LibraryDocument, type Passage } from '../services/library';
+import { useLibraryStatus } from '../services/sourceStatus';
 
 const statusBadge: Record<DocStatus, string> = { 'verified-current': 'badge-ok', 'older-version': 'badge-warn', unverified: 'badge-warn' };
 
@@ -14,6 +15,8 @@ export function RulesPage() {
   const ui = useUI();
   const [q, setQ] = useState('');
   const hits = useMemo(() => (q.trim().length > 1 ? retrieval.searchSync(q, 12) : null), [q]);
+  const sources = useLibraryStatus();
+  const flagged = library.documents.filter((d) => sources?.documents[d.id]?.needsReview);
 
   return (
     <>
@@ -37,6 +40,12 @@ export function RulesPage() {
         )}
       </div>
 
+      {sources?.checkedAt && (
+        <div className={`notice ${flagged.length ? 'notice-warn' : 'notice-info'}`} role="status" style={{ marginBottom: 16 }}>
+          <Icon name={flagged.length ? 'warn' : 'check'} size={20} />
+          <span>{flagged.length ? t('rules.check.flagged', { n: flagged.length, date: formatDate(sources.checkedAt.slice(0, 10), lang) }) : t('rules.check.allClear', { date: formatDate(sources.checkedAt.slice(0, 10), lang) })}</span>
+        </div>
+      )}
       {hits ? (
         <section className="panel">
           {hits.map((h) => (
@@ -50,10 +59,17 @@ export function RulesPage() {
               <summary>
                 <span style={{ fontFamily: 'var(--font-head)', fontSize: '1.05rem' }}>{d.title[lang]}</span>{' '}
                 <span className={`badge ${statusBadge[d.status]}`}>{t(`rules.status.${d.status}`)}</span>
+                {sources?.documents[d.id]?.needsReview && <span className="badge badge-warn">{t('rules.check.badge')}</span>}
                 <div className="muted small" style={{ fontWeight: 400, marginTop: 4 }}>
                   {d.publisher} · {t('rules.version', { v: d.version })} · {t('rules.retrieved', { date: formatDate(d.retrievedAt, lang) })} · {t('rules.passages', { n: d.passages.length })}
                 </div>
               </summary>
+              {sources?.documents[d.id]?.needsReview && (
+                <div className="notice notice-warn small" style={{ marginTop: 10 }}>
+                  <Icon name="warn" size={18} />
+                  <span>{t(`rules.check.${sources.documents[d.id].status}`, { n: sources.documents[d.id].missing.length })} {t('rules.check.keptNote')}</span>
+                </div>
+              )}
               <p className="small" style={{ marginTop: 10 }}>
                 {d.statusNote[lang]}{' '}
                 <a href={d.url} target="_blank" rel="noreferrer">

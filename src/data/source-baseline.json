@@ -1,0 +1,98 @@
+{
+  "note": "Last reviewed state of each official source. Update with: python -m app.source_check --update-baseline",
+  "documents": {
+    "rt-niit-maarus-79": {
+      "page_hash": "1cb32f7785f01644",
+      "version": "102052026008",
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.riigiteataja.ee/akt/127032025018?leiaKehtiv"
+    },
+    "pria-niit-2026": {
+      "page_hash": "b74e6b0f36eb296f",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.pria.ee/toetused/parandniidu-hooldamise-toetus-2026"
+    },
+    "pria-abiks-taotlejale-2026": {
+      "page_hash": "a0873d0c75fc031b",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.pria.ee/sites/default/files/2026-05/maaelu-arengu-2023-pindalatoetused_at_2026_0.pdf"
+    },
+    "pria-niit-hindamismaatriksid-2026": {
+      "page_hash": "4bca1d6fc1665321",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.pria.ee/sites/default/files/2026-06/niit_kodulehele.pdf"
+    },
+    "pria-nouete-rikkumise-hindamise-alused": {
+      "page_hash": "9b1396988892e07d",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.pria.ee/infokeskus/nouete-rikkumise-hindamise-alused"
+    },
+    "keskkonnaamet-parandniitude-hooldamine": {
+      "page_hash": "f83fb1fd20b9a05f",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://keskkonnaamet.ee/elusloodus-looduskaitse/looduskaitse/parandniitude-hooldamine"
+    },
+    "keskkonnaamet-korraldus-puhkeaasta": {
+      "page_hash": "7f63a11ba69080aa",
+      "version": null,
+      "not_matched": [
+        "keskkonnaamet-korraldus-puhkeaasta-p2"
+      ],
+      "reviewed_at": "2026-11-09",
+      "url": "https://keskkonnaamet.ee/sites/default/files/documents/2024-03/P%C3%A4randniitudel%20puhkeaasta%20ja%20kogu%20alal%20niitmise%20kohustuse%20m%C3%A4%C3%A4ramine.pdf"
+    },
+    "keskkonnaamet-niit-koolitus-2026": {
+      "page_hash": "c6f66b54557fcae4",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://keskkonnaamet.ee/sites/default/files/documents/2026-07/Niit_koolitus%202026%20juuli.pdf"
+    },
+    "eurlex-2021-2116": {
+      "page_hash": "0d32f7f389025687",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://eur-lex.europa.eu/legal-content/ET/TXT/HTML/?uri=CELEX:32021R2116"
+    },
+    "rt-plk-maarus-38": {
+      "page_hash": "8a5ca698563c6121",
+      "version": "124042024020",
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.riigiteataja.ee/akt/124042015007?leiaKehtiv"
+    },
+    "loodusrikas-maaomanike-noustamine": {
+      "page_hash": "eb0f414417073d44",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.loodusrikaseesti.ee/et/maaomanike-noustamine-0"
+    },
+    "loodusrikas-majandajate-lood": {
+      "page_hash": "91cdcc5b0f34f384",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.loodusrikaseesti.ee/et/parandniitude-majandajate-lood"
+    },
+    "maaamet-rendihuvi-juhend": {
+      "page_hash": "1fbf85677152c2ff",
+      "version": null,
+      "not_matched": [],
+      "reviewed_at": "2026-11-09",
+      "url": "https://www.loodusrikaseesti.ee/sites/forest/files/2023-05/Parandniitude_rendihuvi_juhend.pdf"
+    }
+  }
+}

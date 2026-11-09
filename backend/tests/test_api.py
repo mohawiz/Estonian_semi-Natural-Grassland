@@ -30,7 +30,7 @@ def parse_sse(body: str) -> list[tuple[str, dict]]:
 def test_health_and_streamed_answer(settings, retriever):
     client = ready_client(settings, retriever, FakeLLM())
     health = client.get('/api/health').json()
-    assert health == {'ready': True, 'error': None, 'model': 'fake-model', 'passages': 47, 'store': 'MemoryStore'}
+    assert health == {'ready': True, 'error': None, 'model': 'fake-model', 'passages': 60, 'store': 'MemoryStore'}
 
     r = client.post('/api/ask', json={'question': 'When must grazing start on a coastal meadow?', 'lang': 'en'})
     assert r.status_code == 200 and r.headers['content-type'].startswith('text/event-stream')
@@ -64,3 +64,8 @@ def test_cors_allows_the_app_origin(settings, retriever):
     client = ready_client(settings, retriever, FakeLLM())
     r = client.options('/api/ask', headers={'Origin': 'http://localhost:5173', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type'})
     assert r.headers.get('access-control-allow-origin') == 'http://localhost:5173'
+
+
+def test_library_status_is_empty_until_the_first_check(settings, retriever):
+    r = TestClient(create_app(settings, retriever, None)).get('/api/library/status')
+    assert r.status_code == 200 and r.json() == {'checkedAt': None, 'documents': {}}

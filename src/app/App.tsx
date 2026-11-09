@@ -26,6 +26,8 @@ const RulesPage = named(() => import('../pages/Rules'), 'RulesPage');
 const SettingsPage = named(() => import('../pages/Settings'), 'SettingsPage');
 const WeatherPage = named(() => import('../pages/Weather'), 'WeatherPage');
 const AboutPage = named(() => import('../pages/About'), 'AboutPage');
+const MeadowMapPage = named(() => import('../pages/MeadowMap'), 'MeadowMapPage');
+const FarmSetupPage = named(() => import('../pages/FarmSetup'), 'FarmSetupPage');
 
 function Boot() {
   const { t } = useApp();
@@ -53,6 +55,8 @@ function Routed() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Dashboard />} />
+        <Route path="meadows" element={<MeadowMapPage />} />
+        <Route path="start" element={<FarmSetupPage />} />
         <Route path="parcels" element={<ParcelList />} />
         <Route path="parcels/new" element={<ParcelForm />} />
         <Route path="parcels/:id" element={<ParcelDetail />} />

@@ -7,7 +7,13 @@ import { useToast } from '../components/Toast';
 import { formatDate } from '../lib/dates';
 import type { CommunityType, Parcel } from '../lib/types';
 import { acresToHa, formatNumber } from '../lib/units';
+import { FindMeadow } from '../features/parcels/FindMeadow';
+import { addCandidatesAsPlots, defaultPlotName, ownFarm } from '../features/parcels/addPlots';
+import { RealMap } from '../features/map/RealMap';
+import { candidateToParcelFields, type MeadowCandidate } from '../services/landData';
 import { Checklist } from './Checklist';
+
+type ImportedFields = Required<Pick<Parcel, 'boundary' | 'source'>> & Pick<Parcel, 'pria' | 'cadastralId'>;
 
 const TYPES: CommunityType[] = ['coastal-meadow', 'alvar', 'floodplain-meadow', 'wooded-meadow', 'dry-meadow', 'fen-meadow', 'other'];
 
@@ -19,14 +25,20 @@ export function ParcelList() {
         title={t('parcels.title')}
         subtitle={t('parcels.subtitle')}
         actions={
-          <Link className="btn btn-primary" to="/parcels/new">
-            <Icon name="plus" />
-            {t('parcels.add')}
-          </Link>
+          <>
+            <Link className="btn" to="/start">
+              <Icon name="map" />
+              {t('setup.addTitle')}
+            </Link>
+            <Link className="btn btn-primary" to="/parcels/new">
+              <Icon name="plus" />
+              {t('parcels.add')}
+            </Link>
+          </>
         }
       />
       {!data.parcels.length ? (
-        <EmptyState icon="parcels" title={t('parcels.emptyTitle')} body={t('parcels.emptyBody')} action={<Link className="btn btn-primary" to="/parcels/new">{t('parcels.add')}</Link>} />
+        <EmptyState icon="parcels" title={t('parcels.emptyTitle')} body={t('parcels.emptyBody')} action={<Link className="btn btn-primary" to="/start">{t('setup.cta')}</Link>} />
       ) : (
         <section className="panel">
           <ul className="ledger">
@@ -57,7 +69,7 @@ export function ParcelList() {
 
 export function ParcelForm() {
   const { id } = useParams();
-  const { t, data, farm, saveParcel, saveFarm } = useApp();
+  const { t, lang, data, farm, saveParcel, saveFarm } = useApp();
   const navigate = useNavigate();
   const toast = useToast();
   const existing = data.parcels.find((p) => p.id === id);
@@ -72,6 +84,30 @@ export function ParcelForm() {
   const [notes, setNotes] = useState(existing?.notes ?? '');
   const [locating, setLocating] = useState(false);
   const [tried, setTried] = useState(false);
+  const [imported, setImported] = useState<ImportedFields | null>(existing?.boundary && existing.source ? { boundary: existing.boundary, source: existing.source, pria: existing.pria, cadastralId: existing.cadastralId } : null);
+
+  const addAll = async (cs: MeadowCandidate[]) => {
+    const own = ownFarm(data.farms);
+    if (!own) return navigate(`/start?meadows=${encodeURIComponent(cs.map((c) => c.ref).join(','))}`);
+    const added = await addCandidatesAsPlots(cs, own.id, saveParcel, t);
+    toast(t('setup.done', { n: added.length }));
+    navigate('/parcels');
+  };
+
+  const applyCandidate = (c: MeadowCandidate) => {
+    const f = candidateToParcelFields(c);
+    setImported({ boundary: f.boundary!, source: f.source!, pria: f.pria, cadastralId: f.cadastralId });
+    if (!name.trim()) setName(defaultPlotName(c, t));
+    setArea(String(f.areaHa));
+    setUnit('ha');
+    setLat(String(f.lat));
+    setLon(String(f.lon));
+    if (f.communityType) setType(f.communityType);
+    if (f.plannedMethod) setMethod(f.plannedMethod);
+    if (f.code) setCode(f.code);
+    toast(t('find.applied'));
+    requestAnimationFrame(() => document.getElementById('p-name')?.focus());
+  };
 
   const num = (s: string) => Number(s.replace(',', '.'));
   const areaVal = num(area);
@@ -124,6 +160,10 @@ export function ParcelForm() {
       lon: num(lon),
       plannedMethod: method,
       notes: notes.trim() || undefined,
+      boundary: imported?.boundary,
+      source: imported?.source,
+      pria: imported?.pria,
+      cadastralId: imported?.cadastralId,
     };
     await saveParcel(p);
     toast(t('parcels.saved'));
@@ -134,7 +174,21 @@ export function ParcelForm() {
   return (
     <>
       <PageHeader title={title} crumbs={[{ label: t('parcels.title'), to: '/parcels' }]} />
+      {!existing?.isDemo && <FindMeadow onUse={applyCandidate} onAddAll={addAll} />}
       <form className="panel form" onSubmit={submit} noValidate style={{ maxWidth: 720 }}>
+        {imported && (
+          <div className="notice notice-info" role="status" style={{ alignItems: 'center', marginBottom: 16 }}>
+            <Icon name="map" />
+            <div className="grow">
+              <strong>{t(`find.importedFrom.${imported.source.kind}`, { ref: imported.source.ref })}</strong>
+              <br />
+              <span className="small muted">{t('find.importedNote', { date: formatDate(imported.source.fetchedAt.slice(0, 10), lang) })}</span>
+            </div>
+            <button type="button" className="btn btn-sm" onClick={() => setImported(null)}>
+              {t('find.removeOutline')}
+            </button>
+          </div>
+        )}
         <div className="field">
           <label htmlFor="p-name">{t('parcels.name')}</label>
           <input id="p-name" type="text" value={name} onChange={(e) => setName(e.target.value)} aria-invalid={tried && !!errors.name} aria-describedby="p-name-err" required />
@@ -296,7 +350,45 @@ export function ParcelDetail() {
                   <dd>{parcel.code}</dd>
                 </div>
               )}
+              {parcel.cadastralId && (
+                <div>
+                  <dt>{t('find.mode.cadastre')}</dt>
+                  <dd>{parcel.cadastralId}</dd>
+                </div>
+              )}
+              {parcel.pria?.maintenance && (
+                <div>
+                  <dt>{t('plotFacts.priaMaintenance')}</dt>
+                  <dd>{parcel.pria.maintenance === 'N' ? t('method.mowing') : parcel.pria.maintenance === 'K' ? t('method.grazing') : t('find.maintCode', { code: parcel.pria.maintenance })}</dd>
+                </div>
+              )}
+              {parcel.pria && (
+                <div>
+                  <dt>{t('plotFacts.startDate', { year: parcel.pria.year })}</dt>
+                  <dd>{parcel.pria.startDate ? formatDate(parcel.pria.startDate, lang) : t('plotFacts.noStartDate')}</dd>
+                </div>
+              )}
             </dl>
+            {parcel.pria && (
+              <p className="small muted" style={{ marginTop: 10 }}>
+                {parcel.pria.maintenance === 'N' || (!parcel.pria.maintenance && parcel.plannedMethod !== 'grazing')
+                  ? parcel.pria.startDate
+                    ? t('plotFacts.mowingStartNote')
+                    : t('plotFacts.mowingNoDateNote')
+                  : t('plotFacts.grazingStartNote')}{' '}
+                <Link to="/rules">{t('plotFacts.seeRules')}</Link>
+              </p>
+            )}
+            {parcel.boundary && (
+              <div style={{ marginTop: 14 }}>
+                <RealMap label={parcel.name} parcels={[parcel]} selected={parcel.id} />
+              </div>
+            )}
+            {parcel.source && (
+              <p className="small muted" style={{ marginTop: 8 }}>
+                {t(`find.importedFrom.${parcel.source.kind}`, { ref: parcel.source.ref })} · {t('plotFacts.fetched', { date: formatDate(parcel.source.fetchedAt.slice(0, 10), lang) })}
+              </p>
+            )}
             {parcel.notes && <p style={{ marginTop: 12 }}>{parcel.notes}</p>}
             <div className="row" style={{ marginTop: 12 }}>
               <Link className="btn" to={`/log/new?parcel=${parcel.id}`}>

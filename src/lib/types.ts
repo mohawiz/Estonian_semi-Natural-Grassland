@@ -1,6 +1,8 @@
 // Domain types shared by storage, services and UI. Dates are ISO strings
 // (YYYY-MM-DD) in the farm's local calendar; areas are always stored in hectares.
 
+import type { Boundary } from './geo';
+
 export type Lang = 'et' | 'en';
 export type Localized = Record<Lang, string>;
 
@@ -29,11 +31,36 @@ export interface Parcel {
   code?: string;
   communityType: CommunityType;
   areaHa: number;
+  /** A point inside the plot, used for weather. */
   lat: number;
   lon: number;
   plannedMethod: 'mowing' | 'grazing' | 'mowing-and-grazing';
   notes?: string;
   isDemo?: boolean;
+  /** Real outline, WGS 84. Absent for plots entered as a point (and for the demo farm). */
+  boundary?: Boundary;
+  /** Where the outline and facts came from. */
+  source?: { kind: 'pria' | 'cadastre' | 'file'; ref: string; fetchedAt: string };
+  /** Facts from PRIA's public heritage meadow register, as of `source.fetchedAt`. */
+  pria?: PriaMeadowInfo;
+  cadastralId?: string;
+}
+
+export interface PriaMeadowInfo {
+  meadowNo: string;
+  /** Short area code (e.g. '1', '2E'). PRIA's field is free text, so anything else is hidden: applicants sometimes typed a person's name there. */
+  areaNo?: string;
+  /** PRIA's numeric id of the area; stable, used for references. */
+  areaId?: number;
+  year: number;
+  /** PRIA's meadow type code, e.g. 'MN' (other meadow) or 'PN' (wooded meadow). */
+  meadowType: string;
+  /** PRIA's maintenance choice code: 'N' mowing, 'K' grazing, others shown as given. */
+  maintenance?: string;
+  /** Mowing or grazing start date in the register (YYYY-MM-DD, Estonian time). */
+  startDate?: string;
+  coastalExtra: boolean;
+  officialAreaHa?: number;
 }
 
 export type EntryKind = 'mowing' | 'grazing' | 'missed';
@@ -48,6 +75,8 @@ export interface LogEntry {
   /** End date; for missed-work entries this closes the window. */
   endDate?: string;
   method?: string;
+  /** Mowing: the day the cut hay was taken off the meadow. */
+  hayRemovedDate?: string;
   /** For missed entries: what had been planned. */
   plannedAction?: 'mowing' | 'grazing';
   reason?: MissedReason;

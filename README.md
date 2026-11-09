@@ -3,7 +3,11 @@
 A decision-support prototype for Estonian farmers who maintain semi-natural grasslands (heritage meadows, *pärandniidud*). It helps them:
 
 - **understand the rules** of the heritage meadow maintenance subsidy (*pärandniidu hooldamise toetus*, NIIT) with an assistant that answers only from bundled official documents and cites every source;
-- **record work**: mowing, grazing and work that could not be done, with dated, geotagged photos;
+- **see every heritage meadow in Estonia**: the *Meadow map* shows all ~6,100 areas in PRIA's public register (totals, a list of the meadows in view, details for each) and adds yours to your farm in one tap;
+- **create their own farm** (*Create my farm*): farm details, then all their meadows at once by PRIA meadow numbers, cadastral numbers or a file;
+- **bring in their real plots**: by PRIA heritage meadow number, cadastral number, a click on the map, or a GeoJSON/KML/shapefile, with the real outline, area, maintenance choice and PRIA's mowing/grazing start date;
+- **record work**: mowing (from–to, hay removal date), grazing and work that could not be done, with dated, geotagged photos;
+- **see satellite data**: a real Sentinel-2 vegetation curve for each plot with an outline, with sharp drops shown as possible mowing next to the farmer's own records;
 - **see weather evidence**: real historical rainfall, temperature and soil moisture for each parcel;
 - **build a proof report** for the Environmental Board (Keskkonnaamet) that explains why mowing or grazing was not done in a period, and export it as a PDF.
 
@@ -46,31 +50,39 @@ The interface sits over a generative coastal meadow (`src/features/meadow/`) tha
 All charts follow the parcel selected on the map:
 
 1. **Weather timeline** (hero). Brush a window to drive the stats, the report link and the meadow. Hover for values, click a day for details, toggle series. Keyboard: arrows move the window, Shift + arrows resize it.
-2. **Parcel map.** The coastline is schematic and parcel shapes are illustrative (the app stores one point per parcel). Both are labelled.
+2. **Plot map.** A real map (Estonian Land and Spatial Development Board base map or aerial photo) with PRIA's registered heritage meadows shaded. Plots with an outline are drawn as their real shape; plots entered by hand (and the demo farm) as a dot, labelled.
 3. **Management calendar.** Click a cell to open its entry. It highlights the brushed window and the hovered week.
 4. **"Where questions could come up" gauge.** The tool's own rule of thumb (`src/services/risk.ts`), labelled as decision support.
-5. **Records vs satellite.** Satellite detections are **simulated** for the demo farm only (`src/services/satelliteDemo.ts`) and labelled. Other parcels show an honest "not available" note.
+5. **Records vs satellite.** For plots with an outline: real Sentinel-2 NDVI over the season (`src/services/satellite.ts`), sharp drops marked as *possible* mowing and matched against the log. The demo farm keeps **simulated** detections (`src/services/satelliteDemo.ts`), labelled. Plots without an outline get a link to add one.
 6. **Seasonal trends** by week. Metric filters, zoom presets, cross-highlighting with the calendar, and a "weather fetched" time.
+
+### Meadow map and farm setup
+
+- **Meadow map** (`/meadows`): national totals from PRIA's register, every meadow area as a dot coloured by maintenance (mowing, grazing, other), PRIA's outlines when zoomed in, a list of the areas in view with their size, maintenance and start date, and a details card (habitat type from the Environmental Register, cadastral unit and address). The dots come from `public/data/meadow-points.json`, rebuilt from PRIA by `scripts/meadow-points.mjs` before every build (`npm run meadows` refreshes it by hand; if PRIA is unreachable the last file is kept).
+- **Create my farm** (`/start`): one farm per browser, no account. Step 1 farm name, your name, optional registry code; step 2 paste any number of meadow or cadastral numbers (or upload a file), tick yours, add them all. Your own farm replaces the demo farm.
+- **Privacy of PRIA's area labels:** the register's area label (`ala_nr`) is free text and some applicants typed a person's name in it. The app shows only short codes such as `1` or `2E` and otherwise names an area by its size; references use PRIA's numeric area id. A meadow number can be split into areas used by different people, so farm setup never pre-ticks several areas of one meadow.
+- **Maps** are large (up to about two thirds of the screen) and have a full-screen button; every page was checked at phone (375 px) and tablet (768 px) width in both languages without sideways scrolling.
 
 ## What is real and what is demo
 
 | Part | Status |
 | --- | --- |
 | Weather (rain, max temperature, soil moisture 0–7 cm, wind, humidity, 1991–2020 comparison) | **Real**: fetched live from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) for the parcel's coordinates. It is modelled reanalysis data on a 9–25 km grid, not weather-station measurements. If a fetch fails the app says so and shows nothing; it never fills gaps with invented numbers. |
-| Rule library (10 documents, 47 passages) | **Real** official texts from Riigi Teataja, PRIA, Keskkonnaamet and EUR-Lex, quoted verbatim, each with URL, version and retrieval date (30 Oct 2026). Older or legacy documents are labelled. The plain-language summaries were written for this tool; the originals are authoritative. |
+| Rule library (13 documents, 60 passages) | **Real** official texts from Riigi Teataja, PRIA, Keskkonnaamet, EUR-Lex and the Loodusrikas Eesti project (landowner guidance, managers' stories, the Land Board's rental-interest guide), quoted verbatim, each with URL, version and retrieval date. A daily check (`backend/app/source_check.py`) flags sources that change; flagged texts wait for a person to review them. Older or legacy documents are labelled. The plain-language summaries were written for this tool; the originals are authoritative. |
 | Assistant | **AI with sources (RAG)** when the backend is configured: hybrid vector + keyword search in Postgres/pgvector, then a Groq language model (temperature 0.2) that may only use the retrieved passages and cites each one. It says "I don't know" when the documents don't cover a question. Without the backend, or when it is asleep, the app falls back to in-browser keyword search (BM25, no AI) and says so. See [docs/rag.md](docs/rag.md). |
 | Demo farm "Kadakaniidu talu (näidis)", its parcels, entries and people | **Invented**, and labelled "Demo data" everywhere. The parcels sit near Matsalu and on Muhu so the weather is real for those places. |
 | Demo photos | **Drawn illustrations**, stamped "DEMO ILLUSTRATION" in the image and labelled in the report. Not photographs. |
 | Weather "consistent with the reason" verdict | The tool's **own rule of thumb**, not an official criterion, and labelled as such. |
 | Risk gauge ("Where questions could come up") | The tool's **own rule of thumb** from your records, labelled "Decision support". Not PRIA's or the Board's assessment. |
-| Satellite detections | **Simulated**, demo farm only, labelled "Demo". PRIA's area-monitoring results are not open to third parties. |
-| Parcel map | Coastline **schematic**, field shapes **illustrative**; both labelled. |
+| Plot outlines and facts | **Real**, from PRIA's public heritage meadow register (`pria_plk_alad`), the Land Board cadastre and the Environmental Register (habitat type, used to suggest the community type), via open WFS services. No owner names. e-PRIA stays authoritative. |
+| Satellite data | **Real** Copernicus Sentinel-2 NDVI for plots with an outline, computed over the outline by Microsoft Planetary Computer's open API. A sharp drop is an indication, not proof of mowing. It is not PRIA's area monitoring (SATIKAS), which is not open to third parties. **Simulated** for the demo farm, labelled "Demo". |
+| Map | **Real** Land Board base map and aerial photo. The demo farm's plots are invented points. |
 | 15-working-day notification window | PRIA's 2026 applicant guide **recommends** notifying PRIA within 15 working days. It is not a legal deadline and is **not verified for the Environmental Board**. It is configurable on the Deadlines page. |
 | Severity, extent, duration | PRIA's assessment criteria. Whether the Environmental Board uses the same criteria is **not verified**. |
 
 ## Privacy
 
-All farmer data (parcels, entries, photos, checklists, reports) stays in the browser's IndexedDB. There is no account and no tracking or analytics. The network calls are to Open-Meteo, sending a parcel's coordinates and dates when the user asks for weather, and, when the AI assistant is switched on, the question text and last few chat messages to the assistant backend and Groq (never farm data; the backend does not store questions). Fonts are self-hosted. **Settings → Export data** saves a JSON file (including photos) that a teammate can load with **Import data**.
+All farmer data (parcels, entries, photos, checklists, reports) stays in the browser's IndexedDB. There is no account and no tracking or analytics. The network calls are to Open-Meteo, sending a parcel's coordinates and dates when the user asks for weather; to PRIA's and the Land Board's public map services (the meadow or cadastral number typed, or the point clicked) and map tiles; to Microsoft Planetary Computer (a plot's outline and season dates, for satellite statistics); and, when the AI assistant is switched on, the question text and last few chat messages to the assistant backend and Groq (never farm data; the backend does not store questions). Fonts are self-hosted. **Settings → Export data** saves a JSON file (including photos) that a teammate can load with **Import data**.
 
 ## Add or update documents
 
@@ -81,6 +93,9 @@ The library is one file: [`src/data/documents.json`](src/data/documents.json).
 3. For each passage, add `id`, `section` (e.g. `§ 4 lg 7`), `lang`, `text` (a **verbatim** excerpt, about 90 words at most, with `[…]` for omissions), `summary.et`, `summary.en` and `keywords`. Include inflected Estonian forms and English equivalents in the keywords, because retrieval is lexical.
 4. Run `npm test`. The library integrity test checks the fields. Add a question and its expected passage id to `CASES` in [`src/services/retrieval.test.ts`](src/services/retrieval.test.ts).
 5. Never paraphrase a rule into `text`, and never add numbers or deadlines to a summary that are not in the passage.
+6. Accept the source as reviewed: `cd backend && python -m app.source_check --update-baseline`, and commit `src/data/source-baseline.json` with the library.
+
+The backend and a daily GitHub Action (`.github/workflows/check-sources.yml`) re-check every source and flag changes; see [docs/rag.md](docs/rag.md#watching-the-official-sources-for-changes).
 
 Unverified findings go in the `unverified` list in the same file and are shown on the Rules page.
 
@@ -94,13 +109,13 @@ The same build runs on GitHub Pages, Netlify, Vercel, Cloudflare Pages or any ho
 src/
   app/          store (IndexedDB-backed state), UI state, routes
   components/   layout, icons, toasts, shared UI
-  features/     assistant panel, tour, weather timeline, report document + PDF, photos
+  features/     assistant panel, tour, weather timeline, report document + PDF, photos, real map, find-your-meadow, satellite panel
   pages/        dashboard, parcels, log, weather, report, rules, deadlines, help, settings
-  services/     interfaces + implementations: weather, retrieval, assistant, report, db, demo, transfer
+  services/     interfaces + implementations: weather, retrieval, assistant, report, db, demo, transfer, landData (PRIA/cadastre), fileImport, satellite
   i18n/         en.ts and et.ts (all UI text, same keys enforced by a test)
   data/         documents.json (the rule library, also indexed by the backend)
 backend/        RAG API: FastAPI, Postgres + pgvector, fastembed, Groq (app/, tests/, Dockerfile)
-docs/           architecture.md, rag.md (AI assistant), deployment.md
+docs/           architecture.md, rag.md (AI assistant, source checks), data-integration.md (real plots, satellite, onboarding), deployment.md
 ```
 
 ## Known limits
@@ -109,7 +124,8 @@ docs/           architecture.md, rag.md (AI assistant), deployment.md
 - AI answers are grounded and cited, but a language model can still word things imperfectly. Every answer links to the verbatim official text to check.
 - The assistant does not yet answer questions about the farmer's own records.
 - Weather is modelled reanalysis on a coarse grid. Coastal grid cells can show zero soil moisture (sea), which the app hides. Official station data from the Estonian Environment Agency (Keskkonnaagentuur) would be stronger evidence.
-- No satellite mowing comparison. PRIA's area-monitoring (SATIKAS) results are not, as far as we found, open to third parties.
+- Satellite mowing signals are our own NDVI rule of thumb on open Sentinel-2 data, not PRIA's area monitoring (SATIKAS), whose results are not open to third parties. Clouds can leave gaps of weeks; grazing, flooding or drought can also cause drops. Loading a season takes 15–60 s the first time (cached for 12 h).
+- Farmer data cannot be pulled from e-PRIA automatically: there is no public API for an applicant's own parcels, and the Land Board's X-tee services need a member organisation. The app uses the open registers instead (see docs/data-integration.md).
 - Data lives in one browser. Clearing site data deletes it; export a file to back it up.
 - **Performance:** Lighthouse mobile (production build, measured on the development machine, CPU benchmark index about 320–520): Accessibility 100, Best Practices 100, CLS 0. Performance scored 67 with Lighthouse's default 4× CPU slowdown, and 72–89 with the slowdown calibrated to this machine (1.5×). It does not reliably reach 90. What remains is mostly React's startup work on a slow simulated CPU. Things already done: route code splitting, a static first-paint shell, font preloads, the animation library kept out of the first bundle, a meadow that draws only its visible region at reduced resolution on phones and starts after idle. Next options: prerender the first screen, or move to Preact.
 - In a hidden or background tab browsers pause animation frames, so the meadow and enter animations resume when the tab is visible again.

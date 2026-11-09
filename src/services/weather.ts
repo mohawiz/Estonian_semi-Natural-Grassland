@@ -64,25 +64,51 @@ export const OPEN_METEO_SOURCE: WeatherSource = {
 
 const ARCHIVE = 'https://archive-api.open-meteo.com/v1/archive';
 
-async function getJSON(url: string, signal?: AbortSignal): Promise<any> {
-  let res: Response;
-  try {
-    res = await fetch(url, { signal });
-  } catch (e) {
-    if ((e as Error).name === 'AbortError') throw e;
-    throw new WeatherError('network', 'Could not reach the weather service. Check your internet connection and try again.');
-  }
-  if (!res.ok) {
+const RETRY_DELAYS_MS = [800, 2500];
+
+function wait(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(resolve, ms);
+    signal?.addEventListener('abort', () => {
+      clearTimeout(t);
+      reject(new DOMException('Aborted', 'AbortError'));
+    });
+  });
+}
+
+/** Fetch JSON, retrying network failures, rate limits and server errors (the free service has short outages). */
+async function getJSON(url: string, signal?: AbortSignal, fetchImpl: typeof fetch = fetch): Promise<any> {
+  for (let attempt = 0; ; attempt++) {
+    let res: Response | null = null;
+    try {
+      res = await fetchImpl(url, { signal });
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') throw e;
+    }
+    if (res?.ok) return res.json();
+    const retriable = !res || res.status === 429 || res.status >= 500;
+    if (retriable && attempt < RETRY_DELAYS_MS.length) {
+      await wait(RETRY_DELAYS_MS[attempt], signal);
+      continue;
+    }
+    if (!res) throw new WeatherError('network', 'Could not reach the weather service. Check your internet connection and try again.');
     let reason = `HTTP ${res.status}`;
     try {
       const body = await res.json();
-      if (body?.reason) reason = body.reason;
+      if (body?.reason) reason = `${body.reason} (HTTP ${res.status})`;
     } catch {
       /* body was not JSON */
     }
+    if (res.status === 429) reason = `The weather service is busy (too many requests). Try again in a minute. (HTTP 429)`;
+    else if (res.status >= 500) reason = `The weather service had a temporary problem. Try again in a minute. (HTTP ${res.status})`;
     throw new WeatherError('http', reason);
   }
-  return res.json();
+}
+export { getJSON as getWeatherJSON };
+
+/** Today's date in Estonia (YYYY-MM-DD): the archive has no data after it. */
+export function todayInTallinn(now = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Tallinn' }).format(now);
 }
 
 const num = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null);
@@ -118,6 +144,9 @@ export function parseOpenMeteoDaily(json: any, lat: number, lon: number, start: 
 export class OpenMeteoWeatherService implements WeatherService {
   async getDaily(lat: number, lon: number, start: string, end: string, signal?: AbortSignal): Promise<WeatherSeries> {
     if (end < start) throw new WeatherError('range', 'The end date is before the start date.');
+    const today = todayInTallinn();
+    if (start > today) throw new WeatherError('range', 'This period is in the future, so there is no weather data for it yet.');
+    if (end > today) end = today;
     const q = new URLSearchParams({
       latitude: lat.toFixed(4),
       longitude: lon.toFixed(4),

@@ -10,8 +10,8 @@ def test_tokens_fold_diacritics_and_stem():
 
 def test_corpus_matches_the_app_library(settings):
     passages = load_corpus(settings.corpus_path)
-    assert len(passages) == 47
-    assert len({p.id for p in passages}) == 47
+    assert len(passages) == 60
+    assert len({p.id for p in passages}) == 60
     assert all(p.text and p.summary['en'] and p.summary['et'] for p in passages)
 
 

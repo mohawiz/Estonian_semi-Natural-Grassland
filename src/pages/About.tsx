@@ -56,7 +56,7 @@ function Architecture() {
         <path className="flow future" d="M490 157 C520 200 530 240 560 252" />
         {node(24, 48, 200, 'UI · React', t('about.archUi'))}
         {node(24, 132, 140, 'WeatherService', 'Open-Meteo', 'local')}
-        {node(180, 132, 150, 'RetrievalService', 'BM25 · 47 passages', 'local')}
+        {node(180, 132, 150, 'RetrievalService', 'BM25 · 60 passages', 'local')}
         {node(346, 132, 144, 'AssistantService', t('about.archExtractive'), 'local')}
         {node(24, 216, 140, 'buildReport()', t('about.archPure'), 'local')}
         {node(180, 216, 150, 'IndexedDB', t('about.archLocal'), 'local')}

@@ -307,7 +307,7 @@
             "et": "Vääramatu jõud on asjaolu, mida taotleja ei saanud mõjutada ega mõistlikult vältida; seda hinnatakse juhtumipõhiselt. Näiteks on raske loodusõnnetus või rasked ilmastikutingimused, mis tõsiselt kahjustavad majapidamist.",
             "en": "Force majeure is a circumstance the applicant could not influence or reasonably avoid; it is assessed case by case. One example is a severe natural disaster or severe weather seriously affecting the holding."
           },
-          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastik", "ilmastikutingimused", "ilm", "loodusõnnetus", "üleujutus", "force majeure", "exceptional circumstances", "weather", "severe weather", "natural disaster", "flood"]
+          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastik", "ilmastikutingimused", "ilm", "loodusõnnetus", "üleujutus", "force majeure", "exceptional circumstances", "weather", "severe weather", "natural disaster", "flood", "heavy rain", "rain", "rainfall", "waterlogged", "wet ground", "could not mow", "could not graze", "vihm", "vihmasadu", "sademed", "märg", "liigniiske", "ei saanud niita"]
         },
         {
           "id": "pria-abiks-taotlejale-2026-p6",
@@ -318,7 +318,7 @@
             "et": "Takistusest tuleb PRIAt mõistlikul ajal kirjalikult teavitada (info@pria.ee), soovitatavalt 15 tööpäeva jooksul asjaolu ilmnemisest. Teavitus võib sanktsiooni leevendada, kuid nõue tuleb täita esimesel võimalusel.",
             "en": "Notify PRIA in writing within a reasonable time (info@pria.ee), recommended within 15 working days of the circumstance arising. Notification may soften the sanction, but the requirement must still be met at the first opportunity."
           },
-          "keywords": ["teavitamine", "teavitada", "teavitus", "15 tööpäeva", "tööpäeva jooksul", "info@pria.ee", "kirjalikult", "vääramatu jõud", "erandlikud asjaolud", "notification", "notify", "15 working days", "deadline", "force majeure", "exceptional circumstances", "in writing"]
+          "keywords": ["teavitamine", "teavitada", "teavitus", "15 tööpäeva", "tööpäeva jooksul", "info@pria.ee", "kirjalikult", "vääramatu jõud", "erandlikud asjaolud", "notification", "notify", "15 working days", "deadline", "force majeure", "exceptional circumstances", "in writing", "heavy rain", "could not mow", "what to do", "vihm", "ei saanud niita"]
         },
         {
           "id": "pria-abiks-taotlejale-2026-p7",
@@ -362,7 +362,7 @@
             "et": "Valeandmete, alusetu väljamakse või 3- või 5-aastasest kohustusest enneaegse loobumise korral tuleb saadud toetus tagasi maksta; täieliku tagasinõudmise korral kohustus lõpeb.",
             "en": "If false data were submitted, payments were unjustified, or the 3- or 5-year commitment is abandoned early, the support received must be repaid; full recovery ends the commitment."
           },
-          "keywords": ["tagasinõudmine", "tagasi maksma", "tagasimakse", "loobumine", "valeandmed", "kohustus lõpeb", "clawback", "recovery", "repayment", "repay", "withdrawal", "false data"]
+          "keywords": ["tagasinõudmine", "tagasi maksma", "tagasimakse", "loobumine", "valeandmed", "kohustus lõpeb", "clawback", "recovery", "repayment", "repay", "withdrawal", "false data", "demand back", "money back", "support back", "pay back", "reclaim", "tagasi nõudma", "tagasi nõuda"]
         }
       ]
     },
@@ -652,7 +652,7 @@
             "et": "Vääramatu jõu või erandlike asjaoludena võib tunnistada näiteks raske loodusõnnetuse või rasked ilmastikutingimused, õnnetuse, toetusesaaja surma või pikaajalise töövõimetuse. Liikmesriik võib pidada kogu kindlaksmääratavat ala kahjustatuks.",
             "en": "Force majeure or exceptional circumstances may include, for example, a severe natural disaster or severe weather, an accident, or the beneficiary's death or long-term incapacity. A Member State may treat a whole defined area as seriously affected."
           },
-          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastikutingimused", "loodusõnnetus", "artikkel 3", "eu määrus", "force majeure", "exceptional circumstances", "severe weather", "natural disaster", "article 3", "eu regulation 2021/2116"]
+          "keywords": ["vääramatu jõud", "erandlikud asjaolud", "ilmastikutingimused", "loodusõnnetus", "artikkel 3", "eu määrus", "force majeure", "exceptional circumstances", "severe weather", "natural disaster", "article 3", "eu regulation 2021/2116", "heavy rain", "rain", "waterlogged", "vihm", "sademed"]
         },
         {
           "id": "eurlex-2021-2116-p2",
@@ -705,6 +705,206 @@
             "en": "An old PLK commitment could be ended by taking a Strategic Plan heritage meadow maintenance commitment on all the same land; a new five-year commitment then started."
           },
           "keywords": ["üleminek", "plk", "niit", "pärandniidu hooldamise toetus", "kohustuse lõpetamine", "transition", "switch", "legacy commitment", "new commitment"]
+        }
+      ]
+    },
+    {
+      "id": "loodusrikas-maaomanike-noustamine",
+      "title": {
+        "et": "Maaomanike nõustamine (Loodusrikas Eesti, Keskkonnaamet)",
+        "en": "Advice for landowners (Loodusrikas Eesti project, Environmental Board)"
+      },
+      "publisher": "Keskkonnaamet / projekt „Loodusrikas Eesti“",
+      "url": "https://www.loodusrikaseesti.ee/et/maaomanike-noustamine-0",
+      "version": "Veebileht; uuendamise kuupäev puudub (viimane lingitud infokiri: nr 8, juuni 2026)",
+      "versionDate": null,
+      "retrievedAt": "2026-11-09",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Juhend maaomanikele, mitte õigusakt: kuidas kontrollida, kas rohumaa on pärandniit, kuidas niitu taastada, kust saada nõu ja kuidas niitu rendile anda või võtta. Reeglid on PRIA ja Riigi Teataja dokumentides.",
+        "en": "Guidance for landowners, not a legal act: how to check whether grassland is a heritage meadow, restore it, get advice, and rent it out or take one on. The rules are in the PRIA and Riigi Teataja documents."
+      },
+      "passages": [
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p1",
+          "section": "Millest alustada?",
+          "lang": "et",
+          "text": "Kontrolli Maa-ameti kaardirakendusest, kas Sinu rohumaa on pärandniit. Selleks otsi huvipakkuv koht kaardilt üles või sisesta otsingusse katastriüksuse number või nimi. Kui maatükk ei ole kaardirakenduses pärandniiduks märgitud, aga Sa oled veendunud, et seal asub väärtuslik pärandniit, siis anna sellest Keskkonnaametile aadressil noustamine@keskkonnaamet.ee teada.",
+          "summary": {
+            "et": "Kontrolli Maa-ameti kaardirakendusest katastriüksuse numbri või nime järgi, kas rohumaa on pärandniit. Kui see pole märgitud, kuid arvad, et seal on väärtuslik pärandniit, teavita Keskkonnaametit (noustamine@keskkonnaamet.ee).",
+            "en": "Check in the Land Board's map application, by cadastral number or name, whether your grassland is a heritage meadow. If it is not marked but you believe it is a valuable heritage meadow, tell the Environmental Board (noustamine@keskkonnaamet.ee)."
+          },
+          "keywords": ["kas on pärandniit", "kaardirakendus", "katastriüksus", "katastriüksuse number", "maa-amet", "märgitud", "is it a heritage meadow", "check my land", "map application", "cadastral number", "not marked", "how to start"]
+        },
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p2",
+          "section": "Taastamine ja hooldamine",
+          "lang": "et",
+          "text": "Kui niitu pole pikka aega majandatud, siis on ilmselt tarvis see esmajoones taastada: ebasoovitav puittaimestik ja pilliroog tuleb eemaldada ning kulumättad madalaks hekseldada. Ala taastamise korraldamiseks pöördu Keskkonnaameti poole. Taastamisega seotud kulud katab riik. Pärast taastamist võid asuda niitu hooldama ehk niitma või karjatama ning taotleda selleks PRIAst pärandniidu hooldamise toetust.",
+          "summary": {
+            "et": "Kaua majandamata niit tuleb tavaliselt esmalt taastada (puittaimed ja pilliroog eemaldada, kulumättad hekseldada). Taastamise korraldab Keskkonnaamet ja kulud katab riik; seejärel saab niitu niita või karjatada ning taotleda PRIAst hooldamise toetust.",
+            "en": "A meadow left unmanaged for a long time usually needs restoring first (remove woody plants and reeds, mulch old tussocks). The Environmental Board organises restoration and the state pays for it; afterwards you can mow or graze and apply to PRIA for the maintenance support."
+          },
+          "keywords": ["taastamine", "taastada", "võsa", "puittaimestik", "pilliroog", "kulumättad", "hekseldamine", "kulud katab riik", "restoration", "restore", "overgrown", "reeds", "shrubs", "state pays", "abandoned meadow"]
+        },
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p3",
+          "section": "Nõustamine",
+          "lang": "et",
+          "text": "Maaomaniku esmase nõustamise, mis puudutab maa-alal asuvaid väärtusi ja toetusvõimalusi, korraldab projekti „Loodusrikas Eesti“ Keskkonnaameti nõustamistiim. Konsultatsioon toimub e-kirja teel, telefonitsi või välitööde käigus. […] Kui soovid hakata enda pärandniitu taastama või hooldama, siis pöördu Keskkonnaameti pärandniitude osakonna selle spetsialisti poole, kes vastutab Sinu piirkonna eest. Pärandniitude osakond korraldab pärandniidu taastamiseks hanke ja määrab selle ala majandamise tingimused.",
+          "summary": {
+            "et": "Esmast nõu maa väärtuste ja toetuste kohta annab Keskkonnaameti „Loodusrikas Eesti“ nõustamistiim (e-kiri, telefon, välitööd). Taastamise või hooldamise alustamiseks pöördu oma piirkonna pärandniitude osakonna spetsialisti poole; osakond korraldab taastamishanke ja määrab majandamise tingimused.",
+            "en": "First advice on the land's values and support options comes from the Environmental Board's Loodusrikas Eesti advisory team (email, phone, field visits). To start restoring or maintaining, contact the heritage meadow department specialist for your region; the department procures restoration and sets the management conditions."
+          },
+          "keywords": ["nõustamine", "nõu", "konsultatsioon", "spetsialist", "pärandniitude osakond", "majandamise tingimused", "hange", "advice", "advisor", "consultation", "who to contact", "management conditions", "specialist"]
+        },
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p4",
+          "section": "Rendile andmine ja võtmine",
+          "lang": "et",
+          "text": "Paljud pärandniidu omanikud ise karja ei kasvata ja põldu ei hari, seega puudub neil võimalus niite hooldada. Et soodustada pärandniitude heaperemehelikku majandamist, viib Keskkonnaamet rendihuvi korral maaomaniku ja potentsiaalse maahooldaja omavahel Maa-ameti pärandniitude rendirakenduse kaudu kokku. Kui soovid maaomanikuna oma pärandniitu heas seisukorras hoida ja oled valmis selle rendile andma, siis märgi rakenduses enda maatükk väljarenditavaks.",
+          "summary": {
+            "et": "Keskkonnaamet viib maaomaniku ja võimaliku hooldaja kokku Maa-ameti pärandniitude rendirakenduse kaudu; omanik saab märkida maatüki väljarenditavaks.",
+            "en": "The Environmental Board brings landowners and potential managers together through the Land Board's heritage meadow rental application; an owner can mark a plot as available to rent."
+          },
+          "keywords": ["rent", "rendile andmine", "rendirakendus", "väljarenditav", "maaomanik", "karja ei kasvata", "rent out", "lease", "rental", "no livestock", "landowner"]
+        },
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p5",
+          "section": "Rendile võtmine",
+          "lang": "et",
+          "text": "Kui tegutsed pärandniitude hooldajana ja soovid uusi maid rendile võtta, siis saad samuti oma soovi sinna rakendusse kirja panna. Rendile on võimalik võtta nii riigi- kui ka eramaal paiknevaid pärandniite.",
+          "summary": {
+            "et": "Pärandniitude hooldaja saab rendirakendusse märkida soovi uusi maid rendile võtta; rendile saab võtta nii riigi- kui ka eramaal asuvaid pärandniite.",
+            "en": "A heritage meadow manager can record in the rental application that they want to rent more land; meadows on both state and private land can be rented."
+          },
+          "keywords": ["rendile võtmine", "uued maad", "riigimaa", "eramaa", "hooldaja", "rent land", "find land", "state land", "private land", "more land"]
+        },
+        {
+          "id": "loodusrikas-maaomanike-noustamine-p6",
+          "section": "Infokiri",
+          "lang": "et",
+          "text": "Kaks-kolm korda aastas ilmub elektrooniline infokiri, mis on mõeldud pärandniidu omanikele ja hooldajatele. Selle tellimiseks kirjuta e-posti aadressile noustamine@keskkonnaamet.ee.",
+          "summary": {
+            "et": "Pärandniidu omanikele ja hooldajatele ilmub 2–3 korda aastas e-infokiri; tellimiseks kirjuta noustamine@keskkonnaamet.ee.",
+            "en": "An email newsletter for heritage meadow owners and managers comes out 2–3 times a year; subscribe by writing to noustamine@keskkonnaamet.ee."
+          },
+          "keywords": ["infokiri", "uudiskiri", "tellimine", "newsletter", "subscribe", "news"]
+        }
+      ]
+    },
+    {
+      "id": "loodusrikas-majandajate-lood",
+      "title": {
+        "et": "Pärandniitude majandajate lood (Loodusrikas Eesti)",
+        "en": "Heritage meadow managers' stories (Loodusrikas Eesti project)"
+      },
+      "publisher": "Keskkonnaamet / projekt „Loodusrikas Eesti“",
+      "url": "https://www.loodusrikaseesti.ee/et/parandniitude-majandajate-lood",
+      "version": "Veebileht; uuendamise kuupäev puudub (laureaadid 2022–2024)",
+      "versionDate": null,
+      "retrievedAt": "2026-11-09",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "Kogemuslood ja tunnustuskonkurss, mitte reeglid. Näited headest hooldusvõtetest; nõuded on PRIA ja Riigi Teataja dokumentides.",
+        "en": "Experience stories and an award, not rules. Examples of good practice; the requirements are in the PRIA and Riigi Teataja documents."
+      },
+      "passages": [
+        {
+          "id": "loodusrikas-majandajate-lood-p1",
+          "section": "Tunnustuskonkurss",
+          "lang": "et",
+          "text": "Oleme \"Loodusrikas Eesti\" projektiga saanud teha teoks Keskkonnaameti pikaajalise unistuse tunnustada ja tänada parimaid pärandniitude majandajaid, kes on andnud suure panuse elurikaste pärandkoosluste säilimisse ja taastamisse. Konkursse on seni viidud läbi kolm. […] 2026. aasta parimaid pärandniitude majandajaid tunnustame 2027. aasta jaanuaris!",
+          "summary": {
+            "et": "Keskkonnaamet tunnustab „Loodusrikas Eesti“ projektiga parimaid pärandniitude majandajaid; konkursse on olnud kolm ja 2026. aasta parimaid tunnustatakse 2027. aasta jaanuaris.",
+            "en": "The Environmental Board recognises the best heritage meadow managers through the Loodusrikas Eesti project; three competitions have been held, and the best of 2026 will be recognised in January 2027."
+          },
+          "keywords": ["tunnustus", "konkurss", "laureaat", "parim majandaja", "award", "competition", "best manager", "recognition", "stories"]
+        },
+        {
+          "id": "loodusrikas-majandajate-lood-p2",
+          "section": "Rannaniidud",
+          "lang": "et",
+          "text": "Pikaaegsete ja pühendunud Hiiumaa pärandniitude hooldajatena alustasid nad oma tegevust 90ndatel ja majandavad nüüdseks üle 100 hektari poollooduslikke kooslusi, millest enamuse moodustavad rannaniidud. Nad on aastate kaupa oma maid korralikult karjatanud ning hoidnud veepiiri valdavalt pilliroovaba - just nii nagu sealsele elustikule vaja.",
+          "summary": {
+            "et": "Näide rannaniitude hooldusest: aastaid järjepidev karjatamine ja veepiiri hoidmine valdavalt pilliroovabana, nagu sealne elustik vajab.",
+            "en": "Example of coastal meadow care: years of consistent grazing and keeping the water line mostly free of reeds, as the local wildlife needs."
+          },
+          "keywords": ["rannaniit", "karjatamine", "pilliroog", "veepiir", "hea tava", "coastal meadow", "grazing", "reeds", "shoreline", "good practice", "example"]
+        },
+        {
+          "id": "loodusrikas-majandajate-lood-p3",
+          "section": "Luhaniidud",
+          "lang": "et",
+          "text": "Kaua söötis olnud ja võsastunud luhast sai peagi eeskujulik heinamaa, mis tänu kõrgvete toodud fosforirikkale settele toodab lihaveiste maiusrooga nimega „Matsalu hein“.",
+          "summary": {
+            "et": "Näide luhaniidu taastamisest: kaua söötis ja võsastunud luht taastati eeskujulikuks heinamaaks, mille hein sobib lihaveistele.",
+            "en": "Example of floodplain meadow restoration: a long-abandoned, overgrown floodplain became an exemplary hay meadow whose hay feeds beef cattle."
+          },
+          "keywords": ["luhaniit", "luht", "söötis", "võsastunud", "heinamaa", "hein", "floodplain meadow", "abandoned", "overgrown", "hay", "restoration example"]
+        },
+        {
+          "id": "loodusrikas-majandajate-lood-p4",
+          "section": "Puisniidud",
+          "lang": "et",
+          "text": "Astra on vähendatud põõsastikke, eemaldatud maast väljaulatuvaid kive ja kände.",
+          "summary": {
+            "et": "Näide puisniidu taastamisest: põõsastikke vähendati ning maast välja ulatuvad kivid ja kännud eemaldati.",
+            "en": "Example of wooded meadow restoration: shrubs were reduced and stones and stumps sticking out of the ground were removed."
+          },
+          "keywords": ["puisniit", "põõsastik", "kivid", "kännud", "taastamine", "wooded meadow", "shrubs", "stones", "stumps", "restoration example"]
+        }
+      ]
+    },
+    {
+      "id": "maaamet-rendihuvi-juhend",
+      "title": {
+        "et": "Pärandniitude rendihuvi esitamise juhend (Maa-amet)",
+        "en": "Guide to registering interest in renting heritage meadows (Land Board)"
+      },
+      "publisher": "Maa-amet",
+      "url": "https://www.loodusrikaseesti.ee/sites/forest/files/2023-05/Parandniitude_rendihuvi_juhend.pdf",
+      "version": "Maa-amet 2023 (PDF, 6 lk)",
+      "versionDate": "2023-05-01",
+      "retrievedAt": "2026-11-09",
+      "status": "verified-current",
+      "statusNote": {
+        "et": "2023. aasta juhend, millele viitab kehtiv Loodusrikas Eesti maaomanike nõustamise leht. Kaardirakenduse menüüd võivad olla vahepeal muutunud.",
+        "en": "A 2023 guide, linked from the current Loodusrikas Eesti landowner advice page. The map application menus may have changed since."
+      },
+      "passages": [
+        {
+          "id": "maaamet-rendihuvi-juhend-p1",
+          "section": "Kaardirakenduse avamine",
+          "lang": "et",
+          "text": "Kui sisenete KATRI kaardirakendusse RMK või Keskkonnaameti kodulehe kaudu on kõik pärandniitutega seotud kihid automaatselt sisse lülitatud. Suurendage kaardipilti teile huvipakkuva piirkonnas ning vastavad alad ilmuvad nähtavale. Juhul kui tulite otse lingiga riigivara.kataster.ee valige parempoolsest menüüst esimene nupp „Kihid“ ning seejärel valige kiht „Pärandniitude rendihuvi“.",
+          "summary": {
+            "et": "Rendihuvi kihid on KATRI kaardirakenduses (riigivara.kataster.ee) RMK või Keskkonnaameti lehe kaudu sisenedes kohe sees; otselingiga tulles vali menüüst „Kihid“ ja kiht „Pärandniitude rendihuvi“.",
+            "en": "The rental interest layers are on automatically in the KATRI map application (riigivara.kataster.ee) when opened via RMK or the Environmental Board's site; if you open it directly, choose 'Layers' and the 'Heritage meadow rental interest' layer."
+          },
+          "keywords": ["katri", "riigivara", "kaardirakendus", "kihid", "rendihuvi", "map application", "layers", "rental interest", "state land"]
+        },
+        {
+          "id": "maaamet-rendihuvi-juhend-p2",
+          "section": "Rendihuvi kihid",
+          "lang": "et",
+          "text": "Lepinguta pärandniit - lepinguta pärandniidu kooslused, kuhu on võimalik esitada rendihuvi taotlust […] Rendile pakkumisel pärandniidud eramaal - pärandniidud eramaal, mille maaomanik on avaldanud valmisolekut enda maad poolloodusliku koosluse hooldamiseks rendile anda […] isikuandmeid aitab poolte nõusolekul vahendada Keskkonnaamet",
+          "summary": {
+            "et": "Kaardil on lepinguta pärandniidud (neile saab esitada rendihuvi) ja eramaal rendile pakutavad pärandniidud; nende puhul vahendab Keskkonnaamet poolte nõusolekul kontaktandmeid.",
+            "en": "The map shows heritage meadows without a contract (you can register rental interest in them) and meadows on private land offered for rent; for those, the Environmental Board passes on contact details with both parties' consent."
+          },
+          "keywords": ["lepinguta pärandniit", "eramaa", "riigimaa", "rendile pakkumine", "rendihuvi taotlus", "without contract", "private land", "state land", "offered for rent", "rental interest"]
+        },
+        {
+          "id": "maaamet-rendihuvi-juhend-p3",
+          "section": "Rendihuvi esitamine",
+          "lang": "et",
+          "text": "Rendihuvi esitamiseks liikuge viimase reani ning avage see noolest ning seejärel vajutage nuppu „Esita rendihuvi“. Seejärel avaneb aken, kus maatüki andmed on juba automaatselt täidetud ning tuleb sisestada oma kontaktandmed ning soovi korral saab ka esitada täpsustavaid märkuseid. Seejärel vajutage „Saada taotlus“ ning teile saabub eelnevalt sisestatud meiliaadressile ka kinnituseks e-kiri.",
+          "summary": {
+            "et": "Rendihuvi esitamiseks ava maatüki info viimane rida ja vajuta „Esita rendihuvi“, sisesta kontaktandmed (soovi korral märkused) ja vajuta „Saada taotlus“; kinnitus tuleb e-postile.",
+            "en": "To register rental interest, open the last row of the plot's info, press 'Esita rendihuvi', enter your contact details (and notes if you wish) and press 'Saada taotlus'; a confirmation arrives by email."
+          },
+          "keywords": ["rendihuvi esitamine", "esita rendihuvi", "saada taotlus", "kontaktandmed", "how to apply", "register interest", "rent a meadow", "submit"]
         }
       ]
     }

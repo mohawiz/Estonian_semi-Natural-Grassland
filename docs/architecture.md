@@ -76,11 +76,21 @@ This is now built: `backend/` implements it (FastAPI, Postgres + pgvector, faste
 
 `buildReport(args): ProofReport` is a pure function, unit-tested in `report.test.ts`. A backend can produce the same `ProofReport` JSON (for example to sign it, or to submit it through an agency API if one ever exists). The screen view (`ReportDocument.tsx`) and the PDF (`pdf.ts`) both render from that object.
 
+## Real plot data, map and satellite
+
+- `src/services/landData.ts`: PRIA heritage meadow register, Land Board cadastre and Environmental Register habitats over open WFS (CQL filters by number, point or bounding box). Returns `MeadowCandidate`s; `candidateToParcelFields` turns one into the stored `Parcel.boundary`, `source`, `pria`, `cadastralId`.
+- `src/services/fileImport.ts`: GeoJSON, KML and zipped shapefiles (shpjs, loaded only when needed) into the same candidates. `src/lib/geo.ts` has area, centre, point-in-polygon and L-EST97 → WGS 84.
+- `src/features/map/RealMap.tsx`: Leaflet with Land Board tiles and PRIA's WMS layer; used on the dashboard, the plot page and in *Find your meadow*.
+- `src/services/satellite.ts`: Sentinel-2 scenes from Planetary Computer's STAC API, clear share and NDVI per date from its statistics API over the plot outline, drop detection and matching with the log. Cached per browser for 12 h.
+- `backend/app/source_check.py`: daily check of the official sources behind the library (see [rag.md](rag.md#watching-the-official-sources-for-changes)); `GET /api/library/status` feeds the Rules page.
+
+Why and how, point by point: [data-integration.md](data-integration.md).
+
 ## Interface layer: the living meadow and dashboard
 
 - `src/features/meadow/conditions.tsx`: pages publish the weather window they show (`useMeadowWindow(days)`). The provider turns it into wind, humidity, rain and wet-day share, and decides whether effects are reduced (setting, OS preference or `?effects=reduced`).
 - `src/features/meadow/MeadowCanvas.tsx`: one 2D canvas. Blades are batched into 12 strokes per frame. It draws only the region not covered by the opaque content sheet, renders at 0.75× on phones, runs at 30 fps on phones, pauses in hidden tabs, and wakes after the page is idle.
-- `src/services/risk.ts` (gauge) and `src/services/satelliteDemo.ts` (simulated detections, demo only) are pure and unit-tested. A backend could replace the satellite source with real area-monitoring data if PRIA ever makes it available.
+- `src/services/risk.ts` (gauge) and `src/services/satelliteDemo.ts` (simulated detections for the demo farm, whose plots have no real outline) are pure and unit-tested. A backend could replace the satellite source with real area-monitoring data if PRIA ever makes it available.
 
 ## Data model (IndexedDB, `src/services/db.ts`)
 

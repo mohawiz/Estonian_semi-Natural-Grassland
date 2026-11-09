@@ -58,7 +58,7 @@ class FakeLLM:
 
 @pytest.fixture
 def settings():
-    return Settings(_env_file=None, groq_api_key='test', database_url='', rate_limit=3)
+    return Settings(_env_file=None, groq_api_key='test', database_url='', rate_limit=3, source_check_hours=0)
 
 
 @pytest.fixture

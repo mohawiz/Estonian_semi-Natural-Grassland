@@ -2278,3 +2278,297 @@ details > summary::marker {
     padding: 0;
   }
 }
+
+/* ---- Real map (Leaflet) ---------------------------------------------- */
+.realmap-canvas {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--teal-tint);
+  z-index: 0;
+}
+.realmap-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 10px;
+}
+.realmap .check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  cursor: pointer;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.chip {
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  min-height: 34px;
+  font: 600 0.85rem var(--font-text);
+  cursor: pointer;
+}
+.chip[aria-pressed='true'] {
+  background: var(--hay);
+  border-color: var(--peat);
+  color: #1d150f;
+}
+.leaflet-container {
+  font: 500 0.8rem var(--font-text);
+}
+.leaflet-container .lf-plot {
+  fill: var(--bog, #1e3a2c);
+  fill-opacity: 0.35;
+  stroke: #1e3a2c;
+  cursor: pointer;
+}
+.leaflet-container .lf-plot.is-on {
+  fill: #d4a03a;
+  fill-opacity: 0.55;
+  stroke: #3a2a1f;
+}
+.leaflet-container .lf-point {
+  fill-opacity: 0.85;
+  stroke: #fff;
+}
+.leaflet-container .lf-hl {
+  fill: #5e9c94;
+  fill-opacity: 0.3;
+  stroke: #1e3a2c;
+  stroke-dasharray: 5 4;
+  cursor: pointer;
+}
+.leaflet-container .lf-hl.is-on {
+  fill: #d4a03a;
+  fill-opacity: 0.5;
+  stroke: #3a2a1f;
+  stroke-dasharray: none;
+}
+.lf-tip {
+  font: 600 0.8rem var(--font-text);
+  color: #1d150f;
+}
+.realmap-canvas:focus-visible {
+  outline: 3px solid var(--focus, #d4a03a);
+  outline-offset: 2px;
+}
+.find-meadow {
+  max-width: 720px;
+  margin-bottom: 20px;
+}
+.find-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
+  margin-top: 14px;
+}
+.find-row .grow {
+  flex: 1 1 260px;
+}
+.find-row .btn {
+  margin-top: 28px;
+}
+.find-results h3 {
+  margin: 16px 0 6px;
+  font-size: 1rem;
+}
+.sat-axis {
+  font: 500 10.5px var(--font-text);
+  fill: var(--ink-3);
+}
+.sat-progress {
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--seaglass) 25%, transparent);
+  overflow: hidden;
+}
+.sat-progress span {
+  display: block;
+  height: 100%;
+  background: var(--seaglass);
+  transition: width 0.3s;
+}
+
+/* Map size: large on desktop, most of the screen on phones */
+:root {
+  --map-h: clamp(380px, 62vh, 680px);
+}
+@media (max-width: 720px) {
+  :root {
+    --map-h: clamp(320px, 65vh, 560px);
+  }
+}
+.realmap-stage {
+  position: relative;
+}
+.realmap-full {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 500;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.realmap.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--sheet);
+}
+.realmap.is-full .realmap-stage {
+  flex: 1;
+  min-height: 0;
+}
+.realmap.is-full .realmap-canvas {
+  height: 100%;
+}
+.realmap.is-full .realmap-tools,
+.realmap.is-full .chip-row {
+  margin-top: 0;
+}
+html.map-full-open,
+html.map-full-open body {
+  overflow: hidden;
+}
+
+/* ---- Meadow map page --------------------------------------------------- */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+.stat-value {
+  font: 600 clamp(1.25rem, 1rem + 1vw, 1.7rem) var(--font-display);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+.explore-search {
+  max-width: 720px;
+  margin-bottom: 12px;
+}
+.explore {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 16px;
+  align-items: start;
+}
+.explore-side {
+  max-height: clamp(420px, 72vh, 820px);
+  overflow: auto;
+  position: sticky;
+  top: 90px;
+}
+.explore-list li {
+  padding: 0;
+}
+.explore-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.explore-item:hover,
+.explore-item:focus-visible {
+  background: var(--sheet-2);
+}
+.meadow-card:focus {
+  outline: none;
+}
+@media (max-width: 960px) {
+  .explore {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .explore-side {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* ---- Farm setup -------------------------------------------------------- */
+.setup-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.setup-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.setup-steps li.is-on {
+  color: var(--ink);
+}
+.setup-num {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule-strong);
+  font-size: 0.85rem;
+}
+.setup-steps li.is-on .setup-num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--surface);
+}
+.setup-panel {
+  max-width: 760px;
+}
+
+/* Long words, document references and URLs wrap instead of widening the page on phones */
+main p,
+main li,
+main dd,
+main blockquote,
+main td,
+main h1,
+main h2,
+main h3 {
+  overflow-wrap: anywhere;
+}
