@@ -2923,3 +2923,211 @@ textarea:focus {
   white-space: normal;
   max-width: 100%;
 }
+
+/* =====================================================================
+   Glass and hover: catchy but calm. A still, soft colour field behind the
+   app; frosted panels, tiles and cards on top; quick lift-and-glow on hover.
+   Nothing moves on its own (no looping animations).
+   ===================================================================== */
+:root[data-effects='calm'] *,
+:root[data-effects='calm'] *::before,
+:root[data-effects='calm'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+}
+:root {
+  --frost: color-mix(in srgb, var(--surface) 64%, transparent);
+  --frost-strong: color-mix(in srgb, var(--surface) 80%, transparent);
+  --frost-edge: color-mix(in srgb, #ffffff 70%, transparent);
+  --frost-shine: color-mix(in srgb, #ffffff 55%, transparent);
+  --lift: 0 2px 6px -2px rgba(23, 37, 29, 0.12), 0 22px 44px -22px rgba(23, 37, 29, 0.45);
+  --glow: color-mix(in srgb, var(--seaglass) 45%, transparent);
+}
+:root[data-theme='dark'] {
+  --frost-edge: color-mix(in srgb, #ffffff 13%, transparent);
+  --frost-shine: color-mix(in srgb, #ffffff 9%, transparent);
+  --lift: 0 2px 6px -2px rgba(0, 0, 0, 0.4), 0 24px 48px -22px rgba(0, 0, 0, 0.85);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --frost-edge: color-mix(in srgb, #ffffff 13%, transparent);
+    --frost-shine: color-mix(in srgb, #ffffff 9%, transparent);
+    --lift: 0 2px 6px -2px rgba(0, 0, 0, 0.4), 0 24px 48px -22px rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* the still colour field: meadow green, sea-glass and a touch of hay */
+html,
+body {
+  background:
+    radial-gradient(900px 520px at 8% -6%, color-mix(in srgb, var(--seaglass) 55%, transparent), transparent 70%),
+    radial-gradient(760px 480px at 96% 4%, color-mix(in srgb, var(--hay) 30%, transparent), transparent 70%),
+    radial-gradient(1100px 700px at 60% 105%, color-mix(in srgb, var(--seaglass) 40%, transparent), transparent 70%),
+    var(--bog);
+  background-attachment: fixed;
+}
+.sheet {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--sheet) 86%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  backdrop-filter: blur(28px) saturate(1.2);
+}
+.sheet::after {
+  /* soft colour glow inside the page, behind the glass panels */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(600px 340px at 85% 120px, color-mix(in srgb, var(--seaglass) 22%, transparent), transparent 70%),
+    radial-gradient(520px 320px at 5% 520px, color-mix(in srgb, var(--hay) 16%, transparent), transparent 70%);
+}
+
+/* bars: frosted glass */
+.glass {
+  background: var(--frost-strong);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--frost-edge);
+}
+.assistant {
+  background: var(--surface);
+}
+
+/* panels, tiles and cards: frosted glass with a light top edge */
+.panel:not(.flat),
+.today-tile,
+.plot-card {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--surface) 80%, transparent), var(--frost));
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-color: var(--frost-edge);
+  box-shadow: 0 1px 0 var(--frost-shine) inset, var(--shadow);
+}
+.panel.tinted {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--seaglass) 16%, var(--frost)), var(--frost));
+}
+.today-tile {
+  border-left: 6px solid var(--status, var(--seaglass));
+}
+.plot-card {
+  border-bottom: 5px solid var(--status, var(--rule));
+}
+
+/* tiles and cards lift and glow in their status colour on hover */
+.today-tile,
+.plot-card {
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.today-tile:hover,
+.plot-card:hover,
+.plot-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow:
+    0 1px 0 var(--frost-shine) inset,
+    var(--lift),
+    0 0 0 1px color-mix(in srgb, var(--status, var(--seaglass)) 45%, transparent),
+    0 14px 36px -16px color-mix(in srgb, var(--status, var(--seaglass)) 70%, transparent);
+}
+.plot-photo img,
+.plot-photo svg {
+  transition: transform 0.35s var(--ease);
+}
+.plot-card:hover .plot-photo img,
+.plot-card:hover .plot-photo svg {
+  transform: scale(1.05);
+}
+
+/* buttons: quick lift, soft glow, frosted plain buttons */
+.btn {
+  transition: transform 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), color 0.18s;
+}
+.btn:not(.btn-primary):not(.btn-ghost) {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, transparent), color-mix(in srgb, var(--surface) 70%, transparent));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-color: var(--frost-edge);
+  box-shadow: 0 1px 0 var(--frost-shine) inset, 0 4px 14px -8px rgba(23, 37, 29, 0.35);
+}
+.btn:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 var(--frost-shine) inset, 0 10px 24px -10px var(--glow);
+  border-color: color-mix(in srgb, var(--seaglass) 60%, transparent);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, var(--seaglass)));
+}
+.btn-primary:hover:not([disabled]) {
+  background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 65%, var(--seaglass)));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 14px 30px -12px color-mix(in srgb, var(--primary) 85%, transparent);
+}
+.btn:active:not([disabled]) {
+  transform: translateY(0) scale(0.98);
+}
+.btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* the big main action: a glowing glass slab with a round plus */
+.btn-hero {
+  background:
+    radial-gradient(420px 140px at 12% 0%, rgba(255, 255, 255, 0.22), transparent 70%),
+    linear-gradient(120deg, var(--primary), color-mix(in srgb, var(--primary) 60%, var(--seaglass)));
+  border: 1px solid color-mix(in srgb, #ffffff 30%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 18px 40px -18px color-mix(in srgb, var(--primary) 90%, transparent);
+}
+.btn-hero > svg {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  padding: 12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary-ink) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-ink) 30%, transparent);
+  transition: transform 0.25s var(--ease), background 0.2s;
+}
+.btn-hero:hover:not([disabled]) {
+  transform: translateY(-3px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 26px 50px -20px color-mix(in srgb, var(--primary) 95%, transparent);
+}
+.btn-hero:hover > svg {
+  transform: rotate(90deg);
+  background: color-mix(in srgb, var(--primary-ink) 24%, transparent);
+}
+
+/* menu: a glass pill behind the item you point at */
+.nav a {
+  transition: background 0.18s var(--ease), color 0.18s;
+}
+.nav a:hover {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+.nav-pill {
+  background: linear-gradient(160deg, var(--surface), color-mix(in srgb, var(--surface) 70%, transparent));
+  border: 1px solid var(--frost-edge);
+}
+
+/* the phone Ask AI button: glowing glass pill */
+.ask-fab {
+  border: 1px solid color-mix(in srgb, #ffffff 35%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 12px 28px -10px color-mix(in srgb, var(--primary) 90%, transparent);
+}
+
+/* people who ask their device for less motion get colour changes only */
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover:not([disabled]),
+  .btn-hero:hover:not([disabled]),
+  .today-tile:hover,
+  .plot-card:hover,
+  .plot-card:focus-within,
+  .btn:active:not([disabled]),
+  .plot-card:hover .plot-photo img,
+  .plot-card:hover .plot-photo svg,
+  .btn-hero:hover > svg,
+  .nav a:hover svg {
+    transform: none;
+  }
+}

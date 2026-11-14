@@ -63,8 +63,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     if (settings.theme === 'system') root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', settings.theme);
-    // Calm interface for every user: no moving effects (the old "full effects" setting is ignored)
-    root.setAttribute('data-effects', 'reduced');
+    // Calm for every user: glass and quick hover feedback, but nothing that moves on its own
+    root.setAttribute('data-effects', 'calm');
     root.setAttribute('data-text', settings.textSize);
   }, [settings.lang, settings.theme, settings.textSize]);
 
