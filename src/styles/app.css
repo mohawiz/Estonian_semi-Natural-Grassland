@@ -50,7 +50,7 @@
   --font-display: 'Newsreader Variable', 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --font-text: 'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', 'Segoe UI', sans-serif;
 
-  --rail-w: 92px;
+  --rail-w: 108px;
   --assistant-w: 420px;
   --window-h: 128px;
   --r-s: 8px;
@@ -2571,4 +2571,106 @@ main h1,
 main h2,
 main h3 {
   overflow-wrap: anywhere;
+}
+
+/* ---------- calm, accessible layout (users 50+, phones and laptops) ---------- */
+body {
+  font-size: 17px;
+}
+.meadow-window,
+.meadow-window.tall {
+  height: 14px;
+}
+.sheet::before {
+  display: none;
+}
+.nav a {
+  font-size: 0.76rem;
+}
+.top-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+  flex: none;
+}
+.top-btn {
+  gap: 6px;
+  min-height: 44px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  flex: none;
+}
+/* the assistant button for thumbs: phones only, above the bottom menu */
+.ask-fab {
+  display: none;
+}
+@media (max-width: 860px) {
+  .nav a {
+    font-size: 0.72rem;
+  }
+  .ask-fab {
+    display: inline-flex;
+    position: fixed;
+    right: 14px;
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    z-index: 89;
+    min-height: 54px;
+    padding: 10px 20px 10px 16px;
+    border-radius: 999px;
+    font-size: 1rem;
+    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+  }
+  .toasts {
+    bottom: 164px;
+  }
+  .sheet {
+    padding-bottom: 170px;
+  }
+  .topbar {
+    gap: 6px;
+    padding: 6px 6px 6px 14px;
+  }
+  .topbar .select-pill {
+    padding: 6px 10px;
+  }
+}
+@media (max-width: 340px) {
+  .topbar .farm {
+    display: none;
+  }
+  .topbar .spacer {
+    flex: 0;
+  }
+  .topbar {
+    justify-content: flex-end;
+  }
+}
+/* list rows: action buttons (Edit, Delete…) sit beside the text, or below it on phones */
+.row-actions {
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+@media (max-width: 600px) {
+  .ledger li:has(> .row-actions) {
+    flex-wrap: wrap;
+  }
+  .ledger li > .row-actions {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 34px;
+  }
+}
+/* menu words break between words only, never mid-word */
+.nav a {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+/* solid bars and panels: nothing shows through text */
+:root[data-effects='reduced'] .glass,
+.assistant {
+  background: var(--surface);
 }

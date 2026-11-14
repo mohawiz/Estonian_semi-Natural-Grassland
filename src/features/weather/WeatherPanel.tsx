@@ -6,7 +6,6 @@ import { formatDate } from '../../lib/dates';
 import { formatNumber } from '../../lib/units';
 import { summarizeWeather, type WeatherBaseline, type WeatherSeries } from '../../services/weather';
 import type { WeatherState } from './useWeather';
-import { WeatherTimeline } from './WeatherTimeline';
 
 export function WeatherFacts({ series, baseline, baselineStatus, range }: { series: WeatherSeries; baseline?: WeatherBaseline; baselineStatus?: string; range?: { start: string; end: string } }) {
   const { t, lang } = useApp();
@@ -76,7 +75,7 @@ export function WeatherSourceNote({ series }: { series: WeatherSeries }) {
   );
 }
 
-export function WeatherPanel({ state, baseline, retry, band, range }: { state: WeatherState; baseline: { status: string; data?: WeatherBaseline }; retry: () => void; band?: { start: string; end: string } | null; range?: { start: string; end: string } }) {
+export function WeatherPanel({ state, baseline, retry, range }: { state: WeatherState; baseline: { status: string; data?: WeatherBaseline }; retry: () => void; range?: { start: string; end: string } }) {
   const { t, lang } = useApp();
   const [table, setTable] = useState(false);
   if (state.status === 'idle') return null;
@@ -84,7 +83,6 @@ export function WeatherPanel({ state, baseline, retry, band, range }: { state: W
     return (
       <div aria-busy="true" aria-live="polite">
         <span className="sr-only">{t('weather.loading')}</span>
-        <Skeleton height={220} />
         <div className="row" style={{ marginTop: 14 }}>
           {[1, 2, 3, 4].map((k) => (
             <Skeleton key={k} height={44} width={150} />
@@ -111,7 +109,6 @@ export function WeatherPanel({ state, baseline, retry, band, range }: { state: W
   const soilMissing = series.days.every((d) => !d.soilMoisture);
   return (
     <div>
-      <WeatherTimeline days={series.days} band={band} />
       {soilMissing && <p className="muted small">{t('weather.noSoil')}</p>}
       <WeatherFacts series={series} baseline={baseline.data} baselineStatus={baseline.status} range={range} />
       <WeatherSourceNote series={series} />

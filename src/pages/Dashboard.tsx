@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../app/store';
@@ -6,22 +5,19 @@ import { useUI } from '../app/ui';
 import { Icon, MeadowPlants } from '../components/Icon';
 import { ConfirmDialog, EmptyState, PageHeader, Skeleton, useConfirm } from '../components/ui';
 import { useToast } from '../components/Toast';
-import { DashHero } from '../features/dashboard/DashHero';
 import { Heatmap } from '../features/dashboard/Heatmap';
 import { RealMap } from '../features/map/RealMap';
 import { RiskGauge } from '../features/dashboard/RiskGauge';
 import { SatelliteCompare } from '../features/dashboard/SatelliteCompare';
-import { Trends } from '../features/dashboard/Trends';
-import { useMeadowWindow } from '../features/meadow/conditions';
 import { useWeather } from '../features/weather/useWeather';
 import { WeatherFacts, WeatherSourceNote } from '../features/weather/WeatherPanel';
-import { WeatherTimeline, type DateWindow } from '../features/weather/WeatherTimeline';
+import type { DateWindow } from '../features/weather/WeatherTimeline';
 import { addDays, formatDate, todayISO } from '../lib/dates';
 import type { OnboardingTask } from '../lib/types';
 import { formatArea } from '../lib/units';
 import { weatherVerdict } from '../services/report';
 import { computeRisk } from '../services/risk';
-import { summarizeWeather, type WeatherDay } from '../services/weather';
+import { summarizeWeather } from '../services/weather';
 import { noticeWindows } from './Deadlines';
 
 const TASKS: { id: OnboardingTask; to?: string }[] = [{ id: 'openDemo' }, { id: 'logEntry', to: '/log/new' }, { id: 'buildReport', to: '/report' }, { id: 'askAssistant' }];
@@ -69,16 +65,12 @@ export function Dashboard() {
   const entries = useMemo(() => data.entries.filter((e) => e.parcelId === parcel?.id), [data.entries, parcel?.id]);
   const firstMissed = entries.find((e) => e.kind === 'missed' && e.date >= season.start);
   const [brush, setBrush] = useState<DateWindow | null>(null);
-  const [hoverWeek, setHoverWeek] = useState<string | null>(null);
-  const [day, setDay] = useState<WeatherDay | null>(null);
   const hide = useLocalFlag('ga-hide-onboarding');
 
   const { state, retry } = useWeather(parcel?.lat, parcel?.lon, season.start, season.end, !!parcel, false);
   const series = state.status === 'ready' ? state.series : null;
   const defaultWindow: DateWindow = firstMissed ? { start: firstMissed.date, end: firstMissed.endDate ?? firstMissed.date } : { start: addDays(season.end, -29), end: season.end };
   const win = brush ?? defaultWindow;
-  const windowDays = useMemo(() => series?.days.filter((d) => d.date >= win.start && d.date <= win.end) ?? null, [series, win.start, win.end]);
-  useMeadowWindow(windowDays);
 
   const verdicts = useMemo(() => {
     const out: Record<string, ReturnType<typeof weatherVerdict>> = {};
@@ -112,16 +104,10 @@ export function Dashboard() {
     { key: 'dash.preset30', w: { start: addDays(season.end, -29), end: season.end } },
     { key: 'dash.presetSeason', w: season },
   ];
-  const stagger = (i: number) => ({ initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.08 * i, duration: 0.6, ease: [0.22, 0.8, 0.2, 1] as const } });
   const updated = series ? t('dash.lastUpdated', { time: formatDate(series.fetchedAt, lang, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }) : '';
 
   return (
     <div>
-      <DashHero
-        eyebrow={parcel ? `${parcel.name} · ${formatDate(today, lang, { weekday: 'long', day: 'numeric', month: 'long' })}` : formatDate(today, lang, { weekday: 'long', day: 'numeric', month: 'long' })}
-        title={farm?.owner ? t('dashboard.greetingNamed', { name: farm.owner.replace(/\s*\(demo\)$/, '') }) : t('dashboard.greeting')}
-        window={series ? win : null}
-      />
       <ConfirmDialog open={confirm.open} title={t('settings.loadDemo')} body={t('settings.demoConfirm')} confirmLabel={t('actions.continue')} onConfirm={confirm.confirm} onCancel={confirm.cancel} />
       <PageHeader
         home
@@ -142,7 +128,7 @@ export function Dashboard() {
       />
 
       {!hide.value && (
-        <motion.section className="panel tinted leaf" aria-labelledby="onboard-title" style={{ marginBottom: 26 }} data-tour="dashboard" {...stagger(0)}>
+        <section className="panel tinted leaf" aria-labelledby="onboard-title" style={{ marginBottom: 26 }} data-tour="dashboard">
           <div className="panel-title">
             <div>
               <h2 id="onboard-title">{t('onboarding.title')}</h2>
@@ -166,7 +152,7 @@ export function Dashboard() {
                     <svg width="30" height="30" viewBox="0 0 30 30">
                       <circle cx="15" cy="15" r="13" fill={done ? 'var(--primary)' : 'none'} stroke={done ? 'var(--primary)' : 'var(--rule-strong)'} strokeWidth="2" />
                       {done ? (
-                        <motion.path d="M9 15.5l4 4 8-9" stroke="var(--primary-ink)" strokeWidth="2.4" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45 }} />
+                        <path d="M9 15.5l4 4 8-9" stroke="var(--primary-ink)" strokeWidth="2.4" fill="none" strokeLinecap="round" />
                       ) : (
                         <text x="15" y="19.5" textAnchor="middle" style={{ font: '600 13px var(--font-display)', fill: 'var(--ink-3)' }}>
                           {i + 1}
@@ -198,7 +184,7 @@ export function Dashboard() {
               </button>
             </div>
           )}
-        </motion.section>
+        </section>
       )}
 
       {!parcel ? (
@@ -222,8 +208,8 @@ export function Dashboard() {
         />
       ) : (
         <div className="dash-grid">
-          {/* 1. The hero timeline: brushing drives the stats, the report link and the meadow */}
-          <motion.section className="panel leaf span-12" aria-labelledby="tl-title" {...stagger(1)}>
+          {/* 1. Weather for a chosen period: the buttons drive the figures, the calendar and the report link */}
+          <section className="panel leaf span-12" aria-labelledby="tl-title">
             <div className="panel-title">
               <div>
                 <div className="eyebrow">
@@ -241,7 +227,7 @@ export function Dashboard() {
             </div>
             {state.status === 'loading' || state.status === 'idle' ? (
               <div aria-busy="true">
-                <Skeleton height={240} />
+                <Skeleton height={120} />
               </div>
             ) : state.status === 'error' ? (
               <div className="notice notice-warn" role="alert">
@@ -259,31 +245,6 @@ export function Dashboard() {
             ) : (
               series && (
                 <>
-                  <p className="small muted" style={{ margin: '0 0 6px' }}>
-                    {t('dash.brushHint')}
-                  </p>
-                  <WeatherTimeline days={series.days} band={firstMissed ? { start: firstMissed.date, end: firstMissed.endDate ?? firstMissed.date } : null} brush={win} onBrush={setBrush} onDayClick={setDay} selectedDay={day?.date} height={280} />
-                  {day && (
-                    <div className="notice" style={{ marginTop: 10, alignItems: 'center' }}>
-                      <Icon name="calendar" size={20} />
-                      <div style={{ flex: 1 }}>
-                        <strong>{formatDate(day.date, lang, { weekday: 'long', day: 'numeric', month: 'long' })}</strong>
-                        <div className="small">
-                          {t('weather.rain')}: {day.precipitationMm ?? '—'} · {t('weather.tmax')}: {day.tMaxC ?? '—'} · {t('weather.soil')}: {day.soilMoisture ? day.soilMoisture.toFixed(3) : '—'} · {t('weather.wind')}: {day.windMaxKmh != null ? `${Math.round(day.windMaxKmh)} km/h` : '—'} · {t('weather.humidity')}: {day.humidityPct != null ? `${Math.round(day.humidityPct)} %` : '—'}
-                        </div>
-                        {entries
-                          .filter((e) => e.date <= day.date && (e.endDate ?? e.date) >= day.date)
-                          .map((e) => (
-                            <Link key={e.id} to={`/log/${e.id}`} className="small" style={{ marginRight: 10 }}>
-                              {e.kind === 'missed' ? t('log.missedBadge') : t(`method.${e.kind}`)}
-                            </Link>
-                          ))}
-                      </div>
-                      <button className="btn btn-ghost icon-btn" aria-label={t('actions.close')} onClick={() => setDay(null)}>
-                        <Icon name="close" size={18} />
-                      </button>
-                    </div>
-                  )}
                   <WeatherFacts series={series} range={win} />
                   <div className="row" style={{ justifyContent: 'space-between', marginTop: 12 }}>
                     <span className="updated">{updated}</span>
@@ -296,10 +257,10 @@ export function Dashboard() {
                 </>
               )
             )}
-          </motion.section>
+          </section>
 
           {/* 2. Map: selecting a parcel updates every chart */}
-          <motion.section className="panel span-12" aria-labelledby="map-title" {...stagger(2)}>
+          <section className="panel span-12" aria-labelledby="map-title">
             <div className="panel-title">
               <h2 id="map-title">{t('dash.mapTitle')}</h2>
             </div>
@@ -310,48 +271,38 @@ export function Dashboard() {
               onSelect={(id) => {
                 setParcelId(id);
                 setBrush(null);
-                setDay(null);
               }}
             />
             <p className="muted small" style={{ margin: '8px 0 0' }}>
               {t('dash.mapNote')}
             </p>
-          </motion.section>
+          </section>
 
           {/* 3. Management calendar */}
-          <motion.section className="panel span-12" aria-labelledby="heat-title" {...stagger(3)}>
+          <section className="panel span-12" aria-labelledby="heat-title">
             <div className="panel-title">
               <h2 id="heat-title">{t('dash.heatTitle')}</h2>
               <span className="small muted">{t('dash.heatHint')}</span>
             </div>
-            <Heatmap entries={entries} season={season} window={win} hoverWeek={hoverWeek} />
-          </motion.section>
+            <Heatmap entries={entries} season={season} window={win} hoverWeek={null} />
+          </section>
 
           {/* 4. Risk gauge */}
-          <motion.section className="panel tinted span-4" aria-labelledby="risk-title" {...stagger(4)}>
+          <section className="panel tinted span-4" aria-labelledby="risk-title">
             <div className="panel-title">
               <h2 id="risk-title">{t('dash.riskTitle')}</h2>
               <span className="badge badge-neutral">{t('dash.decisionSupport')}</span>
             </div>
             {risk && <RiskGauge risk={risk} />}
-          </motion.section>
+          </section>
 
           {/* 5. Records vs satellite (demo) */}
-          <motion.section className="panel span-8" aria-labelledby="sat-title" {...stagger(5)}>
+          <section className="panel span-8" aria-labelledby="sat-title">
             <div className="panel-title">
               <h2 id="sat-title">{t('dash.satTitle')}</h2>
             </div>
             <SatelliteCompare parcel={parcel} entries={data.entries} season={season} />
-          </motion.section>
-
-          {/* 6. Seasonal trends */}
-          <motion.section className="panel span-12" aria-labelledby="trend-title" {...stagger(6)}>
-            <div className="panel-title">
-              <h2 id="trend-title">{t('dash.trendsTitle')}</h2>
-              {series && <span className="updated">{updated}</span>}
-            </div>
-            {series ? <Trends series={series} window={win} hoverWeek={hoverWeek} onHoverWeek={setHoverWeek} /> : <Skeleton height={190} />}
-          </motion.section>
+          </section>
 
           <section className="panel flat span-6">
             <div className="panel-title">

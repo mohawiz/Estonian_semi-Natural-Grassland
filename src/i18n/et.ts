@@ -53,7 +53,7 @@ export const et: Messages = {
     showMore: 'Näita rohkem',
     showLess: 'Näita vähem',
   },
-  theme: { label: 'Kujundus', system: 'Nagu seadmes', light: 'Hele', dark: 'Tume' },
+  theme: { label: 'Kujundus', system: 'Nagu seadmes', auto: 'Automaatne', light: 'Hele', dark: 'Tume' },
   lang: { label: 'Keel', et: 'Eesti keel', en: 'English' },
   welcome: {
     title: 'Tere tulemast Pärandniitude abilisse!',
@@ -567,6 +567,7 @@ export const et: Messages = {
     busyNote: 'Tehisaru abiline on hõivatud. Proovi minuti pärast uuesti; seni tuli see vastus märksõnaotsingust.',
     title: 'Abiline',
     open: 'Küsi abiliselt',
+    fab: 'Küsi abi',
     close: 'Sulge abiline',
     placeholder: 'Küsi reeglite kohta…',
     send: 'Saada',
@@ -732,7 +733,7 @@ export const et: Messages = {
     body: 'Loe see läbi, kohenda põhjendust ja laadi PDF alla.',
   },
   dash: {
-    subtitle: 'Vali ilmagraafikul periood. Näitajad, aruande link ja lehe taga olev niit järgivad seda.',
+    subtitle: 'Sinu maatükid, ilm ja tööd ühel lehel. Vali ilma all periood, et uuendada näitajaid, kalendrit ja aruande linki.',
     meadowReadout: 'Niit näitab valitud perioodi',
     meadowShows: 'Niit näitab {start} – {end}',
     meadowCalm: 'Niit on rahulik, kuni ilmaandmed on laaditud. Seejärel liigub see valitud perioodi tegeliku ilma järgi.',

@@ -2,7 +2,6 @@
 // user is looking at (dashboard brush, report period, weather query); the canvas
 // reads it. No data → a calm default, never invented weather.
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { useApp } from '../../app/store';
 import type { WeatherDay } from '../../services/weather';
 
 export interface MeadowConditions {
@@ -46,19 +45,10 @@ interface Ctx {
 const MeadowCtx = createContext<Ctx>({ conditions: CALM, publish: () => {}, reduced: true });
 
 export function MeadowProvider({ children }: { children: ReactNode }) {
-  const { settings } = useApp();
   const [conditions, setConditions] = useState<MeadowConditions>(CALM);
-  const [osReduced, setOsReduced] = useState(() => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
-  useEffect(() => {
-    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-    const on = () => setOsReduced(mq.matches);
-    mq?.addEventListener('change', on);
-    return () => mq?.removeEventListener('change', on);
-  }, []);
   const publish = useCallback((c: MeadowConditions | null) => setConditions(c ?? CALM), []);
-  // ?effects=reduced in the URL forces the low-power mode (handy for shared links and audits)
-  const [urlReduced] = useState(() => new URLSearchParams(window.location.search).get('effects') === 'reduced');
-  const value = useMemo(() => ({ conditions, publish, reduced: settings.effects === 'reduced' || osReduced || urlReduced }), [conditions, publish, settings.effects, osReduced, urlReduced]);
+  // The interface is calm for everyone (many users are 50+): motion is always off.
+  const value = useMemo(() => ({ conditions, publish, reduced: true }), [conditions, publish]);
   return <MeadowCtx.Provider value={value}>{children}</MeadowCtx.Provider>;
 }
 

@@ -24,7 +24,6 @@ export function PhotoThumb({ photo, onRemove, onLocate }: { photo: PhotoMeta; on
     <figure className="thumb" style={{ margin: 0 }}>
       {url && <img src={url} alt={photo.caption ?? photo.fileName} />}
       <figcaption className="meta">
-        {photo.isDemoIllustration && <span className="badge badge-demo">{t('labels.demo')}</span>}
         <div>
           {t('log.photoDate')}: {when}
         </div>
@@ -34,13 +33,15 @@ export function PhotoThumb({ photo, onRemove, onLocate }: { photo: PhotoMeta; on
         </div>
         <div className="row" style={{ gap: 4, marginTop: 4 }}>
           {onLocate && photo.lat === undefined && !photo.isDemoIllustration && (
-            <button type="button" className="btn btn-ghost btn-sm" onClick={onLocate} title={t('log.addLocation')} aria-label={t('log.addLocation')}>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={onLocate}>
               <Icon name="pin" size={16} />
+              {t('log.addLocation')}
             </button>
           )}
           {onRemove && (
             <button type="button" className="btn btn-ghost btn-sm" onClick={onRemove} aria-label={`${t('log.removePhoto')} ${photo.fileName}`}>
               <Icon name="trash" size={16} />
+              {t('log.removePhoto')}
             </button>
           )}
         </div>

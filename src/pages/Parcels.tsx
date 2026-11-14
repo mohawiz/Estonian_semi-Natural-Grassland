@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { uid, useApp } from '../app/store';
 import { Icon } from '../components/Icon';
-import { Area, ConfirmDialog, DemoBadge, EmptyState, HelpTip, PageHeader, useConfirm } from '../components/ui';
+import { Area, ConfirmDialog, EmptyState, HelpTip, PageHeader, useConfirm } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { formatDate } from '../lib/dates';
 import type { CommunityType, Parcel } from '../lib/types';
@@ -49,7 +49,6 @@ export function ParcelList() {
                   <Link to={`/parcels/${p.id}`}>
                     <strong>{p.name}</strong>
                   </Link>{' '}
-                  {p.isDemo && <DemoBadge />}
                   <br />
                   <span className="muted small">
                     {t(`community.${p.communityType}`)} · {t(`method.${p.plannedMethod}`)}
@@ -298,7 +297,6 @@ export function ParcelDetail() {
     <>
       <PageHeader
         title={parcel.name}
-        badge={parcel.isDemo ? <DemoBadge /> : undefined}
         subtitle={`${t(`community.${parcel.communityType}`)} · ${t(`method.${parcel.plannedMethod}`)}`}
         crumbs={[{ label: t('parcels.title'), to: '/parcels' }]}
         actions={

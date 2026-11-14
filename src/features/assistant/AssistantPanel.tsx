@@ -95,8 +95,9 @@ export function AssistantPanel() {
             {t('assistant.clear')}
           </button>
         )}
-        <button className="btn btn-ghost icon-btn" aria-label={t('assistant.close')} onClick={() => ui.setAssistantOpen(false)}>
-          <Icon name="close" />
+        <button className="btn btn-ghost btn-sm" onClick={() => ui.setAssistantOpen(false)}>
+          <Icon name="close" size={18} />
+          {t('actions.close')}
         </button>
       </div>
 
@@ -198,8 +199,9 @@ export function AssistantPanel() {
               }
             }}
           />
-          <button className="btn btn-primary icon-btn" type="submit" aria-label={t('assistant.send')} disabled={busy || !input.trim()}>
+          <button className="btn btn-primary" type="submit" disabled={busy || !input.trim()}>
             <Icon name="send" />
+            {t('assistant.send')}
           </button>
         </div>
         <span className="muted small">{t('assistant.disclaimer')}</span>

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { uid, useApp } from '../app/store';
 import { Icon } from '../components/Icon';
-import { Area, ConfirmDialog, DemoBadge, EmptyState, HelpTip, PageHeader, useConfirm } from '../components/ui';
+import { Area, ConfirmDialog, EmptyState, HelpTip, PageHeader, useConfirm } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { readPhoto } from '../features/photos/photos';
 import { PhotoThumb } from '../features/photos/PhotoThumb';
@@ -54,7 +54,7 @@ export function LogList() {
                 <Icon name={e.kind === 'missed' ? 'warn' : e.kind === 'grazing' ? 'sprout' : 'log'} />
                 <span className="grow">
                   <strong>{e.kind === 'missed' ? `${t('log.missedBadge')}: ${t(`method.${e.plannedAction ?? 'mowing'}`)}` : t(`method.${e.kind}`)}</strong>{' '}
-                  {e.kind === 'missed' && <span className="badge badge-warn">{t(`reason.${e.reason ?? 'other'}`)}</span>} {e.isDemo && <DemoBadge />}
+                  {e.kind === 'missed' && <span className="badge badge-warn">{t(`reason.${e.reason ?? 'other'}`)}</span>}
                   <br />
                   <span className="muted small">
                     {parcelName(e.parcelId)} · {formatDate(e.date, lang)}
@@ -63,24 +63,25 @@ export function LogList() {
                     {e.photoIds.length > 0 && ` · ${t('log.photos')}: ${e.photoIds.length}`}
                   </span>
                 </span>
-                <span className="row" style={{ gap: 4 }}>
+                <span className="row row-actions">
                   {e.kind === 'missed' && (
-                    <Link className="btn btn-sm hide-sm" to={`/report?parcel=${e.parcelId}&start=${e.date}&end=${e.endDate ?? e.date}&action=${e.plannedAction ?? 'mowing'}&reason=${e.reason ?? 'other'}`}>
+                    <Link className="btn btn-sm" to={`/report?parcel=${e.parcelId}&start=${e.date}&end=${e.endDate ?? e.date}&action=${e.plannedAction ?? 'mowing'}&reason=${e.reason ?? 'other'}`}>
                       {t('log.toReport')}
                     </Link>
                   )}
-                  <Link className="btn btn-ghost btn-sm" to={`/log/${e.id}`} aria-label={t('actions.edit')}>
+                  <Link className="btn btn-ghost btn-sm" to={`/log/${e.id}`}>
                     <Icon name="edit" size={16} />
+                    {t('actions.edit')}
                   </Link>
                   <button
                     className="btn btn-ghost btn-sm"
-                    aria-label={t('actions.delete')}
                     onClick={async () => {
                       const undo = await deleteEntry(e.id);
                       toast(t('log.deleted'), { undo });
                     }}
                   >
                     <Icon name="trash" size={16} />
+                    {t('actions.delete')}
                   </button>
                 </span>
               </li>
@@ -186,7 +187,7 @@ export function EntryForm() {
 
   return (
     <>
-      <PageHeader title={existing ? t('log.editTitle') : t('log.newTitle')} crumbs={[{ label: t('log.title'), to: '/log' }]} badge={existing?.isDemo ? <DemoBadge /> : undefined} />
+      <PageHeader title={existing ? t('log.editTitle') : t('log.newTitle')} crumbs={[{ label: t('log.title'), to: '/log' }]} />
       <ConfirmDialog open={confirm.open} title={t('actions.delete')} confirmLabel={t('actions.delete')} danger onConfirm={confirm.confirm} onCancel={confirm.cancel} />
       <form className="panel form" onSubmit={submit} style={{ maxWidth: 760 }}>
         <fieldset className="field">

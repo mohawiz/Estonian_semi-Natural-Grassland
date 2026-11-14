@@ -224,7 +224,7 @@ export function ReportPage() {
               <h2>{t('report.sectionWeather')}</h2>
               <span className="badge badge-ok">{t('labels.real')}</span>
             </div>
-            <WeatherPanel state={state} baseline={baseline} retry={retry} band={{ start, end }} range={{ start, end }} />
+            <WeatherPanel state={state} baseline={baseline} retry={retry} range={{ start, end }} />
           </section>
           <section className="panel" data-tour="report-evidence">
             <h2>{t('report.sectionPhotos')}</h2>
@@ -384,8 +384,9 @@ function SavedReports({ onOpen, onDelete }: { onOpen: (r: import('../lib/types')
                 <br />
                 <span className="muted small">{formatDate(r.createdAt, lang)}</span>
               </span>
-              <button className="btn btn-ghost btn-sm" aria-label={t('actions.delete')} onClick={() => onDelete(r.id)}>
+              <button className="btn btn-ghost btn-sm" onClick={() => onDelete(r.id)}>
                 <Icon name="trash" size={16} />
+                {t('actions.delete')}
               </button>
             </li>
           ))}

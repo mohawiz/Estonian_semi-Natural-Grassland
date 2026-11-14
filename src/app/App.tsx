@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GrassLoader } from '../components/motion';
 import { ToastProvider } from '../components/Toast';
-import { MeadowCanvas } from '../features/meadow/MeadowCanvas';
 import { MeadowProvider } from '../features/meadow/conditions';
 import { AppProvider, useApp } from './store';
 import { UIProvider } from './ui';
@@ -86,7 +85,6 @@ export function App() {
         <MeadowProvider>
             <UIProvider>
               <ToastProvider>
-                <MeadowCanvas />
                 <Routed />
               </ToastProvider>
             </UIProvider>

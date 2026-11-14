@@ -63,8 +63,9 @@ export function ShortcutsDialog() {
       <div className="dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title" ref={ref}>
         <div className="panel-title">
           <h2 id="shortcuts-title">{t('help.shortcuts')}</h2>
-          <button className="btn btn-ghost icon-btn" aria-label={t('actions.close')} onClick={() => setShortcutsOpen(false)}>
-            <Icon name="close" />
+          <button className="btn btn-ghost btn-sm" onClick={() => setShortcutsOpen(false)}>
+            <Icon name="close" size={18} />
+            {t('actions.close')}
           </button>
         </div>
         <ShortcutList />

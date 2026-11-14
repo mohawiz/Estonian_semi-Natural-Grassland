@@ -19,7 +19,6 @@ export function WeatherPage() {
   const parcel = data.parcels.find((p) => p.id === query?.id);
   const { state, baseline, retry } = useWeather(parcel?.lat, parcel?.lon, query?.start ?? '', query?.end ?? '', !!parcel);
   useMeadowWindow(state.status === 'ready' ? state.series.days : null);
-  const band = missed && query?.id === missed.parcelId ? { start: missed.date, end: missed.endDate ?? missed.date } : null;
 
   if (!data.parcels.length)
     return (
@@ -71,7 +70,7 @@ export function WeatherPage() {
           <h2 id="w-title">
             {t('weather.chartTitle')} · {parcel?.name}
           </h2>
-          <WeatherPanel state={state} baseline={baseline} retry={retry} band={band} />
+          <WeatherPanel state={state} baseline={baseline} retry={retry} />
         </section>
       )}
     </>

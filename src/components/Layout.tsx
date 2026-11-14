@@ -1,14 +1,11 @@
-import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom';
 import { useApp } from '../app/store';
 import { useUI } from '../app/ui';
 import { Celebration } from '../features/celebrate/Celebration';
 import { ShortcutsDialog } from '../features/help/ShortcutsDialog';
-import { useMeadow } from '../features/meadow/conditions';
 import { Icon } from './Icon';
-import { BrandMark, GrassLoader, useSpecular } from './motion';
-import { DemoBadge } from './ui';
+import { BrandMark, GrassLoader } from './motion';
 
 // Loaded on first use: the assistant pulls in the document index, the tour its step logic.
 const AssistantPanel = lazy(() => import('../features/assistant/AssistantPanel').then((m) => ({ default: m.AssistantPanel })));
@@ -37,7 +34,7 @@ export const NAV: NavItem[] = [
   { to: '/about', key: 'nav.about', icon: 'about' },
 ];
 
-function NavItems({ items, pillId }: { items: NavItem[]; pillId: string }) {
+function NavItems({ items }: { items: NavItem[] }) {
   const { t } = useApp();
   const { pathname } = useLocation();
   const active = (to: string) => (to === '/' ? pathname === '/' : pathname.startsWith(to));
@@ -45,7 +42,7 @@ function NavItems({ items, pillId }: { items: NavItem[]; pillId: string }) {
     <>
       {items.map((i) => (
         <NavLink key={i.to} to={i.to} end={i.to === '/'} data-tour={i.tour} className={i.dock ? '' : 'rail-extra'}>
-          {active(i.to) && <motion.span layoutId={pillId} className="nav-pill" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />}
+          {active(i.to) && <span className="nav-pill" />}
           <Icon name={i.icon} size={24} />
           <span>{t(i.key)}</span>
         </NavLink>
@@ -54,21 +51,11 @@ function NavItems({ items, pillId }: { items: NavItem[]; pillId: string }) {
   );
 }
 
-/**
- * Route transitions are enter-only: the old page leaves at once and the new one
- * rises in. Content never waits on an exit animation (background tabs pause them).
- */
-function AnimatedOutlet() {
-  const location = useLocation();
+/** Pages appear at once: no transitions, so nothing moves while people read. */
+function PageOutlet() {
   const outlet = useOutlet();
-  const { reduced } = useMeadow();
   return (
-    <motion.div
-      key={location.pathname}
-      initial={reduced ? false : { opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.42, ease: [0.22, 0.8, 0.2, 1] }}
-    >
+    <div>
       <Suspense
         fallback={
           <div style={{ padding: '60px 0', display: 'grid', placeItems: 'center' }}>
@@ -78,24 +65,21 @@ function AnimatedOutlet() {
       >
         {outlet}
       </Suspense>
-    </motion.div>
+    </div>
   );
 }
 
 export function Layout() {
   const { t, farm, settings, updateSettings } = useApp();
   const ui = useUI();
-  const { reduced } = useMeadow();
   const location = useLocation();
   const navigate = useNavigate();
   const first = useRef(true);
   const [moreOpen, setMoreOpen] = useState(false);
-  const isHome = location.pathname === '/';
   const [assistantLoaded, setAssistantLoaded] = useState(false);
   useEffect(() => {
     if (ui.assistantOpen) setAssistantLoaded(true);
   }, [ui.assistantOpen]);
-  useSpecular(!reduced);
 
   // Move focus to the page title on navigation, for screen-reader and keyboard users.
   useEffect(() => {
@@ -138,80 +122,67 @@ export function Layout() {
     return () => document.removeEventListener('keydown', onKey);
   }, [navigate, ui]);
 
-  // Orchestrated page-load: rail, then top bar, then the sheet rises.
-  const enter = (delay: number, from: object) => (reduced ? {} : { initial: { opacity: 0, ...from }, animate: { opacity: 1, x: 0, y: 0 }, transition: { delay, duration: 0.7, ease: [0.22, 0.8, 0.2, 1] as const } });
-
   return (
-    <MotionConfig reducedMotion={reduced ? 'always' : 'user'}>
     <div className={`shell ${ui.assistantOpen ? 'assistant-open' : ''}`}>
       <a href="#main" className="skip-link">
         {t('app.skipToContent')}
       </a>
 
-      <motion.aside className="rail glass" aria-label={t('app.menu')} data-tour="nav" {...enter(0.15, { x: -30 })}>
+      <aside className="rail glass" aria-label={t('app.menu')} data-tour="nav">
         <NavLink to="/" className="brand" aria-label={t('app.name')}>
           <BrandMark size={44} />
         </NavLink>
         <nav className="nav">
-          <NavItems items={NAV} pillId="rail-pill" />
+          <NavItems items={NAV} />
           <button type="button" className="btn btn-ghost menu-btn" data-tour="nav-more" aria-expanded={moreOpen} aria-label={t('nav.more')} onClick={() => setMoreOpen((o) => !o)} style={{ flex: 1, flexDirection: 'column', gap: 2, fontSize: '0.64rem', borderRadius: 16, minHeight: 0, padding: '8px 2px 7px' }}>
             <Icon name="more" size={24} />
             <span>{t('nav.more')}</span>
           </button>
         </nav>
-        <div className="rail-foot">{farm?.isDemo && <DemoBadge />}</div>
-      </motion.aside>
+      </aside>
 
-      <AnimatePresence>
-        {moreOpen && (
-          <>
-            <div key="scrim" className="scrim" onClick={() => setMoreOpen(false)} aria-hidden="true" />
-            <motion.nav key="drawer" className="drawer glass" aria-label={t('nav.more')} initial={{ opacity: 0, y: 20, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12 }} transition={{ type: 'spring', stiffness: 360, damping: 30 }}>
+      {moreOpen && (
+        <>
+          <div className="scrim" onClick={() => setMoreOpen(false)} aria-hidden="true" />
+          <nav className="drawer glass" aria-label={t('nav.more')}>
               {NAV.filter((n) => !n.dock).map((i) => (
                 <NavLink key={i.to} to={i.to}>
                   <Icon name={i.icon} size={24} />
                   {t(i.key)}
                 </NavLink>
               ))}
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
+          </nav>
+        </>
+      )}
 
       <div className="main">
-        <motion.header className="topbar glass" {...enter(0.3, { y: -20 })}>
+        <header className="topbar glass">
           <span className="farm">{farm ? farm.name : t('app.name')}</span>
           <span className="spacer" />
-          <label className="sr-only" htmlFor="lang-switch">
-            {t('lang.label')}
+          {/* every control shows its name as text, not only an icon */}
+          <label className="top-control">
+            <span className="top-label hide-sm">{t('lang.label')}</span>
+            <select id="lang-switch" className="select-pill" value={settings.lang} onChange={(e) => updateSettings({ lang: e.target.value as 'et' | 'en' })}>
+              <option value="et">Eesti</option>
+              <option value="en">English</option>
+            </select>
           </label>
-          <select id="lang-switch" className="select-pill" value={settings.lang} onChange={(e) => updateSettings({ lang: e.target.value as 'et' | 'en' })}>
-            <option value="et">ET</option>
-            <option value="en">EN</option>
-          </select>
-          <button
-            className="btn btn-ghost icon-btn"
-            aria-label={`${t('theme.label')}: ${t(`theme.${settings.theme}`)}`}
-            title={`${t('theme.label')}: ${t(`theme.${settings.theme}`)}`}
-            onClick={() => updateSettings({ theme: settings.theme === 'system' ? 'dark' : settings.theme === 'dark' ? 'light' : 'system' })}
-          >
-            <Icon name={settings.theme === 'dark' ? 'moon' : settings.theme === 'light' ? 'sun' : 'globe'} />
+          <button className="btn btn-ghost top-btn" title={t('theme.label')} onClick={() => updateSettings({ theme: settings.theme === 'system' ? 'dark' : settings.theme === 'dark' ? 'light' : 'system' })}>
+            <Icon name={settings.theme === 'dark' ? 'moon' : settings.theme === 'light' ? 'sun' : 'globe'} size={20} />
+            <span>
+              <span className="sr-only">{t('theme.label')}: </span>
+              {t(settings.theme === 'system' ? 'theme.auto' : `theme.${settings.theme}`)}
+            </span>
           </button>
-          <button className="btn btn-ghost icon-btn" aria-pressed={settings.effects === 'reduced'} aria-label={t('settings.effectsReduce')} title={t('settings.effectsReduce')} onClick={() => updateSettings({ effects: settings.effects === 'full' ? 'reduced' : 'full' })}>
-            <Icon name={settings.effects === 'full' ? 'sparkle' : 'wind'} />
-          </button>
-          <button className="btn btn-ghost icon-btn hide-sm" aria-label={t('help.shortcuts')} title={`${t('help.shortcuts')} (?)`} onClick={() => ui.setShortcutsOpen(true)}>
-            <Icon name="keyboard" />
-          </button>
-          <button className="btn btn-primary" onClick={() => ui.setAssistantOpen(!ui.assistantOpen)} aria-expanded={ui.assistantOpen} aria-controls="assistant-panel" data-tour="assistant-btn">
+          <button className="btn btn-primary hide-sm" onClick={() => ui.setAssistantOpen(!ui.assistantOpen)} aria-expanded={ui.assistantOpen} aria-controls="assistant-panel" data-tour="assistant-btn">
             <Icon name="assistant" />
-            <span className="hide-sm">{t('assistant.title')}</span>
+            {t('assistant.open')}
           </button>
-        </motion.header>
+        </header>
 
-        <div className={`meadow-window ${isHome ? 'tall' : ''}`} ref={ui.setHeroSlot} />
+        <div className="meadow-window" ref={ui.setHeroSlot} />
 
-        <motion.main id="main" className="sheet" {...enter(0.45, { y: 50 })}>
+        <main id="main" className="sheet">
           <div className="content">
             {farm?.isDemo && (
               <div className="notice notice-demo no-print" style={{ marginBottom: 22, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -224,13 +195,21 @@ export function Layout() {
                 </Link>
               </div>
             )}
-            <AnimatedOutlet />
+            <PageOutlet />
             <p className="muted small" style={{ marginTop: 48, maxWidth: '70ch' }}>
               {t('app.decisionSupport')}
             </p>
           </div>
-        </motion.main>
+        </main>
       </div>
+
+      {/* on phones the assistant sits by the thumb, above the bottom menu */}
+      {!ui.assistantOpen && (
+        <button className="btn btn-primary ask-fab" onClick={() => ui.setAssistantOpen(true)} aria-controls="assistant-panel" aria-expanded={false} data-tour="assistant-btn">
+          <Icon name="assistant" size={22} />
+          {t('assistant.fab')}
+        </button>
+      )}
 
       {assistantLoaded && (
         <Suspense fallback={null}>
@@ -245,6 +224,5 @@ export function Layout() {
         </Suspense>
       )}
     </div>
-    </MotionConfig>
   );
 }

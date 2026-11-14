@@ -51,7 +51,7 @@ export const en = {
     showMore: 'Show more',
     showLess: 'Show less',
   },
-  theme: { label: 'Theme', system: 'Match device', light: 'Light', dark: 'Dark' },
+  theme: { label: 'Theme', system: 'Match device', auto: 'Auto', light: 'Light', dark: 'Dark' },
   lang: { label: 'Language', et: 'Eesti keel', en: 'English' },
   welcome: {
     title: 'Welcome to the Grassland Assistant!',
@@ -565,6 +565,7 @@ export const en = {
     busyNote: 'The AI assistant is busy. Try again in a minute; meanwhile this answer comes from keyword search.',
     title: 'Assistant',
     open: 'Ask the assistant',
+    fab: 'Ask AI',
     close: 'Close assistant',
     placeholder: 'Ask about the rules…',
     send: 'Send',
@@ -730,7 +731,7 @@ export const en = {
     body: 'Read it through, adjust the justification, then download the PDF.',
   },
   dash: {
-    subtitle: 'Brush the weather timeline to choose a period. The stats, the report link and the meadow behind the page all follow it.',
+    subtitle: 'Your plots, weather and work at a glance. Choose a period under the weather to update the figures, the calendar and the report link.',
     meadowReadout: 'The meadow shows the selected period',
     meadowShows: 'Meadow shows {start} – {end}',
     meadowCalm: 'The meadow stays calm until weather data loads. Then it moves with the real weather of the selected period.',
