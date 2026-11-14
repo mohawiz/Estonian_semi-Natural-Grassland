@@ -20,12 +20,13 @@ interface NavItem {
 }
 
 export const NAV: NavItem[] = [
+  // dock: the four main tabs on phones; the rest live under "More"
   { to: '/', key: 'nav.dashboard', icon: 'home', dock: true },
   { to: '/log', key: 'nav.log', icon: 'log', tour: 'nav-log', dock: true },
-  { to: '/weather', key: 'nav.weather', icon: 'rain', tour: 'nav-weather', dock: true },
   { to: '/report', key: 'nav.report', icon: 'report', tour: 'nav-report', dock: true },
+  { to: '/meadows', key: 'nav.meadows', icon: 'map', dock: true },
   { to: '/parcels', key: 'nav.parcels', icon: 'parcels' },
-  { to: '/meadows', key: 'nav.meadows', icon: 'map' },
+  { to: '/weather', key: 'nav.weather', icon: 'rain', tour: 'nav-weather' },
   { to: '/deadlines', key: 'nav.deadlines', icon: 'deadlines' },
   { to: '/rules', key: 'nav.rules', icon: 'book' },
   { to: '/help', key: 'nav.help', icon: 'help', tour: 'nav-help' },

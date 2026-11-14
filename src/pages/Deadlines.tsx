@@ -53,7 +53,7 @@ export function Deadlines() {
                     <br />
                     <span className="small">{w.passed ? t('deadlines.passed', { date: formatDate(w.deadline, lang) }) : t('deadlines.due', { date: formatDate(w.deadline, lang) })}</span>
                   </span>
-                  <span className={`badge ${w.passed ? 'badge-neutral' : w.left <= 3 ? 'badge-warn' : 'badge-rain'}`}>{w.passed ? '—' : w.left === 0 ? t('deadlines.today') : t('deadlines.left', { n: w.left })}</span>
+                  <span className={`badge ${w.passed ? 'badge-neutral' : w.left <= 2 ? 'badge-warn' : 'badge-soon'}`}>{w.passed ? '—' : w.left === 0 ? t('deadlines.today') : t('deadlines.left', { n: w.left })}</span>
                 </li>
               ))}
             </ul>

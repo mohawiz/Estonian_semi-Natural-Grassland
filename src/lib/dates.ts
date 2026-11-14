@@ -97,3 +97,11 @@ export function formatDate(iso: string, lang: string, opts: Intl.DateTimeFormatO
   const d = iso.length > 10 ? new Date(iso) : parseISO(iso);
   return new Intl.DateTimeFormat(lang === 'et' ? 'et-EE' : 'en-GB', { ...opts, timeZone: iso.length > 10 ? undefined : 'UTC' }).format(d);
 }
+
+/** The grassland season shown on the dashboard: 1 April – 31 October (last year's until May), never past yesterday. */
+export function seasonFor(today: string): { start: string; end: string } {
+  const y = today >= `${today.slice(0, 4)}-05-01` ? Number(today.slice(0, 4)) : Number(today.slice(0, 4)) - 1;
+  const end = `${y}-10-31`;
+  const yesterday = addDays(today, -1);
+  return { start: `${y}-04-01`, end: end < yesterday ? end : yesterday };
+}

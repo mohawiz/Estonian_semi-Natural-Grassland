@@ -65,7 +65,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     else root.setAttribute('data-theme', settings.theme);
     // Calm interface for every user: no moving effects (the old "full effects" setting is ignored)
     root.setAttribute('data-effects', 'reduced');
-  }, [settings.lang, settings.theme]);
+    root.setAttribute('data-text', settings.textSize);
+  }, [settings.lang, settings.theme, settings.textSize]);
 
   const lang = settings.lang;
   const t = useCallback((key: MessageKey | string, vars?: Vars) => translate(lang, key, vars), [lang]);

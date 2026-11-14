@@ -271,3 +271,42 @@ export function summarizeWeather(days: WeatherDay[], baseline?: WeatherBaseline 
     baselineRatio: baseline && baseline.meanTotalMm > 0 ? total / baseline.meanTotalMm : null,
   };
 }
+
+/** Today's weather at a plot, for the dashboard's Today card (Open-Meteo forecast, no key). */
+export interface TodayWeather {
+  date: string;
+  tempNowC: number | null;
+  tMaxC: number | null;
+  tMinC: number | null;
+  rainMm: number | null;
+  rainChancePct: number | null;
+  windKmh: number | null;
+}
+
+const FORECAST = 'https://api.open-meteo.com/v1/forecast';
+
+export function parseTodayWeather(json: any): TodayWeather {
+  const d = json?.daily ?? {};
+  const first = (k: string) => num(Array.isArray(d[k]) ? d[k][0] : undefined);
+  return {
+    date: (Array.isArray(d.time) && d.time[0]) || todayInTallinn(),
+    tempNowC: num(json?.current?.temperature_2m),
+    tMaxC: first('temperature_2m_max'),
+    tMinC: first('temperature_2m_min'),
+    rainMm: first('precipitation_sum'),
+    rainChancePct: first('precipitation_probability_max'),
+    windKmh: num(json?.current?.wind_speed_10m),
+  };
+}
+
+export async function getTodayWeather(lat: number, lon: number, signal?: AbortSignal, fetchImpl: typeof fetch = fetch): Promise<TodayWeather> {
+  const q = new URLSearchParams({
+    latitude: lat.toFixed(4),
+    longitude: lon.toFixed(4),
+    current: 'temperature_2m,wind_speed_10m',
+    daily: 'temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max',
+    timezone: 'Europe/Tallinn',
+    forecast_days: '1',
+  });
+  return parseTodayWeather(await getJSON(`${FORECAST}?${q}`, signal, fetchImpl));
+}

@@ -38,6 +38,7 @@ export const DEFAULT_SETTINGS: Settings = {
   lang: 'et',
   theme: 'system',
   effects: 'full',
+  textSize: 'normal',
   welcomeDone: false,
   tourDone: false,
   noticeWorkingDays: 15,

@@ -82,3 +82,20 @@ describe('todayInTallinn', () => {
     expect(todayInTallinn(new Date('2026-07-31T22:30:00Z'))).toBe('2026-08-01');
   });
 });
+
+describe('today weather', () => {
+  it('reads current and daily values from the forecast response', async () => {
+    const { parseTodayWeather } = await import('./weather');
+    const w = parseTodayWeather({
+      current: { temperature_2m: 6.4, wind_speed_10m: 18 },
+      daily: { time: ['2026-11-14'], temperature_2m_max: [7.1], temperature_2m_min: [2.3], precipitation_sum: [3.2], precipitation_probability_max: [80] },
+    });
+    expect(w).toEqual({ date: '2026-11-14', tempNowC: 6.4, tMaxC: 7.1, tMinC: 2.3, rainMm: 3.2, rainChancePct: 80, windKmh: 18 });
+  });
+  it('gives nulls when the service leaves values out', async () => {
+    const { parseTodayWeather } = await import('./weather');
+    const w = parseTodayWeather({ daily: { time: ['2026-11-14'] } });
+    expect(w.tMaxC).toBeNull();
+    expect(w.rainMm).toBeNull();
+  });
+});

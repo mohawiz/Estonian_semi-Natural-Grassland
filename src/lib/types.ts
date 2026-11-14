@@ -115,6 +115,8 @@ export interface Settings {
   theme: 'system' | 'light' | 'dark';
   /** Living-meadow animation and motion; 'reduced' also applies when the OS asks for reduced motion. */
   effects: 'full' | 'reduced';
+  /** Reading size for the whole app. */
+  textSize: 'normal' | 'large' | 'xl';
   welcomeDone: boolean;
   tourDone: boolean;
   /** Working-day window for notifying exceptional circumstances. PRIA's figure; unverified for the Environmental Board. */

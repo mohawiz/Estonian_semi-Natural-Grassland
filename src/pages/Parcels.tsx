@@ -1,24 +1,44 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { uid, useApp } from '../app/store';
-import { Icon } from '../components/Icon';
+import { Icon, MeadowPlants } from '../components/Icon';
 import { Area, ConfirmDialog, EmptyState, HelpTip, PageHeader, useConfirm } from '../components/ui';
 import { useToast } from '../components/Toast';
-import { formatDate } from '../lib/dates';
-import type { CommunityType, Parcel } from '../lib/types';
+import { formatDate, seasonFor, todayISO } from '../lib/dates';
+import type { CommunityType, LogEntry, Parcel, PhotoMeta } from '../lib/types';
 import { acresToHa, formatNumber } from '../lib/units';
 import { FindMeadow } from '../features/parcels/FindMeadow';
 import { addCandidatesAsPlots, defaultPlotName, ownFarm } from '../features/parcels/addPlots';
 import { RealMap } from '../features/map/RealMap';
 import { candidateToParcelFields, type MeadowCandidate } from '../services/landData';
 import { Checklist } from './Checklist';
+import { useBlobUrl } from '../features/photos/PhotoThumb';
 
 type ImportedFields = Required<Pick<Parcel, 'boundary' | 'source'>> & Pick<Parcel, 'pria' | 'cadastralId'>;
 
 const TYPES: CommunityType[] = ['coastal-meadow', 'alvar', 'floodplain-meadow', 'wooded-meadow', 'dry-meadow', 'fen-meadow', 'other'];
 
+/** The farmer's own latest photo of the plot, or a drawn meadow when there is none yet. */
+function PlotPhoto({ photo, name }: { photo: PhotoMeta | undefined; name: string }) {
+  const url = useBlobUrl(photo?.blob);
+  return (
+    <div className="plot-photo">
+      {url ? <img src={url} alt={photo?.caption ?? name} /> : <MeadowPlants width={150} />}
+    </div>
+  );
+}
+
+function latestPhoto(parcelId: string, entries: LogEntry[], photos: PhotoMeta[]): PhotoMeta | undefined {
+  const withPhotos = entries.filter((e) => e.parcelId === parcelId && e.photoIds.length).sort((a, b) => b.date.localeCompare(a.date));
+  for (const e of withPhotos) {
+    const hit = photos.find((ph) => e.photoIds.includes(ph.id));
+    if (hit) return hit;
+  }
+  return undefined;
+}
+
 export function ParcelList() {
-  const { t, data } = useApp();
+  const { t, lang, data } = useApp();
   return (
     <>
       <PageHeader
@@ -40,27 +60,31 @@ export function ParcelList() {
       {!data.parcels.length ? (
         <EmptyState icon="parcels" title={t('parcels.emptyTitle')} body={t('parcels.emptyBody')} action={<Link className="btn btn-primary" to="/start">{t('setup.cta')}</Link>} />
       ) : (
-        <section className="panel">
-          <ul className="ledger">
-            {data.parcels.map((p) => (
-              <li key={p.id}>
-                <Icon name="parcels" />
-                <span className="grow">
-                  <Link to={`/parcels/${p.id}`}>
-                    <strong>{p.name}</strong>
-                  </Link>{' '}
-                  <br />
-                  <span className="muted small">
-                    {t(`community.${p.communityType}`)} · {t(`method.${p.plannedMethod}`)}
+        <ul className="plot-cards">
+          {data.parcels.map((p) => {
+            const season = seasonFor(todayISO());
+            const last = data.entries
+              .filter((e) => e.parcelId === p.id && e.kind !== 'missed' && e.date >= season.start)
+              .sort((a, b) => b.date.localeCompare(a.date))[0];
+            return (
+              <li key={p.id} className={`plot-card ${last ? 'status-done' : 'status-soon'}`}>
+                <Link to={`/parcels/${p.id}`} className="plot-card-link">
+                  <PlotPhoto photo={latestPhoto(p.id, data.entries, data.photos)} name={p.name} />
+                  <span className="plot-card-body">
+                    <strong className="plot-card-name">{p.name}</strong>
+                    <span className="muted small">
+                      {t(`community.${p.communityType}`)} · {t(`method.${p.plannedMethod}`)} · <Area ha={p.areaHa} />
+                    </span>
+                    <span className={`badge ${last ? 'badge-ok' : 'badge-soon'}`}>
+                      <Icon name={last ? 'check' : 'calendar'} size={16} />
+                      {last ? t('parcels.lastWork', { work: t(`method.${last.kind}`), date: formatDate(last.endDate ?? last.date, lang) }) : t('parcels.noWorkYet')}
+                    </span>
                   </span>
-                </span>
-                <span className="small" style={{ textAlign: 'right' }}>
-                  <Area ha={p.areaHa} />
-                </span>
+                </Link>
               </li>
-            ))}
-          </ul>
-        </section>
+            );
+          })}
+        </ul>
       )}
     </>
   );

@@ -9,10 +9,11 @@ import { Heatmap } from '../features/dashboard/Heatmap';
 import { RealMap } from '../features/map/RealMap';
 import { RiskGauge } from '../features/dashboard/RiskGauge';
 import { SatelliteCompare } from '../features/dashboard/SatelliteCompare';
+import { TodayCard } from '../features/dashboard/TodayCard';
 import { useWeather } from '../features/weather/useWeather';
 import { WeatherFacts, WeatherSourceNote } from '../features/weather/WeatherPanel';
 import type { DateWindow } from '../features/weather/WeatherTimeline';
-import { addDays, formatDate, todayISO } from '../lib/dates';
+import { addDays, formatDate, seasonFor, todayISO } from '../lib/dates';
 import type { OnboardingTask } from '../lib/types';
 import { formatArea } from '../lib/units';
 import { weatherVerdict } from '../services/report';
@@ -21,13 +22,6 @@ import { summarizeWeather } from '../services/weather';
 import { noticeWindows } from './Deadlines';
 
 const TASKS: { id: OnboardingTask; to?: string }[] = [{ id: 'openDemo' }, { id: 'logEntry', to: '/log/new' }, { id: 'buildReport', to: '/report' }, { id: 'askAssistant' }];
-
-function seasonFor(today: string): DateWindow {
-  const y = today >= `${today.slice(0, 4)}-05-01` ? Number(today.slice(0, 4)) : Number(today.slice(0, 4)) - 1;
-  const end = `${y}-10-31`;
-  const yesterday = addDays(today, -1);
-  return { start: `${y}-04-01`, end: end < yesterday ? end : yesterday };
-}
 
 function useLocalFlag(key: string) {
   const read = () => {
@@ -66,6 +60,7 @@ export function Dashboard() {
   const firstMissed = entries.find((e) => e.kind === 'missed' && e.date >= season.start);
   const [brush, setBrush] = useState<DateWindow | null>(null);
   const hide = useLocalFlag('ga-hide-onboarding');
+  const [details, setDetails] = useState(false);
 
   const { state, retry } = useWeather(parcel?.lat, parcel?.lon, season.start, season.end, !!parcel, false);
   const series = state.status === 'ready' ? state.series : null;
@@ -115,17 +110,23 @@ export function Dashboard() {
         subtitle={t('dash.subtitle')}
         actions={
           <>
-            <Link className="btn" to="/log/new">
-              <Icon name="plus" />
-              {t('dashboard.quickLog')}
-            </Link>
-            <Link className="btn btn-primary" to={parcel ? `/report?parcel=${parcel.id}&start=${win.start}&end=${win.end}&step=evidence` : '/report'}>
+            <Link className="btn" to={parcel ? `/report?parcel=${parcel.id}&start=${win.start}&end=${win.end}&step=evidence` : '/report'}>
               <Icon name="report" />
               {t('dashboard.quickReport')}
             </Link>
           </>
         }
       />
+
+      {/* the one main action, big and first */}
+      <Link className="btn btn-primary btn-hero" to="/log/new">
+        <Icon name="plus" size={30} />
+        <span>
+          <span className="btn-hero-title">{t('today.bigLog')}</span>
+          <span className="btn-hero-hint">{t('today.bigLogHint')}</span>
+        </span>
+      </Link>
+      {parcel && <TodayCard parcel={parcel} season={season} today={today} />}
 
       {!hide.value && (
         <section className="panel tinted leaf" aria-labelledby="onboard-title" style={{ marginBottom: 26 }} data-tour="dashboard">
@@ -278,32 +279,6 @@ export function Dashboard() {
             </p>
           </section>
 
-          {/* 3. Management calendar */}
-          <section className="panel span-12" aria-labelledby="heat-title">
-            <div className="panel-title">
-              <h2 id="heat-title">{t('dash.heatTitle')}</h2>
-              <span className="small muted">{t('dash.heatHint')}</span>
-            </div>
-            <Heatmap entries={entries} season={season} window={win} hoverWeek={null} />
-          </section>
-
-          {/* 4. Risk gauge */}
-          <section className="panel tinted span-4" aria-labelledby="risk-title">
-            <div className="panel-title">
-              <h2 id="risk-title">{t('dash.riskTitle')}</h2>
-              <span className="badge badge-neutral">{t('dash.decisionSupport')}</span>
-            </div>
-            {risk && <RiskGauge risk={risk} />}
-          </section>
-
-          {/* 5. Records vs satellite (demo) */}
-          <section className="panel span-8" aria-labelledby="sat-title">
-            <div className="panel-title">
-              <h2 id="sat-title">{t('dash.satTitle')}</h2>
-            </div>
-            <SatelliteCompare parcel={parcel} entries={data.entries} season={season} />
-          </section>
-
           <section className="panel flat span-6">
             <div className="panel-title">
               <h2>{t('dashboard.recent')}</h2>
@@ -349,7 +324,7 @@ export function Dashboard() {
                       <br />
                       <span className="muted small">{t('deadlines.due', { date: formatDate(w.deadline, lang) })}</span>
                     </span>
-                    <span className="badge badge-rain">{t('deadlines.left', { n: w.left })}</span>
+                    <span className={`badge ${w.left <= 2 ? 'badge-warn' : 'badge-soon'}`}>{t('deadlines.left', { n: w.left })}</span>
                   </li>
                 ))}
               </ul>
@@ -357,6 +332,41 @@ export function Dashboard() {
               <p className="muted">{t('dashboard.noUpcoming')}</p>
             )}
           </section>
+          {/* on phones the detailed charts wait behind one button, so the first screen stays short */}
+          <div className="span-12 details-toggle">
+            <button type="button" className="btn" aria-expanded={details} aria-controls="dash-details" onClick={() => setDetails((d) => !d)}>
+              <Icon name={details ? 'close' : 'gauge'} size={20} />
+              {details ? t('today.hideDetails') : t('today.showDetails')}
+            </button>
+          </div>
+          <div id="dash-details" className={`dash-details ${details ? 'open' : ''}`}>
+          {/* 3. Management calendar */}
+          <section className="panel span-12" aria-labelledby="heat-title">
+            <div className="panel-title">
+              <h2 id="heat-title">{t('dash.heatTitle')}</h2>
+              <span className="small muted">{t('dash.heatHint')}</span>
+            </div>
+            <Heatmap entries={entries} season={season} window={win} hoverWeek={null} />
+          </section>
+
+          {/* 4. Risk gauge */}
+          <section className="panel tinted span-4" aria-labelledby="risk-title">
+            <div className="panel-title">
+              <h2 id="risk-title">{t('dash.riskTitle')}</h2>
+              <span className="badge badge-neutral">{t('dash.decisionSupport')}</span>
+            </div>
+            {risk && <RiskGauge risk={risk} />}
+          </section>
+
+          {/* 5. Records vs satellite (demo) */}
+          <section className="panel span-8" aria-labelledby="sat-title">
+            <div className="panel-title">
+              <h2 id="sat-title">{t('dash.satTitle')}</h2>
+            </div>
+            <SatelliteCompare parcel={parcel} entries={data.entries} season={season} />
+          </section>
+
+          </div>
         </div>
       )}
     </div>

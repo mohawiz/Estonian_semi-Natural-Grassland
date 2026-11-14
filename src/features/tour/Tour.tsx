@@ -27,7 +27,7 @@ export const TOURS: Record<TourId, TourStep[]> = {
     { route: '/', target: 'dashboard', title: 'tour.dashboardTitle', body: 'tour.dashboardBody' },
     { target: 'nav', title: 'tour.navTitle', body: 'tour.navBody' },
     { target: 'nav-log', title: 'tour.logTitle', body: 'tour.logBody' },
-    { target: 'nav-weather', title: 'tour.weatherTitle', body: 'tour.weatherBody' },
+    { target: 'nav-weather|nav-more', title: 'tour.weatherTitle', body: 'tour.weatherBody' },
     { target: 'nav-report', title: 'tour.reportTitle', body: 'tour.reportBody' },
     { target: 'assistant-btn', title: 'tour.assistantTitle', body: 'tour.assistantBody' },
     { target: 'nav-help|nav-more', title: 'tour.helpTitle', body: 'tour.helpBody' },

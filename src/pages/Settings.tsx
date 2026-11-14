@@ -76,6 +76,18 @@ export function SettingsPage() {
                 ))}
               </div>
             </fieldset>
+            <fieldset className="field">
+              <legend>{t('settings.textSize')}</legend>
+              <div className="choice-row">
+                {(['normal', 'large', 'xl'] as const).map((sz) => (
+                  <label key={sz} className="choice">
+                    <input type="radio" name="text-size" checked={settings.textSize === sz} onChange={() => updateSettings({ textSize: sz })} />
+                    <span style={{ fontSize: sz === 'normal' ? '1rem' : sz === 'large' ? '1.12rem' : '1.25rem' }}>{t(sz === 'normal' ? 'settings.textNormal' : sz === 'large' ? 'settings.textLarge' : 'settings.textXl')}</span>
+                  </label>
+                ))}
+              </div>
+              <span className="hint">{t('settings.textHelp')}</span>
+            </fieldset>
           </section>
           <form
             className="panel form"
