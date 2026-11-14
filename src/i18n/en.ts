@@ -404,7 +404,7 @@ export const en = {
     to: 'To',
     show: 'Show weather',
     loading: 'Fetching weather…',
-    chartTitle: 'Daily weather',
+    chartTitle: 'Weather summary',
     rain: 'Rainfall (mm)',
     tmax: 'Max temperature (°C)',
     soil: 'Soil moisture, 0–7 cm (m³/m³)',

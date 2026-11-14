@@ -406,7 +406,7 @@ export const et: Messages = {
     to: 'Kuni',
     show: 'Näita ilma',
     loading: 'Hangin ilmaandmeid…',
-    chartTitle: 'Ilm päevade kaupa',
+    chartTitle: 'Ilma kokkuvõte',
     rain: 'Sademed (mm)',
     tmax: 'Maksimumtemperatuur (°C)',
     soil: 'Mullaniiskus, 0–7 cm (m³/m³)',
