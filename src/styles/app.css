@@ -3486,3 +3486,18 @@ body {
   flex: 1;
   min-width: 0;
 }
+
+/* a pressed (selected) button keeps a solid fill so its light text stays readable;
+   the frosted look above is only for plain, unselected buttons */
+.btn[aria-pressed='true']:not(.btn-ghost) {
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, var(--seaglass)));
+  border-color: var(--primary);
+  color: var(--primary-ink);
+}
+.btn[aria-pressed='true']:not(.btn-ghost):hover {
+  background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 65%, var(--seaglass)));
+  color: var(--primary-ink);
+}
+.lang-pick button[aria-pressed='true'] {
+  border-radius: 20px;
+}
