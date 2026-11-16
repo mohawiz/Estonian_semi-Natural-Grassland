@@ -279,57 +279,74 @@ export function Dashboard() {
             </p>
           </section>
 
-          <section className="panel flat span-6">
+          {/* two list cards: each row is a whole link with a status-coloured icon */}
+          <section className="panel span-6 list-card">
             <div className="panel-title">
               <h2>{t('dashboard.recent')}</h2>
-              <Link to="/log" className="small">
+              <Link to="/log" className="btn btn-sm">
                 {t('dashboard.viewAll')}
               </Link>
             </div>
             {recent.length ? (
-              <ul className="ledger">
+              <ul className="list-rows">
                 {recent.map((e) => (
                   <li key={e.id}>
-                    <Icon name={e.kind === 'missed' ? 'warn' : 'sprout'} />
-                    <span className="grow">
-                      <Link to={`/log/${e.id}`}>{e.kind === 'missed' ? `${t('log.missedBadge')}: ${t(`method.${e.plannedAction ?? 'mowing'}`)}` : t(`method.${e.kind}`)}</Link>
-                      <span className="muted small"> · {parcelName(e.parcelId)}</span>
-                      <br />
-                      <span className="muted small">
-                        {formatDate(e.date, lang)}
-                        {e.endDate && e.endDate !== e.date ? ` – ${formatDate(e.endDate, lang)}` : ''}
+                    <Link to={`/log/${e.id}`} className={`list-row ${e.kind === 'missed' ? 'status-late' : 'status-done'}`}>
+                      <span className="list-icon" aria-hidden="true">
+                        <Icon name={e.kind === 'missed' ? 'warn' : 'sprout'} size={20} />
                       </span>
-                    </span>
+                      <span className="grow">
+                        <span className="list-title">{e.kind === 'missed' ? `${t('log.missedBadge')}: ${t(`method.${e.plannedAction ?? 'mowing'}`)}` : t(`method.${e.kind}`)}</span>
+                        <span className="list-meta">
+                          {parcelName(e.parcelId)} · {formatDate(e.date, lang)}
+                          {e.endDate && e.endDate !== e.date ? ` – ${formatDate(e.endDate, lang)}` : ''}
+                        </span>
+                      </span>
+                      <Icon name="chevron" size={18} />
+                    </Link>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="muted">{t('dashboard.noRecent')}</p>
+              <p className="list-empty status-soon">
+                <span className="list-icon" aria-hidden="true">
+                  <Icon name="log" size={20} />
+                </span>
+                {t('dashboard.noRecent')}
+              </p>
             )}
           </section>
-          <section className="panel flat span-6">
+          <section className="panel span-6 list-card">
             <div className="panel-title">
               <h2>{t('dashboard.upcoming')}</h2>
-              <Link to="/deadlines" className="small">
+              <Link to="/deadlines" className="btn btn-sm">
                 {t('dashboard.viewAll')}
               </Link>
             </div>
             {windows.length ? (
-              <ul className="ledger">
+              <ul className="list-rows">
                 {windows.map((w) => (
                   <li key={w.entry.id}>
-                    <Icon name="deadlines" />
-                    <span className="grow">
-                      {parcelName(w.entry.parcelId)}
-                      <br />
-                      <span className="muted small">{t('deadlines.due', { date: formatDate(w.deadline, lang) })}</span>
-                    </span>
-                    <span className={`badge ${w.left <= 2 ? 'badge-warn' : 'badge-soon'}`}>{t('deadlines.left', { n: w.left })}</span>
+                    <Link to="/deadlines" className={`list-row ${w.left <= 2 ? 'status-late' : 'status-soon'}`}>
+                      <span className="list-icon" aria-hidden="true">
+                        <Icon name="deadlines" size={20} />
+                      </span>
+                      <span className="grow">
+                        <span className="list-title">{parcelName(w.entry.parcelId)}</span>
+                        <span className="list-meta">{t('deadlines.due', { date: formatDate(w.deadline, lang) })}</span>
+                      </span>
+                      <span className={`badge ${w.left <= 2 ? 'badge-warn' : 'badge-soon'}`}>{t('deadlines.left', { n: w.left })}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="muted">{t('dashboard.noUpcoming')}</p>
+              <p className="list-empty status-done">
+                <span className="list-icon" aria-hidden="true">
+                  <Icon name="check" size={20} />
+                </span>
+                {t('dashboard.noUpcoming')}
+              </p>
             )}
           </section>
           {/* on phones the detailed charts wait behind one button, so the first screen stays short */}
