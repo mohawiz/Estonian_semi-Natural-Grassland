@@ -3501,3 +3501,19 @@ body {
 .lang-pick button[aria-pressed='true'] {
   border-radius: 20px;
 }
+
+/* Full-screen map: blur, transforms and isolation on any ancestor turn `position: fixed`
+   into "fixed inside that box", which trapped the map under the menu and cut off its
+   controls. While a map is full screen, its ancestors drop those effects. */
+html.map-full-open *:has(.realmap.is-full) {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  transform: none !important;
+  filter: none !important;
+  isolation: auto !important;
+  contain: none !important;
+  overflow: visible !important;
+}
+html.map-full-open .ask-fab {
+  display: none !important;
+}
