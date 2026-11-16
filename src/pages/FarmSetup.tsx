@@ -15,6 +15,23 @@ import { findByCadastralId, findByMeadowNo, LandDataError, meadowTitle, normaliz
 
 type Step = 'farm' | 'meadows';
 
+// What the farmer typed survives a trip to the Meadow map and back (this tab only).
+const DRAFT = 'ga-setup-draft';
+interface Draft {
+  name: string;
+  owner: string;
+  registry: string;
+  numbers: string;
+  step: Step;
+}
+function readDraft(): Partial<Draft> {
+  try {
+    return JSON.parse(sessionStorage.getItem(DRAFT) ?? '{}');
+  } catch {
+    return {};
+  }
+}
+
 export function FarmSetupPage() {
   const { t, lang, data, farm, saveFarm, saveParcel, resetAll } = useApp();
   const navigate = useNavigate();
@@ -22,12 +39,14 @@ export function FarmSetupPage() {
   const [params] = useSearchParams();
   const existing = ownFarm(data.farms);
   const demoLoaded = !!farm?.isDemo;
-  const [step, setStep] = useState<Step>(existing ? 'meadows' : 'farm');
-  const [name, setName] = useState(existing?.name ?? '');
-  const [owner, setOwner] = useState(existing?.owner ?? '');
-  const [registry, setRegistry] = useState(existing?.registryCode ?? '');
+  const [draft] = useState(readDraft);
+  const fromMap = (params.get('meadows') ?? '').split(',').map((r) => r.split('/')[0]).filter(Boolean);
+  const [step, setStep] = useState<Step>(existing || (fromMap.length && draft.name) ? 'meadows' : (draft.step ?? 'farm'));
+  const [name, setName] = useState(existing?.name ?? draft.name ?? '');
+  const [owner, setOwner] = useState(existing?.owner ?? draft.owner ?? '');
+  const [registry, setRegistry] = useState(existing?.registryCode ?? draft.registry ?? '');
   const [tried, setTried] = useState(false);
-  const [numbers, setNumbers] = useState(() => (params.get('meadows') ?? '').split(',').map((r) => r.split('/')[0]).filter(Boolean).join(', '));
+  const [numbers, setNumbers] = useState(() => [...new Set([...(draft.numbers ?? '').split(/[,;\n]+/).map((s) => s.trim()).filter(Boolean), ...fromMap])].join(', '));
   const [found, setFound] = useState<MeadowCandidate[]>([]);
   const [chosen, setChosen] = useState<Set<string>>(new Set());
   const [errors, setErrors] = useState<string[]>([]);
@@ -37,6 +56,13 @@ export function FarmSetupPage() {
   // exact areas chosen on the Meadow map ("meadowNo/areaId")
   const linked = useMemo(() => new Set((params.get('meadows') ?? '').split(',').filter((r) => r.includes('/'))), [params]);
   const [shared, setShared] = useState(false);
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(DRAFT, JSON.stringify({ name, owner, registry, numbers, step } satisfies Draft));
+    } catch {
+      /* storage blocked: the draft lasts only while the page is open */
+    }
+  }, [name, owner, registry, numbers, step]);
 
   const addFound = (list: MeadowCandidate[]) => {
     setFound((prev) => {
@@ -101,6 +127,11 @@ export function FarmSetupPage() {
     const picks = found.filter((c) => chosen.has(c.ref) && !owned.has(c.ref));
     await addCandidatesAsPlots(picks, target.id, saveParcel, t);
     setSaving(false);
+    try {
+      sessionStorage.removeItem(DRAFT);
+    } catch {
+      /* nothing to clear */
+    }
     toast(t('setup.done', { n: picks.length }));
     navigate(picks.length ? '/' : '/parcels');
   };
@@ -203,7 +234,7 @@ export function FarmSetupPage() {
                 }}
               />
             </label>
-            <Link className="btn" to="/meadows">
+            <Link className="btn" to="/meadows?from=start">
               <Icon name="map" />
               {t('setup.onMap')}
             </Link>
@@ -225,12 +256,12 @@ export function FarmSetupPage() {
                   <span>{t('setup.sharedNote')}</span>
                 </div>
               )}
-              <ul className="ledger">
+              <ul className="pick-list">
                 {found.map((c) => (
                   <li key={c.ref}>
-                    <label className="choice grow" style={{ alignItems: 'flex-start' }}>
+                    <label className="pick-card">
                       <input type="checkbox" checked={owned.has(c.ref) || chosen.has(c.ref)} disabled={owned.has(c.ref)} onChange={() => toggle(c.ref)} />
-                      <span>
+                      <span className="pick-body">
                         <strong>{c.source === 'pria' ? meadowTitle(c, t) : c.source === 'cadastre' ? t('find.cadastreUnit', { id: c.ref }) : c.label}</strong>
                         {owned.has(c.ref) && <span className="badge badge-ok"> {t('explore.yours')}</span>}
                         <br />

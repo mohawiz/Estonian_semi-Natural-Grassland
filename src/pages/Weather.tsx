@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApp } from '../app/store';
+import { Icon } from '../components/Icon';
 import { EmptyState, PageHeader } from '../components/ui';
 import { useMeadowWindow } from '../features/meadow/conditions';
 import { useWeather } from '../features/weather/useWeather';
@@ -39,7 +40,8 @@ export function WeatherPage() {
         }}
         style={{ marginBottom: 16 }}
       >
-        <div className="grid grid-3" style={{ alignItems: 'end' }}>
+        {/* one row, left to right in the order you fill it: plot, from, to, then the button */}
+        <div className="query-row">
           <div className="field">
             <label htmlFor="w-parcel">{t('weather.parcel')}</label>
             <select id="w-parcel" value={parcelId} onChange={(e) => setParcelId(e.target.value)}>
@@ -58,9 +60,8 @@ export function WeatherPage() {
             <label htmlFor="w-end">{t('weather.to')}</label>
             <input id="w-end" type="date" value={end} min={start} max={today} onChange={(e) => setEnd(e.target.value)} />
           </div>
-        </div>
-        <div className="form-actions">
           <button className="btn btn-primary" type="submit" disabled={!parcelId || end < start}>
+            <Icon name="weather" size={20} />
             {t('weather.show')}
           </button>
         </div>

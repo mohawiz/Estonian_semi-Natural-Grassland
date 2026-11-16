@@ -8,6 +8,7 @@ import { formatDate } from '../../lib/dates';
 import { candidatesFromFile } from '../../services/fileImport';
 import { findAtPoint, findByCadastralId, findByMeadowNo, LandDataError, meadowTitle, type MeadowCandidate } from '../../services/landData';
 import { RealMap } from '../map/RealMap';
+import type { MeadowPoint } from '../../services/meadowRegister';
 
 type Mode = 'pria' | 'cadastre' | 'map' | 'file';
 
@@ -56,6 +57,34 @@ export function FindMeadow({ onUse, onAddAll }: { onUse: (c: MeadowCandidate) =>
     setResults([]);
   };
 
+  // In the number modes a click on the map fills the search box with that meadow's
+  // (or cadastral unit's) number and looks it up, so nobody has to copy numbers by hand.
+  const fillFromMap = async (lon: number, lat: number, s: AbortSignal) => {
+    const here = await findAtPoint(lon, lat, s);
+    const meadow = here.find((c) => c.source === 'pria');
+    const unit = here.find((c) => c.source === 'cadastre');
+    if (mode === 'pria' && meadow?.pria) {
+      setQuery(meadow.pria.meadowNo);
+      const all = await findByMeadowNo(meadow.pria.meadowNo, s);
+      return [...all.filter((c) => c.ref === meadow.ref), ...all.filter((c) => c.ref !== meadow.ref)];
+    }
+    if (mode === 'cadastre' && unit) {
+      setQuery(unit.ref);
+      return findByCadastralId(unit.ref, s);
+    }
+    return here;
+  };
+  const onMapPick = ([lon, lat]: [number, number]) => void run((s) => (mode === 'map' ? findAtPoint(lon, lat, s) : fillFromMap(lon, lat, s)));
+  const onMapDot = (p: MeadowPoint) => {
+    if (mode === 'pria') {
+      setQuery(p.meadowNo);
+      void run(async (s) => {
+        const all = await findByMeadowNo(p.meadowNo, s);
+        return [...all.filter((c) => c.pria?.areaId === p.areaId), ...all.filter((c) => c.pria?.areaId !== p.areaId)];
+      });
+    } else onMapPick([p.lon, p.lat]);
+  };
+
   const chosen = results.find((r) => r.ref === active);
   // a cadastral unit is offered alone; its meadow areas are what gets added in bulk
   const addable = results.filter((r) => r.source !== 'cadastre');
@@ -90,6 +119,7 @@ export function FindMeadow({ onUse, onAddAll }: { onUse: (c: MeadowCandidate) =>
         </form>
       )}
       {mode === 'map' && <p className="hint">{busy ? t('find.searching') : t('find.hint.map')}</p>}
+      {(mode === 'pria' || mode === 'cadastre') && <p className="hint">{t('find.hint.mapFills')}</p>}
       {mode === 'file' && (
         <div className="field">
           <label htmlFor="find-file">{t('find.label.file')}</label>
@@ -118,7 +148,8 @@ export function FindMeadow({ onUse, onAddAll }: { onUse: (c: MeadowCandidate) =>
       <div style={{ marginTop: 12 }}>
         <RealMap
           label={t('find.mapLabel')}
-          onPick={mode === 'map' ? ([lon, lat]) => void run((s) => findAtPoint(lon, lat, s)) : undefined}
+          onPick={mode === 'file' ? undefined : onMapPick}
+          onMeadowDot={mode === 'file' ? undefined : onMapDot}
           highlights={results.map((r) => ({ key: r.ref, boundary: r.boundary, label: r.label, active: r.ref === active }))}
           onHighlight={setActive}
         />
@@ -127,12 +158,12 @@ export function FindMeadow({ onUse, onAddAll }: { onUse: (c: MeadowCandidate) =>
       {results.length > 0 && (
         <div className="find-results" aria-live="polite">
           <h3>{t('find.found', { n: results.length })}</h3>
-          <ul className="ledger">
+          <ul className="pick-list">
             {results.map((r) => (
               <li key={r.ref}>
-                <label className="choice grow" style={{ alignItems: 'flex-start' }}>
+                <label className="pick-card">
                   <input type="radio" name="find-pick" checked={r.ref === active} onChange={() => setActive(r.ref)} />
-                  <span>
+                  <span className="pick-body">
                     <strong>{r.source === 'pria' ? meadowTitle(r, t) : r.source === 'cadastre' ? t('find.cadastreUnit', { id: r.ref }) : r.label}</strong>
                     <br />
                     <span className="muted small">
@@ -147,17 +178,17 @@ export function FindMeadow({ onUse, onAddAll }: { onUse: (c: MeadowCandidate) =>
               </li>
             ))}
           </ul>
-          <div className="row" style={{ marginTop: 8 }}>
-            <button type="button" className="btn btn-primary" disabled={!chosen} onClick={() => chosen && onUse(chosen)}>
-              <Icon name="check" />
-              {t('find.use')}
-            </button>
+          <div className="pick-actions">
             {onAddAll && addable.length > 1 && (
               <button type="button" className="btn" onClick={() => onAddAll(addable)}>
                 <Icon name="plus" />
                 {t('find.addAll', { n: addable.length })}
               </button>
             )}
+            <button type="button" className="btn btn-primary" disabled={!chosen} onClick={() => chosen && onUse(chosen)}>
+              <Icon name="check" />
+              {t('find.use')}
+            </button>
           </div>
           <p className="muted small">{t('find.sourceNote')}</p>
         </div>

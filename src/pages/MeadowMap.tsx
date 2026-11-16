@@ -1,7 +1,7 @@
 // Every registered heritage meadow in Estonia: national totals, a big map with
 // PRIA's register, the meadow areas in view as a list, and details for one.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useApp } from '../app/store';
 import { Icon } from '../components/Icon';
 import { Area, PageHeader } from '../components/ui';
@@ -15,6 +15,7 @@ import { LIST_MAX, LIST_MIN_ZOOM, meadowDetails, meadowsInBox, registerSummary, 
 
 export function MeadowMapPage() {
   const { t, lang, data } = useApp();
+  const fromSetup = useSearchParams()[0].get('from') === 'start';
   const [summary, setSummary] = useState<RegisterSummary | null>(null);
   const [summaryFailed, setSummaryFailed] = useState(false);
   const [view, setView] = useState<MapView | null>(null);
@@ -100,6 +101,16 @@ export function MeadowMapPage() {
   return (
     <>
       <PageHeader title={t('explore.title')} subtitle={t('explore.subtitle')} />
+      {fromSetup && (
+        <div className="notice notice-info" role="note" style={{ marginBottom: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+          <Icon name="info" size={20} />
+          <span className="grow">{t('explore.fromSetup')}</span>
+          <Link className="btn btn-sm" to="/start">
+            <Icon name="back" size={16} />
+            {t('explore.backToSetup')}
+          </Link>
+        </div>
+      )}
 
       <section className="stat-strip" aria-label={t('explore.totals')}>
         {summary ? (
@@ -241,9 +252,11 @@ function MeadowCard({ meadow, owned, onClose }: { meadow: MeadowCandidate; owned
   const m = details ?? meadow;
   const p = m.pria;
   const farm = ownFarm(data.farms);
+  // opened from "Create my farm": the chosen meadow goes straight back to the setup
+  const fromSetup = useSearchParams()[0].get('from') === 'start';
 
   const add = async () => {
-    if (!farm) return navigate(`/start?meadows=${encodeURIComponent(meadow.ref)}`);
+    if (!farm || fromSetup) return navigate(`/start?meadows=${encodeURIComponent(meadow.ref)}`);
     setAdding(true);
     const [plot] = await addCandidatesAsPlots([m], farm.id, saveParcel, t);
     setAdding(false);
@@ -299,7 +312,7 @@ function MeadowCard({ meadow, owned, onClose }: { meadow: MeadowCandidate; owned
         ) : (
           <button type="button" className="btn btn-primary" onClick={add} disabled={adding}>
             <Icon name="plus" />
-            {farm ? t('explore.addToPlots') : t('explore.createAndAdd')}
+            {fromSetup ? t('explore.addToSetup') : farm ? t('explore.addToPlots') : t('explore.createAndAdd')}
           </button>
         )}
         <Link className="btn" to="/parcels">
