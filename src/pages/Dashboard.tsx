@@ -13,7 +13,7 @@ import { TodayCard } from '../features/dashboard/TodayCard';
 import { useWeather } from '../features/weather/useWeather';
 import { WeatherFacts, WeatherSourceNote } from '../features/weather/WeatherPanel';
 import type { DateWindow } from '../features/weather/WeatherTimeline';
-import { addDays, formatDate, seasonFor, todayISO } from '../lib/dates';
+import { addDays, formatDate, formatDateTime, seasonFor, todayISO } from '../lib/dates';
 import type { OnboardingTask } from '../lib/types';
 import { formatArea } from '../lib/units';
 import { weatherVerdict } from '../services/report';
@@ -301,6 +301,7 @@ export function Dashboard() {
                           {parcelName(e.parcelId)} · {formatDate(e.date, lang)}
                           {e.endDate && e.endDate !== e.date ? ` – ${formatDate(e.endDate, lang)}` : ''}
                         </span>
+                        <span className="list-meta list-stamp">{t('log.loggedAt', { when: formatDateTime(e.updatedAt ?? e.createdAt, lang) })}</span>
                       </span>
                       <Icon name="chevron" size={18} />
                     </Link>

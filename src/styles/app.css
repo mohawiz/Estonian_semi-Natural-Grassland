@@ -750,6 +750,7 @@ input[type='text'],
 input[type='number'],
 input[type='date'],
 input[type='search'],
+input[type='password'],
 select,
 textarea {
   width: 100%;
@@ -3516,4 +3517,151 @@ html.map-full-open *:has(.realmap.is-full) {
 }
 html.map-full-open .ask-fab {
   display: none !important;
+}
+
+/* ---- Workshop feedback, Nov 2026 --------------------------------------- */
+/* Work log: when the last entry was saved */
+.log-last {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--teal-tint);
+  color: var(--teal-ink);
+  font-size: 0.95rem;
+}
+.log-stamp,
+.list-stamp {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}
+
+/* Meadow map totals: number, name, plain explanation */
+.stat-strip {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+.stat {
+  gap: 4px;
+  padding: 14px 16px;
+}
+.stat-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.stat-label {
+  line-height: 1.35;
+}
+.stat-mow {
+  border-left: 4px solid var(--hay);
+}
+.stat-graze {
+  border-left: 4px solid var(--seaglass);
+}
+
+/* Copy a meadow or cadastral number */
+.mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.facts dd.copy-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.copy-btn {
+  font-size: 0.85rem;
+  min-height: 34px;
+  padding: 4px 10px;
+}
+
+/* Farmer profiles */
+.profile-card {
+  max-width: 560px;
+}
+.profile-lang {
+  gap: 6px;
+}
+.profile-list {
+  list-style: none;
+  margin: 14px 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+.profile-btn:hover,
+.profile-btn.is-active {
+  border-color: var(--primary);
+  background: var(--teal-tint);
+}
+.profile-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-ink);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.profile-form {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--rule);
+  background: var(--sheet-2);
+}
+.profile-current {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+.profile-btn .grow,
+.profile-current .grow {
+  flex: 1;
+  min-width: 0;
+}
+.profile-card h1 {
+  font-size: clamp(1.8rem, 1.4rem + 2vw, 2.6rem);
+}
+.profile-pin-row input {
+  max-width: 200px;
+}
+@media (max-width: 560px) {
+  .stat-strip {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stat-strip .stat:first-child {
+    grid-column: 1 / -1;
+  }
+  .stat {
+    padding: 10px 12px;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+  }
 }

@@ -98,6 +98,12 @@ export function formatDate(iso: string, lang: string, opts: Intl.DateTimeFormatO
   return new Intl.DateTimeFormat(lang === 'et' ? 'et-EE' : 'en-GB', { ...opts, timeZone: iso.length > 10 ? undefined : 'UTC' }).format(d);
 }
 
+/** Date and time of a full timestamp, e.g. "23 Nov 2026, 14:05". */
+export function formatDateTime(iso: string, lang: string): string {
+  if (!iso) return '';
+  return new Intl.DateTimeFormat(lang === 'et' ? 'et-EE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+}
+
 /** The grassland season shown on the dashboard: 1 April – 31 October (last year's until May), never past yesterday. */
 export function seasonFor(today: string): { start: string; end: string } {
   const y = today >= `${today.slice(0, 4)}-05-01` ? Number(today.slice(0, 4)) : Number(today.slice(0, 4)) - 1;

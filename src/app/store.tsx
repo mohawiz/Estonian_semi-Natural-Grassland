@@ -3,6 +3,7 @@ import { translate, type MessageKey, type Vars } from '../i18n';
 import type { ChecklistState, Farm, Lang, LogEntry, OnboardingTask, Parcel, PhotoMeta, SavedReport, Settings } from '../lib/types';
 import * as store from '../services/db';
 import { buildDemoSnapshot } from '../services/demo';
+import { pickerLang, rememberLang } from '../services/profiles';
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -47,9 +48,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     Promise.all([store.loadSettings(), store.loadAll()])
       .then(([s, d]) => {
-        if (!s.welcomeDone && !localStorage.getItem('ga-lang-chosen')) {
-          // First run: suggest the browser language.
-          s = { ...s, lang: navigator.language?.toLowerCase().startsWith('et') ? 'et' : s.lang };
+        if (!s.welcomeDone) {
+          // First run of this profile: the language last used on this device, else the browser's.
+          s = { ...s, lang: pickerLang() };
         }
         setSettings(s);
         setData(d);
@@ -67,6 +68,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     root.setAttribute('data-effects', 'calm');
     root.setAttribute('data-text', settings.textSize);
   }, [settings.lang, settings.theme, settings.textSize]);
+
+  // only once this profile's own settings are loaded, not the defaults shown while loading
+  useEffect(() => {
+    if (status === 'ready') rememberLang(settings.lang);
+  }, [status, settings.lang]);
 
   const lang = settings.lang;
   const t = useCallback((key: MessageKey | string, vars?: Vars) => translate(lang, key, vars), [lang]);

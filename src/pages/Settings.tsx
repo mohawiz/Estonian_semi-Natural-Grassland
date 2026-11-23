@@ -6,6 +6,7 @@ import { ConfirmDialog, PageHeader, useConfirm } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { todayISO } from '../lib/dates';
 import { fromExportFile, toExportFile } from '../services/transfer';
+import { ProfilesPanel } from '../features/profiles/ProfilesPanel';
 
 export function SettingsPage() {
   const { t, settings, updateSettings, data, farm, saveFarm, replaceAll, loadDemo, resetAll } = useApp();
@@ -116,6 +117,7 @@ export function SettingsPage() {
           </form>
         </div>
         <div className="stack">
+          <ProfilesPanel />
           <section className="panel">
             <h2>{t('settings.data')}</h2>
             <p className="small">

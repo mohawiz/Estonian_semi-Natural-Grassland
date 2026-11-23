@@ -3,6 +3,7 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { ChecklistState, Farm, LogEntry, Parcel, PhotoMeta, SavedReport, Settings } from '../lib/types';
 import type { WeatherSeries } from './weather';
+import { activeProfileId, BASE_DB_NAME, dbNameFor } from './profiles';
 
 interface GrasslandDB extends DBSchema {
   farms: { key: string; value: Farm };
@@ -15,11 +16,12 @@ interface GrasslandDB extends DBSchema {
   weatherCache: { key: string; value: { key: string; series: WeatherSeries; storedAt: number } };
 }
 
-export const DB_NAME = 'grassland-assistant';
+export const DB_NAME = BASE_DB_NAME;
 let dbPromise: Promise<IDBPDatabase<GrasslandDB>> | null = null;
 
+/** Each farmer profile on this device has its own database (see services/profiles). */
 export function db(): Promise<IDBPDatabase<GrasslandDB>> {
-  dbPromise ??= openDB<GrasslandDB>(DB_NAME, 1, {
+  dbPromise ??= openDB<GrasslandDB>(dbNameFor(activeProfileId()), 1, {
     upgrade(d) {
       d.createObjectStore('farms', { keyPath: 'id' });
       d.createObjectStore('parcels', { keyPath: 'id' }).createIndex('byFarm', 'farmId');
@@ -32,6 +34,13 @@ export function db(): Promise<IDBPDatabase<GrasslandDB>> {
     },
   });
   return dbPromise;
+}
+
+/** Close the open database, e.g. before deleting it. */
+export async function closeDb(): Promise<void> {
+  if (!dbPromise) return;
+  (await dbPromise).close();
+  dbPromise = null;
 }
 
 export const DEFAULT_SETTINGS: Settings = {

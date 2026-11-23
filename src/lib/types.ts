@@ -85,7 +85,10 @@ export interface LogEntry {
   animals?: string;
   notes?: string;
   photoIds: string[];
+  /** When the entry was first saved (date and time). */
   createdAt: string;
+  /** When the entry was last edited, if ever. */
+  updatedAt?: string;
   isDemo?: boolean;
 }
 

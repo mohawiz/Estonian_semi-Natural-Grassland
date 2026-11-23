@@ -6,7 +6,7 @@ import { Area, ConfirmDialog, EmptyState, HelpTip, PageHeader, useConfirm } from
 import { useToast } from '../components/Toast';
 import { readPhoto } from '../features/photos/photos';
 import { PhotoThumb } from '../features/photos/PhotoThumb';
-import { daysInclusive, formatDate, todayISO } from '../lib/dates';
+import { daysInclusive, formatDate, formatDateTime, todayISO } from '../lib/dates';
 import type { EntryKind, LogEntry, MissedReason, PhotoMeta } from '../lib/types';
 
 const REASONS: MissedReason[] = ['too-wet', 'drought', 'no-livestock', 'no-feed-demand', 'machinery', 'other'];
@@ -18,6 +18,8 @@ export function LogList() {
   const filter = params.get('parcel') ?? '';
   const entries = data.entries.filter((e) => !filter || e.parcelId === filter).sort((a, b) => b.date.localeCompare(a.date));
   const parcelName = (id: string) => data.parcels.find((p) => p.id === id)?.name ?? '—';
+  const savedAt = (e: LogEntry) => e.updatedAt ?? e.createdAt;
+  const lastSaved = entries.reduce<LogEntry | undefined>((a, e) => (!a || savedAt(e) > savedAt(a) ? e : a), undefined);
 
   return (
     <>
@@ -44,6 +46,14 @@ export function LogList() {
           </select>
         </div>
       )}
+      {lastSaved && (
+        <p className="log-last" role="status">
+          <Icon name="clock" size={18} />
+          <span>
+            {t('log.lastLogged')}: <strong>{formatDateTime(savedAt(lastSaved), lang)}</strong> · {parcelName(lastSaved.parcelId)}
+          </span>
+        </p>
+      )}
       {!entries.length ? (
         <EmptyState icon="log" title={t('log.emptyTitle')} body={t('log.emptyBody')} action={<Link className="btn btn-primary" to="/log/new">{t('log.add')}</Link>} />
       ) : (
@@ -61,6 +71,11 @@ export function LogList() {
                     {e.endDate && e.endDate !== e.date && ` – ${formatDate(e.endDate, lang)} (${t('log.days', { n: daysInclusive(e.date, e.endDate) })})`}
                     {e.hayRemovedDate && ` · ${t('log.hayOn', { date: formatDate(e.hayRemovedDate, lang) })}`}
                     {e.photoIds.length > 0 && ` · ${t('log.photos')}: ${e.photoIds.length}`}
+                  </span>
+                  <br />
+                  <span className="muted small log-stamp">
+                    {t('log.loggedAt', { when: formatDateTime(e.createdAt, lang) })}
+                    {e.updatedAt && e.updatedAt !== e.createdAt && ` · ${t('log.editedAt', { when: formatDateTime(e.updatedAt, lang) })}`}
                   </span>
                 </span>
                 <span className="row row-actions">
@@ -177,6 +192,7 @@ export function EntryForm() {
       notes: notes.trim() || undefined,
       photoIds: photos.map((p) => p.id),
       createdAt: existing?.createdAt ?? new Date().toISOString(),
+      updatedAt: existing ? new Date().toISOString() : undefined,
       isDemo: existing?.isDemo,
     };
     await saveEntry(entry);

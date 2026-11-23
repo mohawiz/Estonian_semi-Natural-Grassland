@@ -6,6 +6,7 @@ import { MeadowProvider } from '../features/meadow/conditions';
 import { AppProvider, useApp } from './store';
 import { UIProvider } from './ui';
 import { Welcome } from '../pages/Welcome';
+import { ProfileGate } from '../features/profiles/ProfilePicker';
 
 // Route-level code splitting keeps the first load small on phones.
 const named = <K extends string>(load: () => Promise<Record<K, React.ComponentType>>, name: K) => lazy(() => load().then((m) => ({ default: m[name] })));
@@ -80,6 +81,7 @@ function Routed() {
 
 export function App() {
   return (
+    <ProfileGate>
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <AppProvider>
         <MeadowProvider>
@@ -91,5 +93,6 @@ export function App() {
         </MeadowProvider>
       </AppProvider>
     </BrowserRouter>
+    </ProfileGate>
   );
 }

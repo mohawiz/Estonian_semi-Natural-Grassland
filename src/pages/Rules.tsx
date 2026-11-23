@@ -58,7 +58,7 @@ export function RulesPage() {
             <details key={d.id} className="panel doc-card">
               <summary>
                 <span style={{ fontFamily: 'var(--font-head)', fontSize: '1.05rem' }}>{d.title[lang]}</span>{' '}
-                <span className={`badge ${statusBadge[d.status]}`}>{t(`rules.status.${d.status}`)}</span>
+                {d.status !== 'verified-current' && <span className={`badge ${statusBadge[d.status]}`}>{t(`rules.status.${d.status}`)}</span>}
                 {sources?.documents[d.id]?.needsReview && <span className="badge badge-warn">{t('rules.check.badge')}</span>}
                 <div className="muted small" style={{ fontWeight: 400, marginTop: 4 }}>
                   {d.publisher} · {t('rules.version', { v: d.version })} · {t('rules.retrieved', { date: formatDate(d.retrievedAt, lang) })} · {t('rules.passages', { n: d.passages.length })}
@@ -81,28 +81,6 @@ export function RulesPage() {
               ))}
             </details>
           ))}
-          {library.unverified.length > 0 && (
-            <section className="panel">
-              <h2>{t('rules.unverifiedTitle')}</h2>
-              <ul className="ledger">
-                {library.unverified.map((u) => (
-                  <li key={u.topic} style={{ display: 'block' }}>
-                    <span className="badge badge-warn">{t('labels.unverified')}</span> <strong lang="et">{u.topic}</strong>
-                    <p className="small" lang="et" style={{ margin: '4px 0' }}>
-                      {u.finding}
-                    </p>
-                    <div className="small">
-                      {u.sources.map((s) => (
-                        <a key={s} href={s} target="_blank" rel="noreferrer" style={{ display: 'block', overflowWrap: 'anywhere' }}>
-                          {s}
-                        </a>
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
         </div>
       )}
     </>

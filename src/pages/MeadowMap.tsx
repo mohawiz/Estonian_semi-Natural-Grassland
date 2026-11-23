@@ -115,24 +115,21 @@ export function MeadowMapPage() {
       <section className="stat-strip" aria-label={t('explore.totals')}>
         {summary ? (
           <>
-            <div className="stat">
-              <span className="stat-value">{formatNumber(summary.count, lang, 0)}</span>
-              <span className="stat-label">{t('explore.areas', { year: summary.year })}</span>
-            </div>
-            <div className="stat">
-              <span className="stat-value">{formatNumber(summary.areaHa, lang, 0)} ha</span>
-              <span className="stat-label">{t('explore.totalArea')}</span>
-            </div>
-            <div className="stat">
-              <span className="stat-value">
-                {formatNumber(summary.mowing, lang, 0)} / {formatNumber(summary.grazing, lang, 0)}
-              </span>
-              <span className="stat-label">{t('explore.mowGraze')}</span>
-            </div>
-            <div className="stat">
-              <span className="stat-value">{formatNumber(summary.wooded, lang, 0)}</span>
-              <span className="stat-label">{t('explore.wooded')}</span>
-            </div>
+            <Stat value={formatNumber(summary.count, lang, 0)} label={t('explore.kpi.areas')} help={t('explore.kpi.areasHelp', { year: summary.year })} />
+            <Stat value={`${formatNumber(summary.areaHa, lang, 0)} ha`} label={t('explore.kpi.area')} help={t('explore.kpi.areaHelp', { avg: formatNumber(summary.areaHa / Math.max(1, summary.count), lang, 1) })} />
+            <Stat
+              tone="mow"
+              value={formatNumber(summary.mowing, lang, 0)}
+              label={t('explore.kpi.mowing')}
+              help={t('explore.kpi.mowingHelp', { pct: Math.round((summary.mowing / Math.max(1, summary.count)) * 100) })}
+            />
+            <Stat
+              tone="graze"
+              value={formatNumber(summary.grazing, lang, 0)}
+              label={t('explore.kpi.grazing')}
+              help={t('explore.kpi.grazingHelp', { pct: Math.round((summary.grazing / Math.max(1, summary.count)) * 100) })}
+            />
+            <Stat value={formatNumber(summary.wooded, lang, 0)} label={t('explore.kpi.wooded')} help={t('explore.kpi.woodedHelp')} />
           </>
         ) : (
           <p className="muted small" style={{ margin: 0 }}>
@@ -230,6 +227,59 @@ export function MeadowMapPage() {
   );
 }
 
+async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // older browsers or no permission: copy through a hidden text box
+    const box = document.createElement('textarea');
+    box.value = text;
+    box.setAttribute('readonly', '');
+    box.style.position = 'fixed';
+    box.style.opacity = '0';
+    document.body.appendChild(box);
+    box.select();
+    const ok = document.execCommand('copy');
+    box.remove();
+    return ok;
+  }
+}
+
+function CopyButton({ text, label }: { text: string; label: string }) {
+  const { t } = useApp();
+  const toast = useToast();
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      type="button"
+      className="btn btn-sm copy-btn"
+      aria-label={`${label}: ${text}`}
+      onClick={async () => {
+        const ok = await copyText(text);
+        toast(ok ? t('explore.copied', { text }) : t('explore.copyFailed'), ok ? undefined : { kind: 'error' });
+        if (ok) {
+          setDone(true);
+          setTimeout(() => setDone(false), 1800);
+        }
+      }}
+    >
+      <Icon name={done ? 'check' : 'copy'} size={16} />
+      {done ? t('explore.copiedShort') : t('explore.copy')}
+    </button>
+  );
+}
+
+function Stat({ value, label, help, tone }: { value: string; label: string; help: string; tone?: 'mow' | 'graze' }) {
+  return (
+    <div className={`stat${tone ? ` stat-${tone}` : ''}`}>
+      <span className="stat-value">{value}</span>
+      <span className="stat-name">{label}</span>
+      <span className="stat-label">{help}</span>
+    </div>
+  );
+}
+
 function maintenance(m: MeadowCandidate, t: (k: string, v?: Record<string, string | number>) => string) {
   const code = m.pria?.maintenance;
   return code === 'N' ? t('method.mowing') : code === 'K' ? t('method.grazing') : code ? t('find.maintCode', { code }) : t('explore.noMaintenance');
@@ -272,6 +322,15 @@ function MeadowCard({ meadow, owned, onClose }: { meadow: MeadowCandidate; owned
         </button>
       </div>
       <dl className="facts" style={{ marginTop: 12 }}>
+        {p?.meadowNo && (
+          <div>
+            <dt>{t('explore.meadowNo')}</dt>
+            <dd className="copy-row">
+              <span className="mono">{p.meadowNo}</span>
+              <CopyButton text={p.meadowNo} label={t('explore.copyMeadowNo')} />
+            </dd>
+          </div>
+        )}
         <div>
           <dt>{t('parcels.area')}</dt>
           <dd>
@@ -300,7 +359,23 @@ function MeadowCard({ meadow, owned, onClose }: { meadow: MeadowCandidate; owned
         </div>
         <div>
           <dt>{t('find.mode.cadastre')}</dt>
-          <dd>{details ? (details.cadastralId ? `${details.cadastralId}${details.address ? `, ${details.address}` : ''}` : '—') : t('explore.loadingShort')}</dd>
+          <dd className={details?.cadastralId ? 'copy-row' : undefined}>
+            {details ? (
+              details.cadastralId ? (
+                <>
+                  <span>
+                    <span className="mono">{details.cadastralId}</span>
+                    {details.address ? `, ${details.address}` : ''}
+                  </span>
+                  <CopyButton text={details.cadastralId} label={t('explore.copyCadastral')} />
+                </>
+              ) : (
+                '—'
+              )
+            ) : (
+              t('explore.loadingShort')
+            )}
+          </dd>
         </div>
       </dl>
       <div className="row" style={{ marginTop: 14 }}>
