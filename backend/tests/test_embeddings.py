@@ -21,11 +21,11 @@ def fake_client(calls: list, status: int = 200):
 
 def test_gemini_batches_normalises_and_keeps_key_out_of_url():
     calls: list = []
-    e = GeminiEmbedder('secret-key', dim=4, client=fake_client(calls))
+    e = GeminiEmbedder('secret-key', dim=4, client=fake_client(calls), pace=False)
     vecs = e.embed_passages([f'passage {i}' for i in range(120)])
     assert vecs.shape == (120, 4)
     assert np.allclose(np.linalg.norm(vecs, axis=1), 1)
-    assert [len(b['requests']) for _, b in calls] == [50, 50, 20]
+    assert [len(b['requests']) for _, b in calls] == [20, 20, 20, 20, 20, 20]
     req, body = calls[0]
     assert 'secret-key' not in str(req.url)
     assert req.headers['x-goog-api-key'] == 'secret-key'
@@ -35,14 +35,14 @@ def test_gemini_batches_normalises_and_keeps_key_out_of_url():
 
 def test_gemini_query_uses_query_task():
     calls: list = []
-    e = GeminiEmbedder('k', dim=4, client=fake_client(calls))
+    e = GeminiEmbedder('k', dim=4, client=fake_client(calls), pace=False)
     assert e.embed_query('millal niita?').shape == (4,)
     assert calls[0][1]['requests'][0]['taskType'] == 'RETRIEVAL_QUERY'
     assert e.model_name == 'gemini:gemini-embedding-001@4'
 
 
 def test_gemini_error_names_reason_not_key():
-    e = GeminiEmbedder('secret-key', dim=4, client=fake_client([], status=400))
+    e = GeminiEmbedder('secret-key', dim=4, client=fake_client([], status=400), pace=False)
     with pytest.raises(EmbeddingError) as err:
         e.embed_query('x')
     assert 'API key not valid' in str(err.value)
@@ -52,3 +52,17 @@ def test_gemini_error_names_reason_not_key():
 def test_gemini_needs_a_key():
     with pytest.raises(EmbeddingError):
         GeminiEmbedder('')
+
+
+def test_gemini_retries_after_rate_limit():
+    state = {'n': 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        state['n'] += 1
+        if state['n'] == 1:
+            return httpx.Response(429, json={'error': {'message': 'quota'}})
+        return httpx.Response(200, json={'embeddings': [{'values': [1.0, 0.0, 0.0, 0.0]}]})
+
+    e = GeminiEmbedder('k', dim=4, client=httpx.Client(transport=httpx.MockTransport(handler)), pace=False)
+    assert e.embed_query('x').shape == (4,)
+    assert state['n'] == 2

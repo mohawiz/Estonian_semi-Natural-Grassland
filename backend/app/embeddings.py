@@ -55,9 +55,14 @@ class GeminiEmbedder:
     farmer's question are sent; the key travels in a header, never in the URL."""
 
     URL = 'https://generativelanguage.googleapis.com/v1beta/models/{model}:batchEmbedContents'
-    BATCH = 50  # the API takes up to 100 texts per call
+    # The free tier counts every text as a request (about 100 a minute), so indexing the
+    # ~240 passage views goes in small, paced batches. It happens once: the vectors are
+    # kept in the database and only re-made when the rule texts change.
+    BATCH = 20
+    PER_MINUTE = 60
+    RETRY_WAIT = 65  # seconds; a full rate-limit window
 
-    def __init__(self, api_key: str, model: str = 'gemini-embedding-001', dim: int = 768, client: httpx.Client | None = None):
+    def __init__(self, api_key: str, model: str = 'gemini-embedding-001', dim: int = 768, client: httpx.Client | None = None, pace: bool = True):
         if not api_key:
             raise EmbeddingError('GEMINI_API_KEY is not set.')
         self._key = api_key
@@ -66,10 +71,13 @@ class GeminiEmbedder:
         # the name goes into the index hash, so changing model or size re-indexes
         self.model_name = f'gemini:{model}@{dim}'
         self._client = client or httpx.Client(timeout=30)
+        self._pace = pace
 
     def _embed(self, texts: list[str], task: str) -> np.ndarray:
         out: list[list[float]] = []
         for i in range(0, len(texts), self.BATCH):
+            if i and self._pace:
+                time.sleep(60 * self.BATCH / self.PER_MINUTE)
             body = {
                 'requests': [
                     {'model': f'models/{self._model}', 'content': {'parts': [{'text': t}]}, 'taskType': task, 'outputDimensionality': self.dim}
@@ -80,10 +88,10 @@ class GeminiEmbedder:
         return _unit(out)
 
     def _post(self, body: dict) -> list[list[float]]:
-        for attempt in range(5):
+        for attempt in range(6):
             r = self._client.post(self.URL.format(model=self._model), json=body, headers={'x-goog-api-key': self._key})
             if r.status_code == 429 or r.status_code >= 500:
-                wait = 2 ** attempt * 3
+                wait = self.RETRY_WAIT if self._pace else 0
                 log.warning('Gemini embeddings busy (%s); retrying in %ss', r.status_code, wait)
                 time.sleep(wait)
                 continue
@@ -95,7 +103,11 @@ class GeminiEmbedder:
                     reason = r.text[:200]
                 raise EmbeddingError(f'Gemini embeddings failed ({r.status_code}): {reason}')
             return [e['values'] for e in r.json()['embeddings']]
-        raise EmbeddingError('Gemini embeddings: too many retries (rate limit).')
+        try:
+            reason = r.json().get('error', {}).get('message', '')[:300]
+        except ValueError:
+            reason = ''
+        raise EmbeddingError(f'Gemini embeddings: still rate-limited after retries. {reason}'.strip())
 
     def embed_passages(self, texts: list[str]) -> np.ndarray:
         return self._embed(texts, 'RETRIEVAL_DOCUMENT')
