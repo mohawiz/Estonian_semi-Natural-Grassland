@@ -15,9 +15,17 @@ services:
         sync: false
       - key: DATABASE_URL
         sync: false
+      # Google Gemini embeddings (aistudio.google.com → Get API key). Without it the
+      # server runs the embedding model itself, which needs more than the free 512 MB.
+      - key: GEMINI_API_KEY
+        sync: false
       - key: ALLOWED_ORIGINS
         value: https://estonia-grasslands.vercel.app
       - key: GROQ_MODEL
         value: openai/gpt-oss-120b
       - key: TEMPERATURE
         value: '0.2'
+      # The daily source check downloads and parses PDFs, which does not fit in the
+      # free 512 MB; GitHub Actions (check-sources.yml) runs it every day instead.
+      - key: SOURCE_CHECK_HOURS
+        value: '0'

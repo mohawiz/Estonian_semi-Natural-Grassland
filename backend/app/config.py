@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     corpus_path: Path = DEFAULT_CORPUS
 
     embed_model: str = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
+    # set this to use Google's Gemini embeddings instead of running the model here
+    # (the server then fits in a free 512 MB host)
+    gemini_api_key: str = ''
+    gemini_embed_model: str = 'gemini-embedding-001'
+    gemini_embed_dim: int = 768
     embed_cache_dir: Path | None = None
     top_k: int = 6
     min_similarity: float = 0.30

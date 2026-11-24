@@ -777,7 +777,7 @@ export const en = {
   privacy: {
     pMap: 'When you look for your meadow, the number you type or the point you click is sent to PRIA’s and the Land and Spatial Development Board’s public map services, and map tiles are loaded from the Board. They return public outlines and facts; no owner names are fetched.',
     pSat: 'For plots with an outline, the outline and the season’s dates are sent to Microsoft Planetary Computer (planetarycomputer.microsoft.com) to compute satellite statistics. No names or log entries are sent.',
-    pAi: 'When you ask the assistant a question, the question text (never your farm data) is sent to this project’s assistant server and to Groq (groq.com), which runs the language model. Questions are not stored by the server.',
+    pAi: 'When you ask the assistant a question, the question text (never your farm data) is sent to this project’s assistant server and to Groq (groq.com), which runs the language model. To find the matching rule texts, the question is also sent to Google’s Gemini API (ai.google.dev). Questions are not stored by the server.',
     title: 'Privacy',
     intro: 'This prototype is built so that your farm data stays with you.',
     p1: 'Your plots, log entries, photos, checklists and reports are stored only in this browser’s storage (IndexedDB) on this device. There is no account, no server and no tracking or analytics.',

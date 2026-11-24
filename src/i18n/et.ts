@@ -779,7 +779,7 @@ export const et: Messages = {
   privacy: {
     pMap: 'Niidu otsimisel saadetakse sisestatud number või kaardil klõpsatud punkt PRIA ning Maa- ja Ruumiameti avalikele kaarditeenustele ja kaardipildid laaditakse Maa- ja Ruumiametist. Need tagastavad avalikud piirid ja andmed; omanike nimesid ei laadita.',
     pSat: 'Piiriga alade puhul saadetakse ala piir ja hooaja kuupäevad Microsoft Planetary Computerile (planetarycomputer.microsoft.com) satelliidistatistika arvutamiseks. Nimesid ega päevikukandeid ei saadeta.',
-    pAi: 'Kui esitad abilisele küsimuse, saadetakse küsimuse tekst (mitte kunagi sinu talu andmed) selle projekti abiliseserverisse ja Groqile (groq.com), kes käitab keelemudelit. Server küsimusi ei salvesta.',
+    pAi: 'Kui esitad abilisele küsimuse, saadetakse küsimuse tekst (mitte kunagi sinu talu andmed) selle projekti abiliseserverisse ja Groqile (groq.com), kes käitab keelemudelit. Sobivate reeglitekstide leidmiseks saadetakse küsimus ka Google’i Gemini API-le (ai.google.dev). Server küsimusi ei salvesta.',
     title: 'Privaatsus',
     intro: 'See prototüüp on ehitatud nii, et sinu talu andmed jäävad sulle.',
     p1: 'Sinu alad, kanded, fotod, enesehindamised ja aruanded salvestatakse ainult selle seadme brauseri mällu (IndexedDB). Kontot, serverit ega jälgimist või analüütikat ei ole.',

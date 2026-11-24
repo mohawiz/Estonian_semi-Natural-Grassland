@@ -54,7 +54,7 @@ class RateLimiter:
 
 
 def build_retriever(s: Settings) -> Retriever:
-    from .embeddings import FastEmbedder
+    from .embeddings import FastEmbedder, GeminiEmbedder
     from .store import MemoryStore, PgStore
 
     if s.database_url:
@@ -62,7 +62,10 @@ def build_retriever(s: Settings) -> Retriever:
     else:
         log.warning('DATABASE_URL is not set: using an in-memory index (rebuilt on every start).')
         store = MemoryStore()
-    embedder = FastEmbedder(s.embed_model, str(s.embed_cache_dir) if s.embed_cache_dir else None)
+    if s.gemini_api_key:
+        embedder = GeminiEmbedder(s.gemini_api_key, s.gemini_embed_model, s.gemini_embed_dim)
+    else:
+        embedder = FastEmbedder(s.embed_model, str(s.embed_cache_dir) if s.embed_cache_dir else None)
     return Retriever(store, embedder, load_corpus(s.corpus_path), s.top_k, s.min_similarity)
 
 

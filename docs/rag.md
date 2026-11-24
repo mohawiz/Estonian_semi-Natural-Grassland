@@ -85,6 +85,12 @@ Port 8787 is used because port 8000 is often taken by other local projects.
 
 Render's free instance sleeps after 15 minutes without traffic. The first question after a pause takes about 30–60 seconds; meanwhile the app answers with keyword search and says so. Free instances have 512 MB of memory, which this backend fits; if Render reports out-of-memory, use the Starter plan or set `EMBED_MODEL` to a smaller model.
 
+### Render's 512 MB: use Gemini embeddings
+
+Running the embedding model on the server needs about 650 MB (500 MB even with the 8-bit model, because its tokenizer alone takes 250 MB), more than Render's free 512 MB. With `GEMINI_API_KEY` set, the backend asks Google's Gemini API (`gemini-embedding-001`, 768 dimensions) for the vectors instead and stays at about 150 MB. Get a free key at https://aistudio.google.com → Get API key (a Google account is enough), add it in Render → Environment, and redeploy. The index is rebuilt automatically, because the model name is part of the index hash. The question text then also goes to Google; the Privacy page says so.
+
+The on-server source check (`SOURCE_CHECK_HOURS`) is off on Render for the same memory reason; the daily GitHub Action does the check instead.
+
 ## Privacy
 
 Only the question text and the last few chat messages are sent: never parcels, entries or photos. The backend does not store questions. Groq processes them to generate the answer (see Groq's privacy policy). The app's Privacy page says this when the AI assistant is switched on.
